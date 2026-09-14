@@ -1,0 +1,38 @@
+@import 'tailwindcss';
+
+/* Tailwind only auto-scans this project; include the web libraries too. */
+@source '../../../libs/web';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Cinzel', ui-serif, Georgia, serif;
+
+  --color-bg: #13110e;
+  --color-panel: #1c1813;
+  --color-raised: #251f18;
+  --color-line: #3a3024;
+  --color-ink: #ece0c6;
+  --color-ink-dim: #ab9c7e;
+  --color-ink-faint: #736652;
+  --color-gold: #d4a93a;
+  --color-gold-bright: #ebc463;
+
+  --color-realm-babylon: #5b6fb8;
+  --color-realm-daehan: #c0903f;
+  --color-realm-kami: #c983b3;
+  --color-realm-neutral: #948c7f;
+  --color-realm-niles: #35a596;
+  --color-realm-olympus: #8199cb;
+  --color-realm-shenzhou: #cc5247;
+  --color-realm-yggdrasil: #76ab83;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+  }
+}

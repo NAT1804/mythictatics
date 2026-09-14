@@ -1,0 +1,19 @@
+{
+  "name": "shared-contracts",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/contracts/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:contracts"],
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": ["default", "^default", "{workspaceRoot}/tsconfig.base.json"],
+      "options": {
+        "cwd": "{projectRoot}",
+        "commands": ["tsc -p tsconfig.lib.json --noEmit", "tsc -p tsconfig.spec.json --noEmit"],
+        "parallel": false
+      }
+    }
+  }
+}

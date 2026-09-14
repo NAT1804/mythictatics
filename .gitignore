@@ -48,3 +48,11 @@ Thumbs.db
 .nx/polygraph
 .nx/self-healing
 .nx/migrate-runs
+.angular
+
+__screenshots__/
+
+vitest.config.*.timestamp*
+# Cloudflare
+.wrangler
+.dev.vars*

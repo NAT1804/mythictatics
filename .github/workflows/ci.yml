@@ -10,6 +10,10 @@ permissions:
   actions: read
   contents: read
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -19,22 +23,37 @@ jobs:
           filter: tree:0
           fetch-depth: 0
 
-      # This enables task distribution via Nx Cloud
-      # Run this command as early as possible, before dependencies are installed
-      # Learn more at https://nx.dev/docs/reference/nx-cloud-cli#npx-nxcloud-startcirun
-      - run: npx nx start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e"
-
-      # Cache node_modules
       - uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: 'npm'
 
       - run: npm ci
+      - uses: nrwl/nx-set-shas@v4
 
-      # Prepend any command with "nx record --" to record its logs to Nx Cloud
-      - run: npx nx record -- npx nx format:check --base="remotes/origin/main"
-      - run: npx nx run-many -t lint test build typecheck e2e
-      # Nx Cloud recommends fixes for failures to help you get CI green faster. Learn more: https://nx.dev/docs/features/ci-features/self-healing-ci
-      - run: npx nx fix-ci
-        if: always()
+      - run: npx nx format:check
+      - run: npx nx affected -t lint typecheck test build
+
+      - run: npx playwright install --with-deps chromium
+      - run: npx nx affected -t e2e
+
+  deploy:
+    # Enable by setting the repository variable CLOUDFLARE_DEPLOY=true and adding
+    # the CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID secrets.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.CLOUDFLARE_DEPLOY == 'true'
+    needs: main
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: 'npm'
+
+      - run: npm ci
+      - run: npx nx deploy web
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

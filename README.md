@@ -1,109 +1,86 @@
-# New Nx Repository
+# Mythic Tatics
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Unofficial fan site for **Mythic Tactics: Battleground**: team comps, a board builder and a
+searchable codex. Angular SSR (hybrid rendering) deployed to Cloudflare Workers, in an Nx
+monorepo that will later host a NestJS API.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## Requirements
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/docs/technologies/typescript/introduction?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- Node `^22.22.3 || ^24.15.0` (Angular 22)
+- npm (lockfile is `package-lock.json`)
 
-🚀 If you haven't connected to Nx Cloud yet, [complete your setup here](https://cloud.nx.app/get-started). Get faster builds with remote caching, distributed task execution, and self-healing CI. [See how your workspace can benefit](#nx-cloud).
+## Workspace layout
 
-## Generate a library
+| Project            | Path                    | Tags                            | Purpose                                                     |
+| ------------------ | ----------------------- | ------------------------------- | ----------------------------------------------------------- |
+| `web`              | `apps/web`              | `scope:web` `type:app`          | Angular 22 SSR app, zoneless, Tailwind v4                   |
+| `web-e2e`          | `apps/web-e2e`          | `scope:web` `type:e2e`          | Playwright, runs against the local Workers runtime          |
+| `shared-contracts` | `libs/shared/contracts` | `scope:shared` `type:contracts` | Types + constants; zod validators under `/schemas`          |
+| `shared-domain`    | `libs/shared/domain`    | `scope:shared` `type:domain`    | Game rules: realm draft, targeting, turn order, share codes |
+| `web-shell`        | `libs/web/shell`        | `scope:web` `type:feature`      | Layout, title strategy, 404 page                            |
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
-```
+`scope:shared` libraries must not depend on Angular or `scope:web` code so the future
+`apps/api` (NestJS) can reuse them — enforced by `@nx/enforce-module-boundaries`.
 
-## Run tasks
+Import `@mythictatics/shared/contracts` for types and constants in browser code. Only import
+`@mythictatics/shared/contracts/schemas` where runtime validation is needed (data pipeline,
+API); it pulls in zod.
 
-To build the library use:
+## Rendering
 
-```sh
-npx nx run pkg1:build
-```
+Configured in `apps/web/src/app/app.routes.server.ts`:
 
-To run any task with Nx use:
+- `Prerender` — static HTML served straight from Workers Static Assets (free, no Worker call).
+- `Client` — `/builder`, whose state lives in the `?d=` query string.
+- `Server` — everything else (currently the 404 page), rendered by the Worker.
 
-```sh
-npx nx run <project-name>:<target>
-```
-
-These targets are either [inferred automatically](https://nx.dev/docs/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/docs/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Versioning and releasing
-
-To version and release the library use
-
-```
-npx nx release
-```
-
-Pass `--dry-run` to see what would happen without actually releasing the library.
-
-[Learn more about Nx release &raquo;](https://nx.dev/docs/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
+## Commands
 
 ```sh
-npx nx sync
+npx nx serve web              # dev server on http://localhost:4200
+npx nx run web:cf-preview     # production build on the local Workers runtime (:8787)
+npx nx run-many -t lint typecheck test build
+npx nx e2e web-e2e            # Playwright against cf-preview
+npx nx graph                  # project graph
 ```
 
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
+The same tasks are available as npm scripts:
+
+| Script                 | Runs                                                        |
+| ---------------------- | ----------------------------------------------------------- |
+| `npm start`            | `nx serve web`                                              |
+| `npm run build`        | `nx build web`                                              |
+| `npm run preview`      | `nx run web:cf-preview`                                     |
+| `npm run deploy`       | `nx deploy web`                                             |
+| `npm test`             | `nx run-many -t test`                                       |
+| `npm run lint`         | `nx run-many -t lint`                                       |
+| `npm run typecheck`    | `nx run-many -t typecheck`                                  |
+| `npm run e2e`          | `nx e2e web-e2e` (run `npm run e2e:install` once first)     |
+| `npm run format`       | `nx format:write`                                           |
+| `npm run format:check` | `nx format:check`                                           |
+| `npm run check`        | format check + `lint typecheck test build` on every project |
+| `npm run affected`     | `lint typecheck test build` on affected projects only       |
+| `npm run graph`        | `nx graph`                                                  |
+
+## Deploying to Cloudflare
+
+`apps/web/wrangler.jsonc` points the Worker at `dist/apps/web/server/server.mjs` and serves
+`dist/apps/web/browser` as static assets. The SSR bundle is built with
+`ssr.platform: "neutral"` so it runs on workerd rather than Node.
+
+Manual deploy:
 
 ```sh
-npx nx sync:check
+npx wrangler login
+npx nx deploy web
 ```
 
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
+CI deploy (`.github/workflows/ci.yml`, on push to `main`): add the `CLOUDFLARE_API_TOKEN` and
+`CLOUDFLARE_ACCOUNT_ID` secrets and set the repository variable `CLOUDFLARE_DEPLOY=true`.
 
-## Nx Cloud
+When the custom domain is attached, make sure it is listed in `security.allowedHosts` in
+`apps/web/project.json`; Angular rejects SSR requests for unknown hosts.
 
-Nx Cloud ensures a [fast and scalable CI](https://nx.dev/nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+## Disclaimer
 
-- [Remote caching](https://nx.dev/docs/features/ci-features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/docs/features/ci-features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/docs/features/ci-features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/docs/features/ci-features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Set up CI (non-Github Actions CI)
-
-**Note:** This is only required if your CI provider is not GitHub Actions.
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/docs/features/ci-features?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/docs/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## 🔗 Learn More
-
-- [Nx Documentation](https://nx.dev/docs)
-- [Crafting Your Workspace Tutorial](https://nx.dev/docs/getting-started/tutorials/crafting-your-workspace)
-- [Module Boundaries](https://nx.dev/docs/features/enforce-module-boundaries)
-- [Releasing Packages](https://nx.dev/docs/features/manage-releases)
-- [Nx Plugins](https://nx.dev/docs/concepts/nx-plugins)
-- [Nx Cloud](https://nx.dev/nx-cloud)
-
-## 💬 Community
-
-Join the Nx community:
-
-- [Discord](https://go.nx.dev/community)
-- [X (Twitter)](https://twitter.com/nxdevtools)
-- [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [YouTube](https://www.youtube.com/@nxdevtools)
-- [Blog](https://nx.dev/blog)
+Not affiliated with or endorsed by Hepxion. Game names and assets belong to their owners.

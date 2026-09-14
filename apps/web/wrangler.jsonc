@@ -1,0 +1,15 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "mythictatics-web",
+  // Built by `nx build web`; paths are relative to this file.
+  "main": "../../dist/apps/web/server/server.mjs",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    // Prerendered HTML, JS and CSS are served directly and never invoke the Worker.
+    "directory": "../../dist/apps/web/browser",
+    "binding": "ASSETS",
+    "not_found_handling": "none",
+  },
+  "observability": { "enabled": true },
+}

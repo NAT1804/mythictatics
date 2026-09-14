@@ -21,3 +21,12 @@
 - The `nx-generate` skill handles generator discovery internally - don't call nx_docs just to look up generator syntax
 
 <!-- nx configuration end-->
+
+# Project notes
+
+- Mythic Tatics: fan site for Mythic Tactics: Battleground. Angular 22 SSR on Cloudflare Workers; NestJS API planned under `apps/api`.
+- Use `npx nx ...` (npm workspace, no pnpm).
+- `libs/shared/*` (tag `scope:shared`) must stay framework-free; browser code imports `@mythictatics/shared/contracts` (types/constants), never `/schemas` (zod) unless validation is needed.
+- The SSR entry (`apps/web/src/server.ts`) is fetch-based with `ssr.platform: "neutral"`; do not add Express or Node-only APIs to it.
+- Verify Worker behavior with `npx nx run web:cf-preview` / `npx nx e2e web-e2e`, not only `nx serve`.
+- Share codes (`?d=`) must stay byte-compatible with the Mythic Tactics Codex teambuilder.

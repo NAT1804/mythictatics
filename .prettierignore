@@ -4,3 +4,7 @@
 /.nx/cache
 /.nx/workspace-data
 .nx/self-healing
+.angular
+
+.wrangler
+/tmp

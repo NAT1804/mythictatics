@@ -1,23 +1,30 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "composite": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": true,
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "module": "preserve",
+    "emitDecoratorMetadata": false,
+    "experimentalDecorators": true,
     "importHelpers": true,
     "isolatedModules": true,
-    "lib": ["es2022"],
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "noEmitOnError": true,
-    "noFallthroughCasesInSwitch": true,
+    "target": "es2022",
+    "lib": ["es2022", "dom"],
+    "strict": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true,
     "skipLibCheck": true,
-    "strict": true,
-    "target": "es2022",
-    "customConditions": ["@org/source"],
-    "noUncheckedSideEffectImports": false,
-    "types": ["*"]
-  }
+    "skipDefaultLibCheck": true,
+    "paths": {
+      "@mythictatics/shared/contracts": ["./libs/shared/contracts/src/index.ts"],
+      "@mythictatics/shared/contracts/schemas": ["./libs/shared/contracts/src/schemas.ts"],
+      "@mythictatics/shared/domain": ["./libs/shared/domain/src/index.ts"],
+      "@mythictatics/web/shell": ["./libs/web/shell/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
 }

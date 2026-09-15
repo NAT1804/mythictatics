@@ -1,0 +1,558 @@
+[
+  {
+    "sprite": "icon_attack",
+    "kind": "description",
+    "image": "images/icons/description/icon_attack.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "865a2af0f04b27ed52ed5464eb27840683fdd616dade7a33d6d05ce67c54596c"
+  },
+  {
+    "sprite": "icon_babylon",
+    "kind": "description",
+    "image": "images/icons/description/icon_babylon.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "4a35f5b33972e64c565d8704e2f3f46d33931285374b35628c25eb9fb053340f"
+  },
+  {
+    "sprite": "icon_burn",
+    "kind": "description",
+    "image": "images/icons/description/icon_burn.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "8baf8bef8ec266ca9e0b2e1c407d70200e4b78f56054662edde8cf7045f517b4"
+  },
+  {
+    "sprite": "icon_celestial_medicine",
+    "kind": "description",
+    "image": "images/icons/description/icon_celestial_medicine.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "9040479909b873cd21b33f839b5bcad011adc949c14b131f7f0fa81c15dc1804"
+  },
+  {
+    "sprite": "icon_cleave",
+    "kind": "description",
+    "image": "images/icons/description/icon_cleave.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "9ec410ad86aa1070b330e73f85f21ca0b73573e18eab1f92b6e2b4c2ebbf6497"
+  },
+  {
+    "sprite": "icon_coin",
+    "kind": "description",
+    "image": "images/icons/description/icon_coin.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "c6e2ca92f2590b4ea3369d9b6b8213eb19964fe28e8c3483465c412ef1bb87b3"
+  },
+  {
+    "sprite": "icon_conceal",
+    "kind": "description",
+    "image": "images/icons/description/icon_conceal.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "19e79bc5f65b470434dc7b010e47498b107be30b175b15a0471ed1b0dbc61b4e"
+  },
+  {
+    "sprite": "icon_crystal",
+    "kind": "description",
+    "image": "images/icons/description/icon_crystal.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "9a54d5b0bc6db0e4206121b39ace77339e039e3d88a3b1c2955ad96fb497c9c5"
+  },
+  {
+    "sprite": "icon_daehan",
+    "kind": "description",
+    "image": "images/icons/description/icon_daehan.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "37d05e863fc173288ffe945b31827209865dd2c9a1e9026a6323384a4219633a"
+  },
+  {
+    "sprite": "icon_demise",
+    "kind": "description",
+    "image": "images/icons/description/icon_demise.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "dc2d1da718befb229059b8fc373d0f4ed0e427b91016f8372d2f64a737f2efac"
+  },
+  {
+    "sprite": "icon_deploy",
+    "kind": "description",
+    "image": "images/icons/description/icon_deploy.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "f52d0c84bd526ff9312d50bb039ced4beec5668a97e14778b7de5ca6a52539f8"
+  },
+  {
+    "sprite": "icon_double_strike",
+    "kind": "description",
+    "image": "images/icons/description/icon_double_strike.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "5bdc710a955c4ff450bf95f3990fdc7d0a4cd5beeea8694230ffbe3c0a924051"
+  },
+  {
+    "sprite": "icon_end_turn",
+    "kind": "description",
+    "image": "images/icons/description/icon_end_turn.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "579c8dba651684ecad2acd70211f2d0b9a9ed1f72889230e1a588239a8d3b5f8"
+  },
+  {
+    "sprite": "icon_gold",
+    "kind": "description",
+    "image": "images/icons/description/icon_gold.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "ee8a2e6cf7aef0a0599f9c71c346795bb362023bd2ba54e7fdc9a8cf7fb75d69"
+  },
+  {
+    "sprite": "icon_health",
+    "kind": "description",
+    "image": "images/icons/description/icon_health.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "8e0c3fc4007c6253a7b4dc2006612b0187c0a568e2a9ad01189ed3a1ea5da931"
+  },
+  {
+    "sprite": "icon_kami",
+    "kind": "description",
+    "image": "images/icons/description/icon_kami.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "a5a4285361687e0bd12b6988278e2205f7bfa73934c7360dd7c0d8dafd8c641c"
+  },
+  {
+    "sprite": "icon_lethal",
+    "kind": "description",
+    "image": "images/icons/description/icon_lethal.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "a4ac06725047cb04f4f53425f990b3cf445fcba6692b7db798e2d8e51cf04ded"
+  },
+  {
+    "sprite": "icon_neutral",
+    "kind": "description",
+    "image": "images/icons/description/icon_neutral.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "75bc5a8b7fc46c04625c6d0cd3b9133d76291c83ddf1bbe6e4e6783fa3068ddf"
+  },
+  {
+    "sprite": "icon_niles",
+    "kind": "description",
+    "image": "images/icons/description/icon_niles.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "a952d1dba25f51be0654d9c4af8d01a7387a32665b0d1bd292512721971a3bbe"
+  },
+  {
+    "sprite": "icon_olympus",
+    "kind": "description",
+    "image": "images/icons/description/icon_olympus.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "2e30cce83d356ad34bdf4e94dccc0bbc278711e2e24ab1b786a8b7a04aab72ef"
+  },
+  {
+    "sprite": "icon_pass_xp",
+    "kind": "description",
+    "image": "images/icons/description/icon_pass_xp.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "bf0fc90e7d47d79a643d51ede7146f4620cac9a7e82b09acae93e4c831c60bf6"
+  },
+  {
+    "sprite": "icon_pierce",
+    "kind": "description",
+    "image": "images/icons/description/icon_pierce.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "4811ff4292af2c45362c53ff6441c38c6e16e2fcf3e9217678056cb7f93bae5e"
+  },
+  {
+    "sprite": "icon_ranged",
+    "kind": "description",
+    "image": "images/icons/description/icon_ranged.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "327d452fdfab196109fe429802b95c7e9205c284be6465d7349159011e2524f2"
+  },
+  {
+    "sprite": "icon_reborn",
+    "kind": "description",
+    "image": "images/icons/description/icon_reborn.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "232bedb9a2cd3c30f79d2a8585c1b5c80f6eb10fa738b7e590acbb1ea011b332"
+  },
+  {
+    "sprite": "icon_refresh",
+    "kind": "description",
+    "image": "images/icons/description/icon_refresh.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "e1b680ff84c033cf4e54d9f7c6f2cfc3d68c39d220d698e6219931d60c0f7549"
+  },
+  {
+    "sprite": "icon_safeguard",
+    "kind": "description",
+    "image": "images/icons/description/icon_safeguard.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "221d319d0d8606ee77f06c0f72b25039f7f8e408f1573d45aa94d9cb884401f3"
+  },
+  {
+    "sprite": "icon_shenzhou",
+    "kind": "description",
+    "image": "images/icons/description/icon_shenzhou.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "87408f12f2d89fa870f7f5f3a852c020726db4722ae4b31aa63f7e1e53472b38"
+  },
+  {
+    "sprite": "icon_slay",
+    "kind": "description",
+    "image": "images/icons/description/icon_slay.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "d8eb2a602dfd1aa98ae03e259cec91a97af57575b7bf4a816ab063b43b8310e8"
+  },
+  {
+    "sprite": "icon_taunt",
+    "kind": "description",
+    "image": "images/icons/description/icon_taunt.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "377e69b58978c79f37de520387057b7da46677b6912e07106854d35954736bbd"
+  },
+  {
+    "sprite": "icon_ticket",
+    "kind": "description",
+    "image": "images/icons/description/icon_ticket.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "adb781be49e52f17dbfec181ca446404e56d570bf23ab2f78c414d65354d1198"
+  },
+  {
+    "sprite": "icon_unrealm",
+    "kind": "description",
+    "image": "images/icons/description/icon_unrealm.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "b507cd5119ecd20950467e004ee4042d21c8e1d9b7fd0d067e5729469d2c1785"
+  },
+  {
+    "sprite": "icon_venomous",
+    "kind": "description",
+    "image": "images/icons/description/icon_venomous.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "49e8bcd1c5d8b9de49a250a340ad1c7276f470fe6733f85aed8f367699c15d39"
+  },
+  {
+    "sprite": "icon_vulnerable",
+    "kind": "description",
+    "image": "images/icons/description/icon_vulnerable.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "b818c75c2da48477b805d97826dc891d921b988adc1a49bd6705ec05eebde23a"
+  },
+  {
+    "sprite": "icon_yggdrasil",
+    "kind": "description",
+    "image": "images/icons/description/icon_yggdrasil.png",
+    "width": 56,
+    "height": 56,
+    "sha256": "ed68c8d03a3efbaa92958a2268b570c3d5e6674ae21a307a44e989f155966499"
+  },
+  {
+    "sprite": "icon_rank_s01_bronze",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_bronze.png",
+    "width": 119,
+    "height": 139,
+    "sha256": "b077c38305e2d96b3721425edb018a556ee188d3f8cdfcffb81f739e8ed79dac"
+  },
+  {
+    "sprite": "icon_rank_s01_bronze_small",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_bronze_small.png",
+    "width": 78,
+    "height": 78,
+    "sha256": "5204c4ca47624347ffddd27bc2f67b6f419062de2825ff30af16616d3dd0e1bc"
+  },
+  {
+    "sprite": "icon_rank_s01_diamond",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_diamond.png",
+    "width": 147,
+    "height": 168,
+    "sha256": "6f50d1a45b203a2f6945fbd86d17e6a2a40916acab097e4833c238800cbe7fba"
+  },
+  {
+    "sprite": "icon_rank_s01_diamond_small",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_diamond_small.png",
+    "width": 78,
+    "height": 88,
+    "sha256": "fa64ae58f16f5373abec7fd108efd255474023f0a923092b9ac140cf7c6316d0"
+  },
+  {
+    "sprite": "icon_rank_s01_emerald",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_emerald.png",
+    "width": 147,
+    "height": 168,
+    "sha256": "348060d949d99b6f08a099ee69e2561608bf6e72cf41161df850016266ee10e3"
+  },
+  {
+    "sprite": "icon_rank_s01_emerald_small",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_emerald_small.png",
+    "width": 78,
+    "height": 88,
+    "sha256": "520a3637c4ff3912697b02be5b6c4736a79336f1ece929f6df76103186e5ac67"
+  },
+  {
+    "sprite": "icon_rank_s01_gold",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_gold.png",
+    "width": 133,
+    "height": 145,
+    "sha256": "8ef9c739d7677e9cb131885ca35f25b96f77b293a80ae062cf8bd4be3da8eb8d"
+  },
+  {
+    "sprite": "icon_rank_s01_gold_small",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_gold_small.png",
+    "width": 78,
+    "height": 78,
+    "sha256": "a56cf55a3a80d05eb5f5f872c73686f3ff851ecca0dead19a68fa4633562636b"
+  },
+  {
+    "sprite": "icon_rank_s01_grandmaster",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_grandmaster.png",
+    "width": 169,
+    "height": 184,
+    "sha256": "a2c47f34c6bad84ea371f34af2a3f6e287b37792e20ef554dcea7fdf832b3c24"
+  },
+  {
+    "sprite": "icon_rank_s01_grandmaster_small",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_grandmaster_small.png",
+    "width": 78,
+    "height": 88,
+    "sha256": "e676c7a58596793d83e73ffcc98c076a87c89d393cee0bb79ebfe7f2306f58c3"
+  },
+  {
+    "sprite": "icon_rank_s01_master",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_master.png",
+    "width": 169,
+    "height": 184,
+    "sha256": "06fabfbada2a6ed5e009896e5a681eb534ef5d0b848bc144b0bae63cb1a112c8"
+  },
+  {
+    "sprite": "icon_rank_s01_master_small",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_master_small.png",
+    "width": 78,
+    "height": 88,
+    "sha256": "0bb303fe133d30f30b2a900a868bfda6d5abc105352f9d437111b1ef1e02da6e"
+  },
+  {
+    "sprite": "icon_rank_s01_mythic",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_mythic.png",
+    "width": 263,
+    "height": 221,
+    "sha256": "9e6ae3f267192f8388886cfa855db3da58a5ff9166c18695d262cb53cbd4c1ab"
+  },
+  {
+    "sprite": "icon_rank_s01_mythic_small",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_mythic_small.png",
+    "width": 94,
+    "height": 94,
+    "sha256": "77de57ee0cc22c790453588847188c6c5372837b31527ed22531457aafa57eae"
+  },
+  {
+    "sprite": "icon_rank_s01_platinum",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_platinum.png",
+    "width": 133,
+    "height": 145,
+    "sha256": "e18b96d4c2b657838864737710dd118f8db3ab376ba157edc1ebdec83d91227a"
+  },
+  {
+    "sprite": "icon_rank_s01_platinum_small",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_platinum_small.png",
+    "width": 78,
+    "height": 78,
+    "sha256": "74a72002bcb657450f71d41da77fb14b4a95846dff13b4fc5b67bef184880878"
+  },
+  {
+    "sprite": "icon_rank_s01_silver",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_silver.png",
+    "width": 119,
+    "height": 139,
+    "sha256": "c6d632b0c6764eb37c6b0b7502b84d384887b67f22036a5540910a6c8bd7f9ae"
+  },
+  {
+    "sprite": "icon_rank_s01_silver_small",
+    "kind": "rank",
+    "image": "images/icons/rank/icon_rank_s01_silver_small.png",
+    "width": 78,
+    "height": 78,
+    "sha256": "02c3ee840ebfb88e8472e0fdfc52588bfeb6cf9454d13f72aba8fb9f38edf283"
+  },
+  {
+    "sprite": "rarity-star_01",
+    "kind": "tier",
+    "tier": 1,
+    "variant": null,
+    "image": "images/icons/tier/rarity-star_01.png",
+    "width": 50,
+    "height": 48,
+    "sha256": "e2dc27339ea992e2917b77d2c408eacee9c7b66ab638470535c2b1ee607058ee"
+  },
+  {
+    "sprite": "rarity-star_01_small",
+    "kind": "tier",
+    "tier": 1,
+    "variant": null,
+    "image": "images/icons/tier/rarity-star_01_small.png",
+    "width": 41,
+    "height": 38,
+    "sha256": "40b7475c0ca653129ee4759af7cbdebd420fde4feee7e38b48b8b9cf33f21653"
+  },
+  {
+    "sprite": "rarity-star_02",
+    "kind": "tier",
+    "tier": 2,
+    "variant": null,
+    "image": "images/icons/tier/rarity-star_02.png",
+    "width": 98,
+    "height": 48,
+    "sha256": "0a4cb2070798b26b512240c7845d94028d8d1f4f6a96c3cd47eb1250a93b8ff9"
+  },
+  {
+    "sprite": "rarity-star_03-1",
+    "kind": "tier",
+    "tier": 3,
+    "variant": 1,
+    "image": "images/icons/tier/rarity-star_03-1.png",
+    "width": 120,
+    "height": 56,
+    "sha256": "838c8402dbc78c9ceee348f1f321709a5f0c73e84d757a1b7acc1741ed1b73ac"
+  },
+  {
+    "sprite": "rarity-star_03-2",
+    "kind": "tier",
+    "tier": 3,
+    "variant": 2,
+    "image": "images/icons/tier/rarity-star_03-2.png",
+    "width": 138,
+    "height": 48,
+    "sha256": "5c5b9394a136434b7c222d0abdfc1573c8ce7931c61734397f591535d1f912e9"
+  },
+  {
+    "sprite": "rarity-star_03-3",
+    "kind": "tier",
+    "tier": 3,
+    "variant": 3,
+    "image": "images/icons/tier/rarity-star_03-3.png",
+    "width": 90,
+    "height": 75,
+    "sha256": "88f4ab49f2e6c5a46c71e90e6f75c3f60712ef1d0a40fae18d1df2413533576c"
+  },
+  {
+    "sprite": "rarity-star_04-1",
+    "kind": "tier",
+    "tier": 4,
+    "variant": 1,
+    "image": "images/icons/tier/rarity-star_04-1.png",
+    "width": 168,
+    "height": 57,
+    "sha256": "473a4958d071e5ba76820230e01016ebfa451d78e0050ab2f33154e72b147cbe"
+  },
+  {
+    "sprite": "rarity-star_04-2",
+    "kind": "tier",
+    "tier": 4,
+    "variant": 2,
+    "image": "images/icons/tier/rarity-star_04-2.png",
+    "width": 184,
+    "height": 48,
+    "sha256": "937cd983fe4f7c303cbc47f11460b4937fbc3b3b890add8716b3a89974a9689e"
+  },
+  {
+    "sprite": "rarity-star_04-3",
+    "kind": "tier",
+    "tier": 4,
+    "variant": 3,
+    "image": "images/icons/tier/rarity-star_04-3.png",
+    "width": 80,
+    "height": 74,
+    "sha256": "11ead459dc9be8e4f2bd3765072921ef99e34ee738789d9aa3353d26a4760e5c"
+  },
+  {
+    "sprite": "rarity-star_05-1",
+    "kind": "tier",
+    "tier": 5,
+    "variant": 1,
+    "image": "images/icons/tier/rarity-star_05-1.png",
+    "width": 168,
+    "height": 63,
+    "sha256": "ef5f7952b2dc141b86ce8287f9223db6f99e14302b0b358bcf5e8ef20568a9fb"
+  },
+  {
+    "sprite": "rarity-star_05-2",
+    "kind": "tier",
+    "tier": 5,
+    "variant": 2,
+    "image": "images/icons/tier/rarity-star_05-2.png",
+    "width": 198,
+    "height": 48,
+    "sha256": "858864d54ab4d35d3c6924d0a44ade322e8a5f67c6a566e50beae9dcdfc00eb2"
+  },
+  {
+    "sprite": "rarity-star_05-3",
+    "kind": "tier",
+    "tier": 5,
+    "variant": 3,
+    "image": "images/icons/tier/rarity-star_05-3.png",
+    "width": 74,
+    "height": 83,
+    "sha256": "d341b90731689dd9f8589ced8df9ffe82a23d5f7130547a874861c79bf61dcc0"
+  },
+  {
+    "sprite": "rarity-star_06",
+    "kind": "tier",
+    "tier": 6,
+    "variant": null,
+    "image": "images/icons/tier/rarity-star_06.png",
+    "width": 56,
+    "height": 59,
+    "sha256": "25f6875b39b68612995fd953b036e2c36e03d6e6b348e014e535afa076215871"
+  },
+  {
+    "sprite": "rarity-star_champion_m_high",
+    "kind": "tier",
+    "tier": null,
+    "variant": null,
+    "image": "images/icons/tier/rarity-star_champion_m_high.png",
+    "width": 186,
+    "height": 54,
+    "sha256": "cae904c01bf9dea3b9327a0c783ef31bd6c8b71e09067ff7dd1eb516bf497f82"
+  }
+]

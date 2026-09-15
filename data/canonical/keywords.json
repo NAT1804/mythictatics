@@ -1,0 +1,459 @@
+[
+  {
+    "key": "alchemy",
+    "title": {
+      "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color>",
+      "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color>"
+    },
+    "description": {
+      "en": "Get X <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color> each turn.",
+      "vi-VN": "Nhận X <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color> mỗi lượt"
+    }
+  },
+  {
+    "key": "attack",
+    "title": {
+      "en": "Attack",
+      "vi-VN": "Sát Thương"
+    },
+    "description": null
+  },
+  {
+    "key": "attack_stat",
+    "title": {
+      "en": "<sprite name=icon_attack><color=#0068A9>Attack</color>",
+      "vi-VN": "<sprite name=icon_attack><color=#0068A9>Sát Thương</color>"
+    },
+    "description": null
+  },
+  {
+    "key": "aura",
+    "title": {
+      "en": "<color=#D46C17>Aura</color>",
+      "vi-VN": "<color=#D46C17>Hào Quang</color>"
+    },
+    "description": {
+      "en": "This effect is always active while the unit is alive.",
+      "vi-VN": "Hiệu ứng này sẽ luôn hoạt động khi đơn vị này còn sống."
+    }
+  },
+  {
+    "key": "burn",
+    "title": {
+      "en": "<sprite name=icon_burn><color=#D46C17>Burn</color>",
+      "vi-VN": "<sprite name=icon_burn><color=#D46C17>Đốt</color>"
+    },
+    "description": {
+      "en": "Applied unit takes 1 damage whenever a unit ends it turn, removed after X turn.",
+      "vi-VN": "Đơn vị chịu hiệu ứng này sẽ nhận 1 sát thương bất cứ khi nào một đơn vị kết thúc lượt, có tác dụng trong X lượt"
+    }
+  },
+  {
+    "key": "cannot_attack",
+    "title": {
+      "en": "<color=#D46C17>Cannot Attack</color>",
+      "vi-VN": "<color=#D46C17>Không Thể Tấn Công</color>"
+    },
+    "description": {
+      "en": "Cannot attack but can still counter-attack.",
+      "vi-VN": "Không thể tấn công nhưng vẫn có thể phản công."
+    }
+  },
+  {
+    "key": "celestial_medicine",
+    "title": {
+      "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>",
+      "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color>"
+    },
+    "description": null
+  },
+  {
+    "key": "cleave",
+    "title": {
+      "en": "<sprite name=icon_cleave><color=#D46C17>Cleave</color>",
+      "vi-VN": "<sprite name=icon_cleave><color=#D46C17>Trảm Kích</color>"
+    },
+    "description": {
+      "en": "Cleave units deal damage on all enemies next to their target when attacking",
+      "vi-VN": "Đơn vị có Trảm Kích sẽ gây sát thương lên tất cả kẻ địch bên cạnh khi tấn công"
+    }
+  },
+  {
+    "key": "conceal",
+    "title": {
+      "en": "<sprite name=icon_conceal><color=#D46C17>Conceal</color>",
+      "vi-VN": "<sprite name=icon_conceal><color=#D46C17>Ẩn Thân</color>"
+    },
+    "description": {
+      "en": "Conceal units cannot be targeted for an attack until they attacks.",
+      "vi-VN": "Đơn vị  có Ẩn Thân sẽ không thể bị tấn công cho đến khi chúng tấn công"
+    }
+  },
+  {
+    "key": "conjure",
+    "title": {
+      "en": "<color=#D46C17>Conjure</color>",
+      "vi-VN": "<color=#D46C17>Triệu Tập</color>"
+    },
+    "description": {
+      "en": "Choose one of three cards to add to your hand.",
+      "vi-VN": "Chọn một trong ba thẻ bài để nhận vào tay."
+    }
+  },
+  {
+    "key": "consume",
+    "title": {
+      "en": "<color=#D46C17>Consume</color>",
+      "vi-VN": "<color=#D46C17>Hấp Thụ</color>"
+    },
+    "description": {
+      "en": "Destroy the consumed unit and gain its stats.",
+      "vi-VN": "Phá hủy đơn vị bị Hấp Thụ và nhận chỉ số của nó."
+    }
+  },
+  {
+    "key": "counter",
+    "title": {
+      "en": "<color=#D46C17>Counter</color>",
+      "vi-VN": "<color=#D46C17>Phản Công</color>"
+    },
+    "description": {
+      "en": "Effect trigger right before the unit counter-attacks.",
+      "vi-VN": "Hiệu ứng kích hoạt ngay trước khi đơn vị phản công."
+    }
+  },
+  {
+    "key": "current_gold",
+    "title": {
+      "en": "<sprite name=icon_coin><color=#D46C17>Current Gold",
+      "vi-VN": "<sprite name=icon_coin><color=#D46C17>Vàng hiện tại"
+    },
+    "description": {
+      "en": "Gold you currently have",
+      "vi-VN": "Số Vàng ngươi đang có"
+    }
+  },
+  {
+    "key": "demise",
+    "title": {
+      "en": "<sprite name=icon_demise><color=#D46C17>Demise</color>",
+      "vi-VN": "<sprite name=icon_demise><color=#D46C17>Tử Vong</color>"
+    },
+    "description": {
+      "en": "Triggers when unit is slain.",
+      "vi-VN": "Xảy ra khi một đơn vị bị kết liễu."
+    }
+  },
+  {
+    "key": "deploy",
+    "title": {
+      "en": "<sprite name=icon_deploy><color=#D46C17>Deploy</color>",
+      "vi-VN": "<sprite name=icon_deploy><color=#D46C17>Triển Khai</color>"
+    },
+    "description": {
+      "en": "Triggers when you deploy a unit. Can be used as a spell when there are no slots available",
+      "vi-VN": "Kích hoạt khi ngươi triển khai đơn vị. Có thể dùng đơn vị này như thẻ bài Phép khi không còn chỗ để triển khai"
+    }
+  },
+  {
+    "key": "descend",
+    "title": {
+      "en": "Descend",
+      "vi-VN": "Hạ Thế"
+    },
+    "description": {
+      "en": "Patron God can Descend on any ally, consuming their stats and effect",
+      "vi-VN": "Thần Bảo Hộ có thể Hạ Thế lên bất kỳ đồng minh nào để hấp thụ chỉ số và hiệu ứng của nó"
+    }
+  },
+  {
+    "key": "double_enhancement",
+    "title": {
+      "en": "Double Enhancement",
+      "vi-VN": "Nhân đôi Cường hóa"
+    },
+    "description": null
+  },
+  {
+    "key": "double_strike",
+    "title": {
+      "en": "<sprite name=icon_double_strike><color=#D46C17>Double Strike</color>",
+      "vi-VN": "<sprite name=icon_double_strike><color=#D46C17>Liên Kích</color>"
+    },
+    "description": {
+      "en": "Double Strike units will attack twice each time they attack",
+      "vi-VN": "Đơn vị có Liên Kích sẽ tấn công 2 lần liên tiếp trong mỗi lượt tấn công."
+    }
+  },
+  {
+    "key": "end_turn",
+    "title": {
+      "en": "<color=#D46C17>End Turn</color>",
+      "vi-VN": "<color=#D46C17>Kết Lượt</color>"
+    },
+    "description": null
+  },
+  {
+    "key": "enhancements",
+    "title": {
+      "en": "Enhancements",
+      "vi-VN": "Các Cường Hóa"
+    },
+    "description": null
+  },
+  {
+    "key": "event_on_end_turn",
+    "title": {
+      "en": "On End Turn",
+      "vi-VN": "Khi Kết Lượt"
+    },
+    "description": null
+  },
+  {
+    "key": "event_on_start_battle",
+    "title": {
+      "en": "On Start Of Battle",
+      "vi-VN": "Khi Khai Trận"
+    },
+    "description": null
+  },
+  {
+    "key": "event_on_start_of_round",
+    "title": {
+      "en": "On Start Of Round",
+      "vi-VN": "Khi bắt đầu lượt"
+    },
+    "description": null
+  },
+  {
+    "key": "event_space_available",
+    "title": {
+      "en": "Space Available",
+      "vi-VN": "Khi có ô trống"
+    },
+    "description": null
+  },
+  {
+    "key": "gold",
+    "title": {
+      "en": "Gold",
+      "vi-VN": "Vàng"
+    },
+    "description": null
+  },
+  {
+    "key": "health",
+    "title": {
+      "en": "Health",
+      "vi-VN": "Máu"
+    },
+    "description": null
+  },
+  {
+    "key": "health_stat",
+    "title": {
+      "en": "<sprite name=icon_health><color=#DA4D31>Health</color>",
+      "vi-VN": "<sprite name=icon_health><color=#DA4D31>Máu</color>"
+    },
+    "description": null
+  },
+  {
+    "key": "income",
+    "title": {
+      "en": "<color=#D46C17>Income</color>",
+      "vi-VN": "<color=#D46C17>Thu Nhập</color>"
+    },
+    "description": {
+      "en": "Income is the amount of Gold you gain next turn. Your Income increases every turn, up to 10 by default and cannot exceed 50 Gold",
+      "vi-VN": "Thu Nhập là lượng Vàng bạn nhận ở lượt sau. Thu Nhập tự tăng ở mỗi lượt, mặc định lên đến +10 và không thể vượt quá +50"
+    }
+  },
+  {
+    "key": "keep_enhancement",
+    "title": {
+      "en": "Keep Enhancement",
+      "vi-VN": "Giữ Lại Cường Hóa"
+    },
+    "description": null
+  },
+  {
+    "key": "last_chance",
+    "title": {
+      "en": "<color=#D46C17>Last Chance</color>",
+      "vi-VN": "<color=#D46C17>Last Chance</color>"
+    },
+    "description": {
+      "en": "Protect a unit from the next instance of damage that would destroy it.",
+      "vi-VN": "Protect a unit from the next instance of damage that would destroy it."
+    }
+  },
+  {
+    "key": "lethal",
+    "title": {
+      "en": "<sprite name=icon_lethal><color=#D46C17>Lethal</color>",
+      "vi-VN": "<sprite name=icon_lethal><color=#D46C17>Hiểm Độc</color>"
+    },
+    "description": {
+      "en": "Lethal units destroys the first unit it deals damage to.",
+      "vi-VN": "Đơn vị có Hiểm Độc sẽ hủy diệt đơn vị đầu tiên nó gây sát thương lên."
+    }
+  },
+  {
+    "key": "on_attack",
+    "title": {
+      "en": "<color=#D46C17>Attack</color>",
+      "vi-VN": "<color=#D46C17>Tấn Công</color>"
+    },
+    "description": {
+      "en": "Effect trigger right before the unit attacks.",
+      "vi-VN": "Hiệu ứng kích hoạt ngay trước khi đơn vị tấn công."
+    }
+  },
+  {
+    "key": "pierce",
+    "title": {
+      "en": "<sprite name=icon_pierce><color=#D46C17>Pierce</color>",
+      "vi-VN": "<sprite name=icon_pierce><color=#D46C17>Xuyên Kích</color>"
+    },
+    "description": {
+      "en": "Pierce units will deal damage on all enemies in the same column when attacking",
+      "vi-VN": "Đơn vị có Xuyên Kích sẽ gây sát thương lên mọi kẻ địch cùng cột khi tấn công."
+    }
+  },
+  {
+    "key": "ranged",
+    "title": {
+      "en": "<sprite name=icon_ranged><color=#D46C17>Ranged</color>",
+      "vi-VN": "<sprite name=icon_ranged><color=#D46C17>Tầm Xa</color>"
+    },
+    "description": {
+      "en": "Ranged units does not get counter-attacked while attacking but cannot counter-attack.",
+      "vi-VN": "Đơn vị Tầm Xa sẽ không bị phản công khi tấn công, nhưng chính chúng cũng không thể phản công."
+    }
+  },
+  {
+    "key": "reborn",
+    "title": {
+      "en": "<sprite name=icon_reborn><color=#D46C17>Reborn</color>",
+      "vi-VN": "<sprite name=icon_reborn><color=#D46C17>Tái Sinh</color>"
+    },
+    "description": {
+      "en": "The first time a Reborn unit is slain, summon a 1-Health copy of it.",
+      "vi-VN": "Lần đầu tiên khi một đơn vị có Tái Sinh bị tiêu diệt, triệu hồi một bản sao 1-Máu của nó"
+    }
+  },
+  {
+    "key": "reborn_keep_attack",
+    "title": {
+      "en": "Reborn Keep Attack",
+      "vi-VN": "Hồi Sinh Với Toàn Bộ Sát Thương"
+    },
+    "description": null
+  },
+  {
+    "key": "refresh",
+    "title": {
+      "en": "<color=#D46C17>Refresh</color>",
+      "vi-VN": "<color=#D46C17>Đổi Lại</color>"
+    },
+    "description": null
+  },
+  {
+    "key": "remove",
+    "title": {
+      "en": "<color=#D46C17>Remove</color>",
+      "vi-VN": "<color=#D46C17>Loại Bỏ</color>"
+    },
+    "description": {
+      "en": "Remove the unit without destroying it.",
+      "vi-VN": "Loại bỏ một đơn vị nhưng không phá hủy nó."
+    }
+  },
+  {
+    "key": "safeguard",
+    "title": {
+      "en": "<sprite name=icon_safeguard><color=#D46C17>Safeguard</color>",
+      "vi-VN": "<sprite name=icon_safeguard><color=#D46C17>Lá Chắn</color>"
+    },
+    "description": {
+      "en": "Protect a unit from the next instance of damage.",
+      "vi-VN": "Bảo vệ một đơn vị khỏi lần nhận sát thương kế tiếp."
+    }
+  },
+  {
+    "key": "sanctum",
+    "title": {
+      "en": "<color=#D46C17>Sanctum</color>",
+      "vi-VN": "<color=#D46C17>Thánh Đền</color>"
+    },
+    "description": null
+  },
+  {
+    "key": "sanctum_spell",
+    "title": {
+      "en": "<color=#D46C17>Sanctum Spell</color>",
+      "vi-VN": "<color=#D46C17>Phép Thánh Đền</color>"
+    },
+    "description": null
+  },
+  {
+    "key": "sell",
+    "title": {
+      "en": "<color=#D46C17>Sell</color>",
+      "vi-VN": "<color=#D46C17>Bán</color>"
+    },
+    "description": null
+  },
+  {
+    "key": "slay",
+    "title": {
+      "en": "<sprite name=icon_slay><color=#D46C17>Slay</color>",
+      "vi-VN": "<sprite name=icon_slay><color=#D46C17>Kết Liễu</color>"
+    },
+    "description": {
+      "en": "Triggers after unit has slain X enemies.",
+      "vi-VN": "Kích hoạt sau khi đơn vị đã kết liễu X kẻ địch."
+    }
+  },
+  {
+    "key": "start_of_battle",
+    "title": {
+      "en": "<color=#D46C17>Start of Battle:</color>",
+      "vi-VN": "<color=#D46C17>Khai Trận:</color>"
+    },
+    "description": null
+  },
+  {
+    "key": "taunt",
+    "title": {
+      "en": "<sprite name=icon_taunt><color=#D46C17>Taunt</color>",
+      "vi-VN": "<sprite name=icon_taunt><color=#D46C17>Khiêu Khích</color>"
+    },
+    "description": {
+      "en": "Enemies must attack units with Taunt first.",
+      "vi-VN": "Kẻ địch luôn phải tấn công đơn vị có Khiêu Khích trước."
+    }
+  },
+  {
+    "key": "venomous",
+    "title": {
+      "en": "<sprite name=icon_venomous><color=#D46C17>Venomous</color>",
+      "vi-VN": "<sprite name=icon_venomous><color=#D46C17>Nọc Độc</color>"
+    },
+    "description": {
+      "en": "Venomous units destroy the first unit they deal damge with an attack.",
+      "vi-VN": "Đơn vị có Nọc Độc sẽ tiêu diệt đơn vị đầu tiên mà chúng gây sát thương bằng đòn tấn công."
+    }
+  },
+  {
+    "key": "vulnerable",
+    "title": {
+      "en": "<sprite name=icon_vulnerable><color=#D46C17>Vulnerable</color>",
+      "vi-VN": "<sprite name=icon_vulnerable><color=#D46C17>Suy Yếu</color>"
+    },
+    "description": {
+      "en": "The next time the applied unit receives damage, double it.",
+      "vi-VN": "Tăng gấp đôi sát thương nhận ở lần nhận sát thương kế tiếp."
+    }
+  }
+]

@@ -56,3 +56,16 @@ vitest.config.*.timestamp*
 # Cloudflare
 .wrangler
 .dev.vars*
+
+# Client extraction: the venv is rebuilt from requirements.txt, and the game build itself is
+# Hexpion's copyrighted binary — extract from it, never redistribute it. The second rule catches
+# a build dropped anywhere else in the tree, since these run to hundreds of megabytes.
+tools/client/.venv
+tools/client/builds/
+*.xapk
+*.apk
+*.apks
+
+# Scratch output of tools/client/extract_cards.py. Only data/canonical and
+# apps/web/public/images are kept; this is what you extract into, read off, and discard.
+data/client/

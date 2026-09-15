@@ -1,0 +1,66 @@
+[
+  {
+    "code": "niles",
+    "number": 1,
+    "name": {
+      "en": "Niles",
+      "vi-VN": "Niles"
+    }
+  },
+  {
+    "code": "yggdrasil",
+    "number": 3,
+    "name": {
+      "en": "Yggdrasil",
+      "vi-VN": "Yggdrasil"
+    }
+  },
+  {
+    "code": "olympus",
+    "number": 2,
+    "name": {
+      "en": "Olympus",
+      "vi-VN": "Olympus"
+    }
+  },
+  {
+    "code": "babylon",
+    "number": 5,
+    "name": {
+      "en": "Babylon",
+      "vi-VN": "Babylon"
+    }
+  },
+  {
+    "code": "shenzhou",
+    "number": 4,
+    "name": {
+      "en": "Shenzhou",
+      "vi-VN": "Shenzhou"
+    }
+  },
+  {
+    "code": "kami",
+    "number": 6,
+    "name": {
+      "en": "Kami",
+      "vi-VN": "Kami"
+    }
+  },
+  {
+    "code": "daehan",
+    "number": 7,
+    "name": {
+      "en": "Daehan",
+      "vi-VN": "Daehan"
+    }
+  },
+  {
+    "code": "neutral",
+    "number": 10,
+    "name": {
+      "en": "Neutral",
+      "vi-VN": "Neutral"
+    }
+  }
+]

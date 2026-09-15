@@ -1,17 +1,15 @@
 import { z } from 'zod';
-import { GOD_ID_PATTERN, SPELL_ID_PATTERN, UNIT_ID_PATTERN } from './constants';
-import { DataConfidenceSchema, RealmCodeSchema } from './realm';
-
-export const SlugSchema = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
-export const KeywordCodeSchema = z.string().regex(/^[a-z]+(?:_[a-z]+)*$/);
-export const GameVersionSchema = z.string().regex(/^\d+\.\d+\.\d+$/);
-
-export const RankSchema = z.union([z.literal(0), z.literal(1), z.literal(2)]);
-export type Rank = z.infer<typeof RankSchema>;
+import { GodIdSchema, SpellIdSchema, UnitIdSchema } from './ids';
+import { KeywordCodeSchema, RankSchema, SlugSchema, TierSchema } from './primitives';
+import { RealmCodeSchema } from './realm';
 
 /**
  * Card text parsed from the game's rich-text markup
  * (`<color=#...>` highlights and `<sprite name=...>` icons), so no raw HTML is ever rendered.
+ *
+ * Tokens are the only form a card's text takes. Where a plain string is wanted — a title, a
+ * search index, alt text — derive it with `plainText` from `@mythictatics/shared/domain` rather
+ * than carrying a second copy of every line around.
  */
 export const RichTextTokenSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('text'), value: z.string() }),
@@ -31,7 +29,6 @@ export const UnitRankSchema = z.object({
   rank: RankSchema,
   attack: z.number().int().nonnegative(),
   health: z.number().int().nonnegative(),
-  text: z.string(),
   richText: z.array(RichTextTokenSchema),
 });
 export type UnitRank = z.infer<typeof UnitRankSchema>;
@@ -44,12 +41,11 @@ const cardBase = {
 
 export const UnitSchema = z.object({
   ...cardBase,
-  id: z.string().regex(UNIT_ID_PATTERN),
+  id: UnitIdSchema,
   type: z.literal('unit'),
   realm: RealmCodeSchema,
-  realmConfidence: DataConfidenceSchema,
-  tier: z.number().int().min(1).max(6),
-  cost: z.number().int().nonnegative().nullable(),
+  tier: TierSchema,
+  cost: z.number().int().nonnegative(),
   keywords: z.array(KeywordCodeSchema),
   ranks: z.array(UnitRankSchema).min(1).max(3),
 });
@@ -57,25 +53,42 @@ export type Unit = z.infer<typeof UnitSchema>;
 
 export const GodSchema = z.object({
   ...cardBase,
-  id: z.string().regex(GOD_ID_PATTERN),
+  id: GodIdSchema,
   type: z.literal('god'),
-  realm: RealmCodeSchema.nullable(),
-  realmConfidence: DataConfidenceSchema.nullable(),
+  realm: RealmCodeSchema,
+  /** Always 6 — a god sits at the top Sanctum Tier — but typed like any other card's. */
+  tier: TierSchema,
+  /** A god's own body, used once it Descends. Not on the same scale as a unit's. */
+  attack: z.number().int().nonnegative(),
+  health: z.number().int().nonnegative(),
+  /** A god's power and passive carry keywords the same way a unit's text does. */
+  keywords: z.array(KeywordCodeSchema),
   powerName: z.string().nullable(),
   powerText: z.array(RichTextTokenSchema),
-  passiveText: z.array(RichTextTokenSchema),
+  /** What the god turns into on Descend. */
+  descendText: z.array(RichTextTokenSchema),
+  /** What the player has to do to unlock the Descend. */
+  descendQuestText: z.array(RichTextTokenSchema),
 });
 export type God = z.infer<typeof GodSchema>;
 
 export const SpellSchema = z.object({
   ...cardBase,
-  id: z.string().regex(SPELL_ID_PATTERN),
+  id: SpellIdSchema,
   type: z.literal('spell'),
   subtype: z.enum(['sanctum', 'medicine']),
-  tier: z.number().int().min(1).max(6),
+  /**
+   * Set for the thirteen spells that belong to one realm — every Shenzhou Medicine, plus Niles'
+   * Promotion Reward. Null for the fifty Sanctum spells any realm can be offered.
+   */
+  realm: RealmCodeSchema.nullable(),
+  tier: TierSchema,
+  /** Medicine is granted by Alchemy rather than bought, and six Sanctum spells are free too. */
   cost: z.number().int().nonnegative().nullable(),
   keywords: z.array(KeywordCodeSchema),
   text: z.array(RichTextTokenSchema),
+  /** A few spells offer a choice; each option is its own line. Empty for every other spell. */
+  options: z.array(z.array(RichTextTokenSchema)),
 });
 export type Spell = z.infer<typeof SpellSchema>;
 

@@ -6,10 +6,8 @@ export type RealmCode = z.infer<typeof RealmCodeSchema>;
 
 export const RealmSchema = z.object({
   code: RealmCodeSchema,
+  /** The realm's number in the game's own id scheme — see `REALM_NUMBERS`. */
+  number: z.number().int().positive(),
   name: z.string().min(1),
 });
 export type Realm = z.infer<typeof RealmSchema>;
-
-/** Community-sourced data is not always verified against the game client. */
-export const DataConfidenceSchema = z.enum(['confirmed', 'inferred']);
-export type DataConfidence = z.infer<typeof DataConfidenceSchema>;

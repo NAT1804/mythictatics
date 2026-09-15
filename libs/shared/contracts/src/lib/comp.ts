@@ -1,10 +1,8 @@
 import { z } from 'zod';
 import { BoardSchema } from './board';
-import { GameVersionSchema, SlugSchema } from './card';
-import { GOD_ID_PATTERN, UNIT_ID_PATTERN } from './constants';
+import { GodIdSchema, UnitIdSchema } from './ids';
+import { GameVersionSchema, SlugSchema } from './primitives';
 import { RealmCodeSchema } from './realm';
-
-const UnitIdSchema = z.string().regex(UNIT_ID_PATTERN);
 
 export const CompDifficultySchema = z.enum(['basic', 'advanced']);
 export type CompDifficulty = z.infer<typeof CompDifficultySchema>;
@@ -14,6 +12,7 @@ export const CompSourceSchema = z.object({
   url: z.url().optional(),
   author: z.string().optional(),
 });
+export type CompSource = z.infer<typeof CompSourceSchema>;
 
 /** A team composition guide. Mirrors the community comp-sheet template. */
 export const CompSchema = z.object({
@@ -22,7 +21,7 @@ export const CompSchema = z.object({
   name: z.string().min(1),
   difficulty: CompDifficultySchema,
   /** Empty array means any Patron God works. */
-  patronGodIds: z.array(z.string().regex(GOD_ID_PATTERN)),
+  patronGodIds: z.array(GodIdSchema),
   godPower: z.string().nullable(),
   realms: z.array(RealmCodeSchema),
   whenToCommit: z.string().nullable(),

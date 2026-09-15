@@ -1,16 +1,16 @@
 import { BoardSchema } from './board';
 import { BOARD_SIZE } from './constants';
-import { UnitSchema } from './card';
+import { SpellSchema, UnitSchema } from './card';
 import { CompSchema } from './comp';
+import { DatasetIconSchema, DatasetUnitSchema } from './dataset';
 
 const unit = {
   id: 'm05001',
   type: 'unit',
   slug: 'sumerian-scholar',
   name: 'Sumerian Scholar',
-  image: 'images/units/babylon/m05001_Sumerian_Scholar.png',
+  image: 'images/units/babylon/m05001.png',
   realm: 'babylon',
-  realmConfidence: 'confirmed',
   tier: 1,
   cost: 3,
   keywords: ['deploy'],
@@ -19,7 +19,6 @@ const unit = {
       rank: 0,
       attack: 3,
       health: 2,
-      text: "Deploy: Reduce Sanctum's upgrade cost by 1",
       richText: [
         { type: 'icon', name: 'icon_deploy' },
         { type: 'highlight', value: 'Deploy' },
@@ -37,6 +36,92 @@ describe('UnitSchema', () => {
   it('rejects unknown realms and malformed ids', () => {
     expect(UnitSchema.safeParse({ ...unit, realm: 'atlantis' }).success).toBe(false);
     expect(UnitSchema.safeParse({ ...unit, id: 'champ004' }).success).toBe(false);
+  });
+});
+
+describe('SpellSchema', () => {
+  const spell = {
+    id: 's_04001',
+    type: 'spell',
+    slug: 'amplification-pill',
+    name: 'Amplification Pill',
+    image: 'images/spells/s_04001.png',
+    subtype: 'medicine',
+    realm: 'shenzhou',
+    tier: 1,
+    // Medicine is granted by Alchemy, so a null cost here is the right answer, not a gap.
+    cost: null,
+    keywords: [],
+    text: [{ type: 'text', value: 'Give an ally +{0}/+{1} permanently' }],
+    options: [],
+  };
+
+  it('keeps the realm a spell belongs to, and allows a shared Sanctum spell to have none', () => {
+    expect(SpellSchema.parse(spell)).toEqual(spell);
+    expect(SpellSchema.parse({ ...spell, realm: null }).realm).toBeNull();
+  });
+
+  it('requires a tier and an options list rather than letting either go missing', () => {
+    expect(SpellSchema.safeParse({ ...spell, tier: null }).success).toBe(false);
+    expect(SpellSchema.safeParse({ ...spell, options: undefined }).success).toBe(false);
+  });
+});
+
+describe('DatasetUnitSchema', () => {
+  const row = {
+    id: 'm05001',
+    kind: 'unit',
+    subtype: null,
+    realm: 'babylon',
+    sprite: 'babylon_card_character_5001',
+    image: 'images/units/babylon/m05001.png',
+    imageWidth: 379,
+    imageHeight: 333,
+    imageSha256: 'a'.repeat(64),
+    keywords: ['deploy'],
+    name: { en: 'Sumerian Scholar' },
+    tier: 1,
+    cost: 3,
+    ranks: [{ rank: 0, attack: 3, health: 2, text: { en: 'x' }, textPlain: { en: 'x' } }],
+  };
+
+  it('accepts a canonical unit row', () => {
+    expect(DatasetUnitSchema.safeParse(row).success).toBe(true);
+  });
+
+  // The mapping into `Card` no longer invents a 1 or a 0 for these, so a patch that drops one
+  // has to fail here instead of reaching the site as a made-up number.
+  it.each(['realm', 'tier', 'cost'])('rejects a unit whose %s went missing', (field) => {
+    expect(DatasetUnitSchema.safeParse({ ...row, [field]: null }).success).toBe(false);
+  });
+
+  it('rejects a rank without stats', () => {
+    const ranks = [{ ...row.ranks[0], attack: null }];
+    expect(DatasetUnitSchema.safeParse({ ...row, ranks }).success).toBe(false);
+  });
+});
+
+describe('DatasetIconSchema', () => {
+  const art = {
+    sprite: 'rarity-star_01',
+    image: 'images/icons/tier/rarity-star_01.png',
+    width: 50,
+    height: 48,
+    sha256: 'a'.repeat(64),
+  };
+
+  it('asks Tier art for a tier and leaves the other kinds without one', () => {
+    const tierArt = { ...art, kind: 'tier', tier: 1, variant: null };
+    expect(DatasetIconSchema.safeParse(tierArt).success).toBe(true);
+    expect(DatasetIconSchema.safeParse({ ...art, kind: 'rank' }).success).toBe(true);
+    // Tier art has to state its tier, even when the answer is null — the generic star. That is
+    // the whole point of splitting by kind rather than making the field optional everywhere.
+    expect(DatasetIconSchema.safeParse({ ...art, kind: 'tier' }).success).toBe(false);
+  });
+
+  it('keeps a tier off the kinds that have none', () => {
+    const parsed = DatasetIconSchema.parse({ ...art, kind: 'rank', tier: 3 });
+    expect(parsed).not.toHaveProperty('tier');
   });
 });
 

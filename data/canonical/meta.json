@@ -1,0 +1,43 @@
+{
+  "gameVersion": "1.5.7",
+  "locales": ["en", "vi-VN"],
+  "counts": {
+    "cards": 267,
+    "byKind": {
+      "unit": 184,
+      "god": 20,
+      "spell": 63
+    },
+    "keywords": 47,
+    "realms": 8,
+    "icons": 66
+  },
+  "coverage": {
+    "tier": 267,
+    "cost": 229,
+    "stats": 204
+  },
+  "localeCoverage": {
+    "en": 267,
+    "vi-VN": 267
+  },
+  "builtAt": "2026-09-15T08:02:56.564Z",
+  "source": {
+    "gameVersion": "1.5.7",
+    "build": "Mythic+Tactics_+Battleground_1.5.7_APKPure.xapk",
+    "buildSha256": "c4749f723792ea37aa8ac5251f4096e282baaaa8fcd43cde192115cd7b38489f",
+    "note": "Ids, names, rules text, keywords, realms, descend quests and every image come out of the shipped client. tier, cost, attack and health are not present in that build — they were carried in from an earlier dataset, and cost plus the god realms were checked against the running game on 1.5.7. Gods carry no Tier in any source; they are set to 6, the top Sanctum Tier, by hand."
+  },
+  "excluded": [
+    {
+      "id": "s_04007",
+      "name": "Awakening Pill",
+      "reason": "In the client's localization tables but not obtainable in game on 1.5.7. Extracting a build will produce it again — drop it again unless the game has since added it."
+    }
+  ],
+  "conventions": {
+    "textPlaceholders": "Rules text keeps {0}-style placeholders on purpose. Those numbers are not fixed — cards in play change what a Medicine is worth, so the game computes the value at runtime. Render the placeholder, do not try to fill it in.",
+    "medicineCost": "Medicine spells have no cost. They are not bought with gold; Alchemy grants them, so a null cost on a medicine card is the right answer rather than a missing one.",
+    "godCost": "Gods have no cost — a patron is chosen, not bought."
+  }
+}

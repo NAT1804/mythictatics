@@ -1,9 +1,10 @@
 import { z } from 'zod';
-import { RankSchema } from './card';
-import { BOARD_SIZE, GOD_ID_PATTERN, UNIT_ID_PATTERN } from './constants';
+import { BOARD_SIZE } from './constants';
+import { GodIdSchema, UnitIdSchema } from './ids';
+import { RankSchema } from './primitives';
 
 export const BoardSlotSchema = z.object({
-  unitId: z.string().regex(UNIT_ID_PATTERN),
+  unitId: UnitIdSchema,
   rank: RankSchema,
 });
 export type BoardSlot = z.infer<typeof BoardSlotSchema>;
@@ -13,6 +14,6 @@ export type Board = z.infer<typeof BoardSchema>;
 
 export const BuildSchema = z.object({
   board: BoardSchema,
-  patronGodId: z.string().regex(GOD_ID_PATTERN).nullable(),
+  patronGodId: GodIdSchema.nullable(),
 });
 export type Build = z.infer<typeof BuildSchema>;

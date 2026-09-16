@@ -29,7 +29,9 @@
 - `libs/shared/*` (tag `scope:shared`) must stay framework-free so the planned api can reuse it.
 - The SSR entry (`apps/web/src/server.ts`) is fetch-based with `ssr.platform: "neutral"`; do not add Express or Node-only APIs to it.
 - Verify Worker behavior with `npx nx run web:cf-preview` / `npx nx e2e web-e2e`, not only `nx serve`. E2E needs `npm run e2e:install` once first, or Playwright fails with "Executable doesn't exist".
-- Share codes (`?d=`) must stay byte-compatible with the Mythic Tactics Codex teambuilder.
+- Share codes (`?d=`) must stay byte-compatible with the Mythic Tactics Codex teambuilder. Anything the builder
+  knows on top of a board and a patron god (realm picks, the descend slot) goes in its own query parameters —
+  see `draft-code.ts`. Never append to `?d=`.
 
 ## Contracts (`libs/shared/contracts`)
 
@@ -45,5 +47,8 @@
 - The project's one dataset: hand-maintained, committed, and the source for everything the site shows. Refresh after a game patch with `tools/client/extract_cards.py`.
 - `meta.json` is the provenance record, and the note in it matters: `tier`, `cost`, `attack` and `health` are **not** in the shipped client — they were carried in by hand. Read it before trusting one of those numbers.
 - `meta.json.excluded` lists cards the client's tables define that the game does not actually offer (`s_04007`). Re-extraction produces them again — drop them again.
+- `realmLock` on a god is hand-maintained like `tier`/`cost` — the client says nothing about it. Eight gods have it
+  (Ra, Tiamat, Zeus, Poseidon, Odin, Erlang Shen, Izanami, Samsin), read off the game's Patron God screen. It is not
+  derivable from card text: Set names Niles twice and does not lock it. Re-extraction will not produce the field.
 - Card and icon art under `apps/web/public/images/` is the only copy; the extraction output is not kept. The dataset tests hash every file against `imageSha256`, so art can never be swapped without updating the dataset.
 - **The dataset tests live in `shared-domain`, not `shared-contracts`.** They validate all of `data/canonical/` against the contracts schemas and round-trip every card through `toCard`, so a contract change shows up there first — always run `npx nx test shared-domain` after touching a schema.

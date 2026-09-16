@@ -56,6 +56,8 @@ export const GodSchema = z.object({
   id: GodIdSchema,
   type: z.literal('god'),
   realm: RealmCodeSchema,
+  /** Whether this god's realm is forced into the draft, leaving the player two picks instead of three. */
+  realmLock: z.boolean(),
   /** Always 6 — a god sits at the top Sanctum Tier — but typed like any other card's. */
   tier: TierSchema,
   /** A god's own body, used once it Descends. Not on the same scale as a unit's. */

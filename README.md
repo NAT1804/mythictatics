@@ -18,6 +18,7 @@ monorepo that will later host a NestJS API.
 | `shared-contracts` | `libs/shared/contracts` | `scope:shared` `type:contracts` | Types + constants; zod validators under `/schemas`          |
 | `shared-domain`    | `libs/shared/domain`    | `scope:shared` `type:domain`    | Game rules: realm draft, targeting, turn order, share codes |
 | `web-shell`        | `libs/web/shell`        | `scope:web` `type:feature`      | Layout, title strategy, 404 page                            |
+| `web-builder`      | `libs/web/builder`      | `scope:web` `type:feature`      | The team builder: god carousel, realm draft, board, descend |
 
 `scope:shared` libraries must not depend on Angular or `scope:web` code so the future
 `apps/api` (NestJS) can reuse them — enforced by `@nx/enforce-module-boundaries`.
@@ -31,8 +32,14 @@ API); it pulls in zod.
 Configured in `apps/web/src/app/app.routes.server.ts`:
 
 - `Prerender` — static HTML served straight from Workers Static Assets (free, no Worker call).
-- `Client` — `/builder`, whose state lives in the `?d=` query string.
+- `Client` — `/builder`, whose state lives in the query string and which fetches the dataset.
 - `Server` — everything else (currently the 404 page), rendered by the Worker.
+
+A route can also ask the shell for a viewport-height layout with `data: { layout: 'fixed' }`;
+`/builder` uses it so the page itself never scrolls.
+
+`data/canonical/` is copied into the build as a static asset and fetched by the builder, which
+maps it with the same `toCard` the tests use — there is no generated, site-shaped second copy.
 
 ## Commands
 

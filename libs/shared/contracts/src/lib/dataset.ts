@@ -67,6 +67,13 @@ export const DatasetGodSchema = z.object({
   kind: z.literal('god'),
   subtype: z.null(),
   realm: RealmCodeSchema,
+  /**
+   * Whether picking this god forces its own realm into the three-realm draft. Like `tier` and
+   * `cost` it is not in the shipped client and was carried in by hand — see `meta.json`. Eight of
+   * the twenty gods have it. It cannot be inferred from the card: Ra locks Niles while Set, whose
+   * Power reads Niles twice, does not. It was read off the game's own Patron God screen.
+   */
+  realmLock: z.boolean(),
   /** Gods carry no Tier in any source; the dataset sets them all to 6 — see `meta.json`. */
   tier: z.literal(6),
   /** A patron is chosen, not bought — the `godCost` convention in `meta.json`. */

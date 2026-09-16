@@ -26,7 +26,7 @@
     "gameVersion": "1.5.7",
     "build": "Mythic+Tactics_+Battleground_1.5.7_APKPure.xapk",
     "buildSha256": "c4749f723792ea37aa8ac5251f4096e282baaaa8fcd43cde192115cd7b38489f",
-    "note": "Ids, names, rules text, keywords, realms, descend quests and every image come out of the shipped client. tier, cost, attack and health are not present in that build — they were carried in from an earlier dataset, and cost plus the god realms were checked against the running game on 1.5.7. Gods carry no Tier in any source; they are set to 6, the top Sanctum Tier, by hand."
+    "note": "Ids, names, rules text, keywords, realms, descend quests and every image come out of the shipped client. tier, cost, attack and health are not present in that build — they were carried in from an earlier dataset, and cost plus the god realms were checked against the running game on 1.5.7. Gods carry no Tier in any source; they are set to 6, the top Sanctum Tier, by hand. realmLock is hand-maintained the same way: the client says nothing about it, and the eight gods marked true were read off the game's Patron God screen on 1.5.7 (Ra, Tiamat, Zeus, Poseidon, Odin, Erlang Shen, Izanami, Samsin). It cannot be derived from the card text — Set names Niles twice and does not lock it."
   },
   "excluded": [
     {

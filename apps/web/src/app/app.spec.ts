@@ -18,11 +18,15 @@ describe('app routes', () => {
     );
   });
 
-  it('loads a Codex share link on the builder', async () => {
-    const harness = await RouterTestingHarness.create('/builder?d=ASEEiRMCOTAB');
-    const board = harness.routeNativeElement?.querySelector('[data-testid="board"]');
-    expect(board?.textContent).toContain('m05001 · R3');
-    expect(board?.textContent).toContain('m12345 · R2');
+  it('lazy-loads the builder', async () => {
+    // What a share link does once it is there is the builder library's own business; this is the
+    // routing, so the catalog is stubbed empty rather than served.
+    vi.stubGlobal('fetch', () =>
+      Promise.resolve({ ok: true, status: 200, statusText: 'OK', json: () => Promise.resolve([]) }),
+    );
+    const harness = await RouterTestingHarness.create('/builder');
+    expect(harness.routeNativeElement?.querySelector('h1')?.textContent).toContain('Team Builder');
+    vi.unstubAllGlobals();
   });
 
   it('falls back to the not-found page', async () => {

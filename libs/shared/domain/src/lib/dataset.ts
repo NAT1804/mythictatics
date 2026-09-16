@@ -146,6 +146,7 @@ function toGod(card: DatasetGod, locale: string): God {
     name,
     image: card.image,
     realm: card.realm,
+    realmLock: card.realmLock,
     tier: card.tier,
     attack: card.stats.attack,
     health: card.stats.health,

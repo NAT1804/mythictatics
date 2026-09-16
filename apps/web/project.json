@@ -18,6 +18,11 @@
           {
             "glob": "**/*",
             "input": "apps/web/public"
+          },
+          {
+            "glob": "*.json",
+            "input": "data/canonical",
+            "output": "data/canonical"
           }
         ],
         "styles": ["apps/web/src/styles.css"],

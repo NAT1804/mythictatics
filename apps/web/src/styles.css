@@ -17,6 +17,10 @@
   --color-gold: #d4a93a;
   --color-gold-bright: #ebc463;
 
+  /* The card stat plates, which the game draws as a blue sword and a red heart. */
+  --color-attack: #2f6fd0;
+  --color-health: #c4384a;
+
   --color-realm-babylon: #5b6fb8;
   --color-realm-daehan: #c0903f;
   --color-realm-kami: #c983b3;

@@ -1,0 +1,1396 @@
+[
+  {
+    "id": "harmony",
+    "slug": "harmony",
+    "name": "Harmony",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": [],
+    "whenToCommit": "Core units + enablers",
+    "idealBoard": [
+      {
+        "unitId": "m02019",
+        "rank": 0
+      },
+      {
+        "unitId": "m04022",
+        "rank": 0
+      },
+      {
+        "unitId": "m03019",
+        "rank": 0
+      },
+      {
+        "unitId": "m10021",
+        "rank": 0
+      },
+      {
+        "unitId": "m10015",
+        "rank": 0
+      },
+      {
+        "unitId": "m10013",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m10021", "m10015"],
+    "enablerUnitIds": ["m10013"],
+    "addOnUnitIds": ["m02020", "m03015", "m04019", "m04006", "m05014", "m06012"],
+    "howToPlay": "Hybrid scaling via Tribal Protector (early-game) or Chalchiu/Harmonia (late-game).\n\nGood options for the remaining three slots on board include tech units with Cleave/Pierce, Double Strike, Lethal or Slay. Alternatively, units that scale themselves are decent e.g. Thoth, Valkyrie.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "death-on-the-nile",
+    "slug": "death-on-the-nile",
+    "name": "Death on the Nile",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["niles"],
+    "whenToCommit": "Core units + Sand Golem",
+    "idealBoard": [
+      {
+        "unitId": "m01025",
+        "rank": 0
+      },
+      {
+        "unitId": "m01024",
+        "rank": 0
+      },
+      {
+        "unitId": "m01019",
+        "rank": 0
+      },
+      {
+        "unitId": "m01007",
+        "rank": 0
+      },
+      {
+        "unitId": "m01021",
+        "rank": 0
+      },
+      {
+        "unitId": "m10009",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m01025", "m10009"],
+    "enablerUnitIds": ["m01019", "m01012", "m01001"],
+    "addOnUnitIds": ["m01008", "m01016"],
+    "howToPlay": "High Attack scaling via Niles Cultist (early-game) or Thoth (late-game), which summons can best make use of.\n\nUse Upamaki (optionally Taunted) on Thoth or Sand Golem during RP; keeping the Reborned Thoth/summoned Niles Warriors on board is optional.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "rebirth",
+    "slug": "rebirth",
+    "name": "Rebirth",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["niles", "shenzhou", "kami"],
+    "whenToCommit": "Core units + enabler",
+    "idealBoard": [
+      {
+        "unitId": "m01025",
+        "rank": 0
+      },
+      {
+        "unitId": "m01018",
+        "rank": 0
+      },
+      {
+        "unitId": "m01017",
+        "rank": 0
+      },
+      {
+        "unitId": "m01022",
+        "rank": 0
+      },
+      {
+        "unitId": "m01026",
+        "rank": 0
+      },
+      {
+        "unitId": "m01027",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [
+      [
+        null,
+        null,
+        {
+          "unitId": "m10013",
+          "rank": 0
+        },
+        {
+          "unitId": "m04023",
+          "rank": 0
+        },
+        {
+          "unitId": "m04017",
+          "rank": 0
+        },
+        {
+          "unitId": "m01027",
+          "rank": 0
+        }
+      ]
+    ],
+    "coreUnitIds": ["m01027", "m01026"],
+    "enablerUnitIds": ["m01022", "m01025", "m04013", "m01018", "m06006", "m01006"],
+    "addOnUnitIds": ["m10021", "m10015", "m10016"],
+    "howToPlay": "Reborn scaling via Isis/Thoth or Zhao Gongming & Huang Tianhua to buff Osiris, then apply Reborn via Anubis or Nefertem.\n\nBest with Ra as the Reborned units gaining Taunt will protect Osiris so he gets more uptime to trigger his effect.\n\nGood tech units are the best targets, e.g. Thor, Frigg, Gilgamesh etc.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "undead-army",
+    "slug": "undead-army",
+    "name": "Undead Army",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["niles"],
+    "whenToCommit": "Bastet + Sand Golem",
+    "idealBoard": [
+      {
+        "unitId": "m01007",
+        "rank": 0
+      },
+      null,
+      {
+        "unitId": "m01019",
+        "rank": 0
+      },
+      {
+        "unitId": "m01021",
+        "rank": 0
+      },
+      {
+        "unitId": "m01024",
+        "rank": 0
+      },
+      {
+        "unitId": "m01023",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m01023", "m01024", "m01021"],
+    "enablerUnitIds": ["m01019", "m01012", "m01001"],
+    "addOnUnitIds": ["m01020", "m01014", "m01007", "m01009"],
+    "howToPlay": "Summons scaling via Niles Commander/Sepopard (early-game) or Bastet (late-game).\n\nUse Upamaki on Sand Golem during RP; keeping the summoned Niles Warriors on board is optional.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "arsonist",
+    "slug": "arsonist",
+    "name": "Arsonist",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["olympus", "niles"],
+    "whenToCommit": "Core units + Mortissa",
+    "idealBoard": [
+      {
+        "unitId": "m02021",
+        "rank": 0
+      },
+      {
+        "unitId": "m02012",
+        "rank": 0
+      },
+      {
+        "unitId": "m01026",
+        "rank": 0
+      },
+      {
+        "unitId": "m01007",
+        "rank": 0
+      },
+      {
+        "unitId": "m02020",
+        "rank": 0
+      },
+      {
+        "unitId": "m10009",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m02021"],
+    "enablerUnitIds": ["m02017", "m02012", "m02016"],
+    "addOnUnitIds": ["m01024", "m01022"],
+    "howToPlay": "Burn scaling via Prometheus.\n\nCat Archer is optional but highly preferable.\n\nTyphon/Hydra can be a substitute for Chimera, while Frigga can be a good alternative to Aether & Hemera, and Anubis can replace Sekhmet.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "molotov",
+    "slug": "molotov",
+    "name": "Molotov",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["olympus", "shenzhou"],
+    "whenToCommit": "Core units",
+    "idealBoard": [
+      {
+        "unitId": "m02017",
+        "rank": 0
+      },
+      {
+        "unitId": "m02012",
+        "rank": 0
+      },
+      {
+        "unitId": "m10008",
+        "rank": 0
+      },
+      {
+        "unitId": "m10013",
+        "rank": 0
+      },
+      {
+        "unitId": "m04018",
+        "rank": 0
+      },
+      {
+        "unitId": "m02010",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m04018", "m10008", "m10013", "m02010"],
+    "enablerUnitIds": ["m02017", "m02012", "m02016"],
+    "addOnUnitIds": ["m02020"],
+    "howToPlay": "Burn scaling via Grafigi.\n\nTyphon/Hydra can be a substitute for Chimera.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "sudden-death",
+    "slug": "sudden-death",
+    "name": "Sudden Death",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["olympus", "niles"],
+    "whenToCommit": "Core units + Minotaur",
+    "idealBoard": [
+      {
+        "unitId": "m02019",
+        "rank": 0
+      },
+      {
+        "unitId": "m02018",
+        "rank": 0
+      },
+      {
+        "unitId": "m02013",
+        "rank": 0
+      },
+      {
+        "unitId": "m02020",
+        "rank": 0
+      },
+      {
+        "unitId": "m02022",
+        "rank": 0
+      },
+      {
+        "unitId": "m02023",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [
+      [
+        {
+          "unitId": "m10012",
+          "rank": 0
+        },
+        {
+          "unitId": "m02015",
+          "rank": 0
+        },
+        {
+          "unitId": "m02015",
+          "rank": 0
+        },
+        {
+          "unitId": "m01007",
+          "rank": 0
+        },
+        {
+          "unitId": "m10009",
+          "rank": 0
+        },
+        {
+          "unitId": "m02023",
+          "rank": 0
+        }
+      ]
+    ],
+    "coreUnitIds": ["m02023", "m02019"],
+    "enablerUnitIds": ["m02018", "m02020", "m02013", "m10012"],
+    "addOnUnitIds": ["m02014", "m02009", "m10023"],
+    "howToPlay": "Safeguard scaling via Minotaur (early-game) or Athena/Ares (late-game).\n\nPrioritize Charon on Ares, Apollo & Artemis to scale their Attack exponentially.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "wizard",
+    "slug": "wizard",
+    "name": "Wizard",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["olympus"],
+    "whenToCommit": "Core units + enablers",
+    "idealBoard": [
+      {
+        "unitId": "m02011",
+        "rank": 0
+      },
+      {
+        "unitId": "m02007",
+        "rank": 0
+      },
+      {
+        "unitId": "m02008",
+        "rank": 0
+      },
+      {
+        "unitId": "m02004",
+        "rank": 0
+      },
+      {
+        "unitId": "m10022",
+        "rank": 0
+      },
+      {
+        "unitId": "m10013",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m02007", "m02011"],
+    "enablerUnitIds": ["m02008", "m10022"],
+    "addOnUnitIds": ["m10011", "m10006"],
+    "howToPlay": "Sanctum Spell/high APM scaling via Medea (early-game) or Hecate (late-game).\n\nKeeping Scylla at R1 and optionally Taunted is fine due to T2 Spells having more economy than T3 Spells; prioritize ranking up Hecate, Eitri or Avidara instead.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "masochist",
+    "slug": "masochist",
+    "name": "Masochist",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["yggdrasil", "niles", "olympus"],
+    "whenToCommit": "Core units + Baldur",
+    "idealBoard": [
+      {
+        "unitId": "m03012",
+        "rank": 0
+      },
+      {
+        "unitId": "m03011",
+        "rank": 0
+      },
+      {
+        "unitId": "m03010",
+        "rank": 0
+      },
+      {
+        "unitId": "m03013",
+        "rank": 0
+      },
+      {
+        "unitId": "m03018",
+        "rank": 0
+      },
+      {
+        "unitId": "m10009",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [
+      [
+        {
+          "unitId": "m02024",
+          "rank": 0
+        },
+        null,
+        {
+          "unitId": "m03013",
+          "rank": 0
+        },
+        {
+          "unitId": "m01007",
+          "rank": 0
+        },
+        {
+          "unitId": "m03018",
+          "rank": 0
+        },
+        {
+          "unitId": "m10009",
+          "rank": 0
+        }
+      ]
+    ],
+    "coreUnitIds": ["m03018", "m03013"],
+    "enablerUnitIds": ["m03012", "m03011", "m03009", "m03008"],
+    "addOnUnitIds": ["m03007", "m03022"],
+    "howToPlay": "Self-damage scaling via Sif/Tyr.\n\nMortissa can be decent with Baldur but she will need more Health to survive his Attack/Demise effect.\n\nHercules with Hail of Arrows can be a good alternative to Baldur, especially since Hail can be stacked infinitely.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "slayyy",
+    "slug": "slayyy",
+    "name": "Slayyy",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["yggdrasil", "olympus", "shenzhou"],
+    "whenToCommit": "Core units + Skadi",
+    "idealBoard": [
+      {
+        "unitId": "m03017",
+        "rank": 0
+      },
+      {
+        "unitId": "m03019",
+        "rank": 0
+      },
+      {
+        "unitId": "m03014",
+        "rank": 0
+      },
+      {
+        "unitId": "m03003",
+        "rank": 0
+      },
+      {
+        "unitId": "m03015",
+        "rank": 0
+      },
+      {
+        "unitId": "m03016",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [
+      [
+        {
+          "unitId": "m03017",
+          "rank": 0
+        },
+        {
+          "unitId": "m02011",
+          "rank": 0
+        },
+        {
+          "unitId": "m02018",
+          "rank": 0
+        },
+        {
+          "unitId": "m04008",
+          "rank": 0
+        },
+        {
+          "unitId": "m10018",
+          "rank": 0
+        },
+        {
+          "unitId": "m03016",
+          "rank": 0
+        }
+      ]
+    ],
+    "coreUnitIds": ["m03016"],
+    "enablerUnitIds": ["m03017", "m03019", "m03003", "m03006", "m03001"],
+    "addOnUnitIds": ["m03004"],
+    "howToPlay": "Slay scaling via Bragi (early-game) or Heimdall (late-game).\n\nSkadi will trigger Thor's Slay effect with her own Attack for massive AoE all at once.\n\nFrigga is excellent for protecting Slay units so they get more uptime to trigger their effects, and scale her stats in turn.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "big-pharma",
+    "slug": "big-pharma",
+    "name": "Big Pharma",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["shenzhou"],
+    "whenToCommit": "Core units + enablers",
+    "idealBoard": [
+      {
+        "unitId": "m04023",
+        "rank": 0
+      },
+      {
+        "unitId": "m04015",
+        "rank": 0
+      },
+      {
+        "unitId": "m04017",
+        "rank": 0
+      },
+      null,
+      null,
+      {
+        "unitId": "m10013",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [
+      [
+        {
+          "unitId": "m04023",
+          "rank": 0
+        },
+        {
+          "unitId": "m10008",
+          "rank": 0
+        },
+        {
+          "unitId": "m10013",
+          "rank": 0
+        },
+        null,
+        {
+          "unitId": "m04018",
+          "rank": 0
+        },
+        {
+          "unitId": "m04016",
+          "rank": 0
+        }
+      ]
+    ],
+    "coreUnitIds": ["m04023", "m04017"],
+    "enablerUnitIds": ["m10013"],
+    "addOnUnitIds": [],
+    "howToPlay": "End Turn scaling via Huang Tianhua & Zhao Gongming.\n\nJiang Ziya is only useful with good Deploy units, e.g. Xiaotian Quan via Erlang Shen (as a potential alternative to Huang Tianhua) or Yuetu (as a potential alternative to Zhao Gongming).",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "vixen",
+    "slug": "vixen",
+    "name": "Vixen",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["shenzhou", "niles"],
+    "whenToCommit": "Core units + enablers",
+    "idealBoard": [
+      {
+        "unitId": "m04020",
+        "rank": 0
+      },
+      {
+        "unitId": "m04015",
+        "rank": 0
+      },
+      {
+        "unitId": "m04012",
+        "rank": 0
+      },
+      {
+        "unitId": "m01007",
+        "rank": 0
+      },
+      {
+        "unitId": "m04013",
+        "rank": 0
+      },
+      {
+        "unitId": "m10009",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [
+      [
+        {
+          "unitId": "m04020",
+          "rank": 0
+        },
+        {
+          "unitId": "m04008",
+          "rank": 0
+        },
+        {
+          "unitId": "m04013",
+          "rank": 0
+        },
+        {
+          "unitId": "m04015",
+          "rank": 0
+        },
+        {
+          "unitId": "m04012",
+          "rank": 0
+        },
+        {
+          "unitId": "m04014",
+          "rank": 0
+        }
+      ]
+    ],
+    "coreUnitIds": ["m04020"],
+    "enablerUnitIds": ["m10009", "m01007"],
+    "addOnUnitIds": ["m04009", "m04011"],
+    "howToPlay": "Demise scaling via Nian (early-game) or Xu Daji (late-game).\n\nCat Archer is optional but highly preferable.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "gluttony",
+    "slug": "gluttony",
+    "name": "Gluttony",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["babylon"],
+    "whenToCommit": "Core units + Humbaba",
+    "idealBoard": [
+      {
+        "unitId": "m05015",
+        "rank": 0
+      },
+      {
+        "unitId": "m05009",
+        "rank": 0
+      },
+      null,
+      null,
+      {
+        "unitId": "m05020",
+        "rank": 0
+      },
+      {
+        "unitId": "m05021",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m05021", "m05020", "m05009"],
+    "enablerUnitIds": ["m05017", "m05008", "m05016", "m05012"],
+    "addOnUnitIds": ["m05023", "m05022", "m05019"],
+    "howToPlay": "Consume scaling via Lamashtu (early-game) or Ereskigal (late-game).\n\nEreskigal tends to end up being the main big unit on board which makes Lethal or Infesta really strong counters against this, but Tablet of Destiny transforming her into a better tech unit or Nanna (which could then be ranked up) can spread those stats more evenly.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "lance-armstrong",
+    "slug": "lance-armstrong",
+    "name": "Lance Armstrong",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["babylon", "shenzhou", "niles"],
+    "whenToCommit": "Core units + good economy",
+    "idealBoard": [
+      {
+        "unitId": "m05014",
+        "rank": 0
+      },
+      {
+        "unitId": "m05023",
+        "rank": 0
+      },
+      {
+        "unitId": "m05022",
+        "rank": 0
+      },
+      {
+        "unitId": "m10008",
+        "rank": 0
+      },
+      null,
+      {
+        "unitId": "m05021",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [
+      [
+        {
+          "unitId": "m05023",
+          "rank": 0
+        },
+        {
+          "unitId": "m05022",
+          "rank": 0
+        },
+        {
+          "unitId": "m10008",
+          "rank": 0
+        },
+        {
+          "unitId": "m10013",
+          "rank": 0
+        },
+        {
+          "unitId": "m04018",
+          "rank": 0
+        },
+        {
+          "unitId": "m05011",
+          "rank": 0
+        }
+      ]
+    ],
+    "coreUnitIds": ["m05023", "m05022", "m10008"],
+    "enablerUnitIds": ["m05011", "m05010", "m05007", "m05012", "m05006", "m05001"],
+    "addOnUnitIds": ["m10011", "m10006", "m01003"],
+    "howToPlay": "Cycling & econ scaling via Utu & Ninurta.\n\nEnki, Ashur or Enkidu are good substitutes prior to getting Utu, while an early Tudi Gong is a great alternative to Ninurta.\n\nPrioritize getting the enablers for cycling, but the add-ons are also worth picking up with Agonista. Make sure to always keep a cycle slot open on the board, that can be filled with a disposable unit at the end of each turn just for the next battle, to be sold the following turn.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "samurai",
+    "slug": "samurai",
+    "name": "Samurai",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["kami"],
+    "whenToCommit": "Core units",
+    "idealBoard": [
+      {
+        "unitId": "m06022",
+        "rank": 0
+      },
+      {
+        "unitId": "m06020",
+        "rank": 0
+      },
+      {
+        "unitId": "m06022",
+        "rank": 0
+      },
+      {
+        "unitId": "m06017",
+        "rank": 0
+      },
+      {
+        "unitId": "m06012",
+        "rank": 0
+      },
+      {
+        "unitId": "m06023",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m06022", "m06023", "m06020"],
+    "enablerUnitIds": ["m06012", "m06008", "m06014", "m06002"],
+    "addOnUnitIds": ["m06003"],
+    "howToPlay": "Damage instance scaling via Namahage (early-game) or Ryujin (late-game).\n\nHachiman's Attack effect triggers Ryujin's effect for each repetition/hit rather than just once total for all hits. Give Hachiman Double Strike via Fujin to increase efficiency, but ideally do not give him Lethal which will kill his target on the first hit and terminate the remaining instances, effectively reducingthe amount of Ryujin triggers.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "serpent",
+    "slug": "serpent",
+    "name": "Serpent",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["kami"],
+    "whenToCommit": "Core units + enablers",
+    "idealBoard": [
+      {
+        "unitId": "m06024",
+        "rank": 0
+      },
+      {
+        "unitId": "m06020",
+        "rank": 0
+      },
+      {
+        "unitId": "m06024",
+        "rank": 0
+      },
+      {
+        "unitId": "m06014",
+        "rank": 0
+      },
+      {
+        "unitId": "m06014",
+        "rank": 0
+      },
+      {
+        "unitId": "m06019",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m06024"],
+    "enablerUnitIds": ["m06019", "m06014"],
+    "addOnUnitIds": ["m06015", "m06009", "m06011"],
+    "howToPlay": "Lethal scaling via Susanoo.\n\nSusanoo's Attack effect should ideally land on Karasu Tengu/Raijin whose effect will trigger immediately after.\n\nNekomata with Lethal is great for sniping key units right off the bat with her Start of Battle effect.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "shinobi",
+    "slug": "shinobi",
+    "name": "Shinobi",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["kami"],
+    "whenToCommit": "Core unit + enabler",
+    "idealBoard": [
+      {
+        "unitId": "m06016",
+        "rank": 0
+      },
+      {
+        "unitId": "m06012",
+        "rank": 0
+      },
+      {
+        "unitId": "m06007",
+        "rank": 0
+      },
+      {
+        "unitId": "m06006",
+        "rank": 0
+      },
+      {
+        "unitId": "m06013",
+        "rank": 0
+      },
+      {
+        "unitId": "m06018",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m06018", "m06021"],
+    "enablerUnitIds": ["m06013", "m06004"],
+    "addOnUnitIds": ["m06010"],
+    "howToPlay": "Conceal scaling via Hanadaka Tengu (early-game) or Sarutahiko/Ame no Uzume (late-game).\n\nGive Hitosume Kozo Taunt to ensure his Demise triggers ASAP for maximum scaling.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "last-supper",
+    "slug": "last-supper",
+    "name": "Last Supper",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["daehan", "shenzhou"],
+    "whenToCommit": "Core units + enablers",
+    "idealBoard": [
+      {
+        "unitId": "m04018",
+        "rank": 0
+      },
+      {
+        "unitId": "m07018",
+        "rank": 0
+      },
+      {
+        "unitId": "m07022",
+        "rank": 0
+      },
+      {
+        "unitId": "m07017",
+        "rank": 0
+      },
+      {
+        "unitId": "m10008",
+        "rank": 0
+      },
+      {
+        "unitId": "m10013",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m07022"],
+    "enablerUnitIds": ["m10013"],
+    "addOnUnitIds": ["m07013", "m07012", "m07011", "m07008", "m07009", "m07006"],
+    "howToPlay": "End Turn scaling via Cheonjiwang.\n\nUse Sonnimne or the Sanctum's Flame Spell to scale units in the Sanctum, to be Consumed by units on board. Yeongdeung Halmang can be an alternative to Jacheongbi, while Horangi can be an early substitute for Sonnimne.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "sun-moon",
+    "slug": "sun-moon",
+    "name": "Sun & Moon",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["daehan"],
+    "whenToCommit": "Dalsuni/Haesuni + Jowangsin",
+    "idealBoard": [
+      {
+        "unitId": "m07019",
+        "rank": 0
+      },
+      {
+        "unitId": "m07020",
+        "rank": 0
+      },
+      {
+        "unitId": "m07014",
+        "rank": 0
+      },
+      {
+        "unitId": "m07017",
+        "rank": 0
+      },
+      {
+        "unitId": "m10008",
+        "rank": 0
+      },
+      null
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m07019", "m07020"],
+    "enablerUnitIds": ["m07017", "m10008", "m07014"],
+    "addOnUnitIds": ["m07018", "m07010", "m07003", "m07006", "m07004", "m07001"],
+    "howToPlay": "Cycling & econ scaling via Dalsuni/Haesuni & Jacheongbi.\n\nEarly Jowangsin greatly helps with stabilizing. Prioritize getting the add-ons for cycling & scaling units in the Sanctum. Make sure to always keep a cycle slot open on the board, that can be filled with a disposable unit at the end of each turn just for the next battle, to be sold the following turn.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "underworld",
+    "slug": "underworld",
+    "name": "Underworld",
+    "difficulty": "basic",
+    "patronGodIds": [],
+    "realms": ["daehan"],
+    "whenToCommit": "Core unit + enablers",
+    "idealBoard": [
+      null,
+      {
+        "unitId": "m07023",
+        "rank": 0
+      },
+      {
+        "unitId": "m07021",
+        "rank": 0
+      },
+      null,
+      {
+        "unitId": "m07007",
+        "rank": 0
+      },
+      {
+        "unitId": "m10009",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m07021", "m07002"],
+    "enablerUnitIds": ["m07007"],
+    "addOnUnitIds": ["m07016", "m07012", "m07015", "m07011"],
+    "howToPlay": "Demise & summons from hand scaling via Bari Gongju or Samjoko.\n\nMake sure to keep at least one of either Chollima or Sansin in hand for Samjoko to trigger.  However, try not to keep other unnecessary units in hand so as not to dilute the pool of selection for Yeomra's Demise, since it is random. If using Sansin, Munsin can be placed on board to summon him as well.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "giga-gilg",
+    "slug": "giga-gilg",
+    "name": "Giga Gilg",
+    "difficulty": "advanced",
+    "patronGodIds": ["champ017"],
+    "realms": ["babylon", "olympus", "shenzhou"],
+    "whenToCommit": "Core units + enablers",
+    "idealBoard": [
+      {
+        "unitId": "m05014",
+        "rank": 0
+      },
+      {
+        "unitId": "m04012",
+        "rank": 0
+      },
+      {
+        "unitId": "m04014",
+        "rank": 0
+      },
+      {
+        "unitId": "m02020",
+        "rank": 0
+      },
+      {
+        "unitId": "m02009",
+        "rank": 0
+      },
+      {
+        "unitId": "m02023",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [
+      [
+        {
+          "unitId": "m05014",
+          "rank": 0
+        },
+        {
+          "unitId": "m10021",
+          "rank": 0
+        },
+        {
+          "unitId": "m10013",
+          "rank": 0
+        },
+        {
+          "unitId": "m02020",
+          "rank": 0
+        },
+        {
+          "unitId": "m02009",
+          "rank": 0
+        },
+        {
+          "unitId": "m02023",
+          "rank": 0
+        }
+      ]
+    ],
+    "coreUnitIds": ["m02023", "m05014"],
+    "enablerUnitIds": ["m02009"],
+    "addOnUnitIds": [],
+    "howToPlay": "This comp is about making Gilgamesh attack several times in a row via Athena, Crinbrog and optionally Aether & Hemera. They buff Gilg when triggered, which he enhances for even more potency. Shiji Niangniang is for taking advantage of those uninterrupted attacks to scale even more. Lei Zhenzi is optional and just for additional synergy, but is extremely good for breaking Safeguard.\n\nNezha is good for guaranteeing first attack & providing extra trigger instances, while Anu opens up the potential for Gilgamesh to gain Charon's effect to keep the BP stat buffs permanently.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "kami-burn",
+    "slug": "kami-burn",
+    "name": "Kami-Burn",
+    "difficulty": "advanced",
+    "patronGodIds": [],
+    "realms": ["kami", "olympus"],
+    "whenToCommit": "lots of Wanyudos  + early prometheus | Niles counters this, so don't play if niles game",
+    "idealBoard": [
+      {
+        "unitId": "m06005",
+        "rank": 0
+      },
+      {
+        "unitId": "m06005",
+        "rank": 0
+      },
+      {
+        "unitId": "m06005",
+        "rank": 0
+      },
+      {
+        "unitId": "m02021",
+        "rank": 0
+      },
+      {
+        "unitId": "m10009",
+        "rank": 0
+      },
+      {
+        "unitId": "m10009",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [
+      [
+        {
+          "unitId": "m02021",
+          "rank": 0
+        },
+        {
+          "unitId": "m06005",
+          "rank": 0
+        },
+        {
+          "unitId": "m06005",
+          "rank": 0
+        },
+        {
+          "unitId": "m10009",
+          "rank": 0
+        },
+        {
+          "unitId": "m10009",
+          "rank": 0
+        },
+        {
+          "unitId": "m10009",
+          "rank": 0
+        }
+      ]
+    ],
+    "coreUnitIds": ["m06005", "m02021", "m10009"],
+    "enablerUnitIds": ["m10009", "m02021"],
+    "addOnUnitIds": ["m02017", "m02012", "m02016", "m02010"],
+    "howToPlay": "Scaling via Prometheus(Get taunt on him)\n\nAlt comp is for izanami only and is preferred over standard\n\nWanyudo isn't worth tiering up past silver. Add typhon only if he's gold, replacing the first wanyudo\n\nGrafigi early to get burn damage early in T3.\n\nDO NOT DO THIS COMP IF YGGDRASIL IS IN PLAY, THOR WILL MASSACRE YOU",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "rat-plague",
+    "slug": "rat-plague",
+    "name": "Rat Plague",
+    "difficulty": "advanced",
+    "patronGodIds": [],
+    "realms": ["kami", "niles"],
+    "whenToCommit": "Early silver tesso",
+    "idealBoard": [
+      {
+        "unitId": "m06008",
+        "rank": 0
+      },
+      {
+        "unitId": "m06022",
+        "rank": 0
+      },
+      {
+        "unitId": "m06017",
+        "rank": 0
+      },
+      {
+        "unitId": "m01007",
+        "rank": 0
+      },
+      {
+        "unitId": "m10009",
+        "rank": 0
+      },
+      {
+        "unitId": "m06023",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [
+      [
+        {
+          "unitId": "m06008",
+          "rank": 0
+        },
+        {
+          "unitId": "m06012",
+          "rank": 0
+        },
+        {
+          "unitId": "m06019",
+          "rank": 0
+        },
+        {
+          "unitId": "m01007",
+          "rank": 0
+        },
+        {
+          "unitId": "m06018",
+          "rank": 0
+        },
+        {
+          "unitId": "m10009",
+          "rank": 0
+        }
+      ]
+    ],
+    "coreUnitIds": ["m06008", "m01007", "m10009"],
+    "enablerUnitIds": [],
+    "addOnUnitIds": ["m06011", "m06003"],
+    "howToPlay": "Utilize tesso to blast nile/olypmus comps before they can start accumlating stats. Tesso bombardment + ryujin generate stacks for odokuro and hachiman\n\nThis comp is best used in Olympus, Kami, Nile . Get taunt on tesso\n\nStat scalers | Namahage(early) | Sarutakhiko(mid) | Ryujin(late).\n\nWith tesso(r3) | cat(r1) + mortissa(r1) 8 shots(128 damage) | cat(r2) + mortissa(r2) 16 shots(256 damage) | cat(r3) + Mortissa(r3) 36 shots(576 damage)  | 4 shots * 16 damage * (Cat rank * Morissa rank)",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "stealth-highroller",
+    "slug": "stealth-highroller",
+    "name": "Stealth Highroller",
+    "difficulty": "advanced",
+    "patronGodIds": ["champ014"],
+    "realms": ["olympus", "kami"],
+    "whenToCommit": "Just force it kek",
+    "idealBoard": [
+      {
+        "unitId": "m02019",
+        "rank": 0
+      },
+      null,
+      {
+        "unitId": "m02023",
+        "rank": 0
+      },
+      {
+        "unitId": "m06019",
+        "rank": 0
+      },
+      {
+        "unitId": "m06018",
+        "rank": 0
+      },
+      {
+        "unitId": "m02022",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m06018"],
+    "enablerUnitIds": ["m02014", "m06020", "m06013", "m02004"],
+    "addOnUnitIds": ["m02020", "m02013", "m02009", "m02018"],
+    "howToPlay": "Một đội hình \"highroll\" mà bạn có thể luân phiên chơi với Anu để duy trì sức mạnh thần thánh. Với Loki, bạn có thể sử dụng nhiều công cụ đa dạng hơn như sức mạnh thần thánh của Nezha và Enlil. Nhìn chung, mục tiêu là tiến hóa một đơn vị Olympus cấp cao thành đơn vị Kami với buff của Fujin và tiếp tục tiến hóa đơn vị đó thành Ares/Apollo (cả hai đều có ưu tiên cao hơn) hoặc Athena. Điều này đơn giản hơn nhưng cũng có lợi hơn khi có thể tiến hóa từ Charon > Kami > tiến hóa thành đơn vị cấp 6. Ở giai đoạn đầu và giữa trận, bạn tập trung vào việc có được Sarutahiko để ổn định đội hình và cố gắng tìm Charon cùng các đơn vị hữu ích khác. Về sau, bạn có thể bắt đầu tàng hình toàn bộ đội hình, giúp bạn có lợi thế tấn công trước. Cách hoạt động của đội hình này là thiết lập sao cho bạn liên tục tấn công và buff cho đội hình sau khi Ares tấn công. Một số lựa chọn thay thế từ các khu vực khác có thể là Frigga để giữ cho Ares sống sót hoặc các lựa chọn tấn công mạnh mẽ hơn bao gồm bất kỳ đơn vị nào có khả năng chém lan như Wukong/Tyr hoặc chỉ cần thêm Apollo/Ares.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  },
+  {
+    "id": "trojan-horse",
+    "slug": "trojan-horse",
+    "name": "Trojan Horse",
+    "difficulty": "advanced",
+    "patronGodIds": ["champ002"],
+    "realms": ["niles"],
+    "whenToCommit": "Core units + Mortissa",
+    "idealBoard": [
+      null,
+      {
+        "unitId": "m01007",
+        "rank": 0
+      },
+      null,
+      null,
+      {
+        "unitId": "m01021",
+        "rank": 0
+      },
+      {
+        "unitId": "m10009",
+        "rank": 0
+      }
+    ],
+    "alternativeBoards": [],
+    "coreUnitIds": ["m01021", "m01024", "m01010"],
+    "enablerUnitIds": ["m10009", "m01007"],
+    "addOnUnitIds": [],
+    "howToPlay": "Ideally R2 Upamaki must have eaten 1 Sekhmet & 2 Scorpion, in that order.\n\nCat Archer should be Taunted, especially if playing as Ra.\n\nWhen Cat Archer triggers, there will immediately be 2 Sekhmet filled with 2 Scorpion each.",
+    "tags": [],
+    "gameVersion": "1.5.7",
+    "source": {
+      "type": "sheet",
+      "url": "https://docs.google.com/spreadsheets/d/1N5rRWMOt8_MsDWu2YeL8Qt8Mw1bTZ3qaKMhXAeZQ094/edit?gid=518855883"
+    },
+    "updatedAt": "2026-09-16T16:41:51Z"
+  }
+]

@@ -140,8 +140,7 @@ describe('CompSchema', () => {
       name: 'Harmony',
       difficulty: 'basic',
       patronGodIds: [],
-      godPower: null,
-      realms: ['neutral'],
+      realms: [],
       whenToCommit: 'Core units + enablers',
       idealBoard: [{ unitId: 'm05001', rank: 2 }, null, null, null, null, null],
       alternativeBoards: [],
@@ -155,5 +154,12 @@ describe('CompSchema', () => {
       updatedAt: '2026-09-14T00:00:00Z',
     });
     expect(result.success).toBe(true);
+  });
+
+  it('leaves Neutral out of the realms, since every draft has it', () => {
+    const realms = CompSchema.shape.realms;
+    expect(realms.safeParse(['babylon', 'kami']).success).toBe(true);
+    expect(realms.safeParse(['neutral']).success).toBe(false);
+    expect(realms.safeParse(['babylon', 'kami', 'niles', 'olympus']).success).toBe(false);
   });
 });

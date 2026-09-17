@@ -1,4 +1,6 @@
 export * from './lib/board';
+export * from './lib/collection';
+export * from './lib/comps';
 export * from './lib/dataset';
 export * from './lib/descend';
 export * from './lib/draft';

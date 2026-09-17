@@ -5,6 +5,7 @@ import { NEUTRAL_REALM, type Board, type RealmCode } from '@mythictatics/shared/
 import { compBuilderParams, lockedRealmOf, paragraphs } from '@mythictatics/shared/domain';
 import {
   CardPreview,
+  AnyGodArt,
   CardPreviewDialog,
   CatalogService,
   RealmIcon,
@@ -25,7 +26,7 @@ import { UnitList } from './unit-list';
  */
 @Component({
   selector: 'mt-comp-page',
-  imports: [CardPreviewDialog, CompBoard, RealmIcon, RichText, RouterLink, UnitList],
+  imports: [AnyGodArt, CardPreviewDialog, CompBoard, RealmIcon, RichText, RouterLink, UnitList],
   providers: [CardPreview],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -115,8 +116,15 @@ import { UnitList } from './unit-list';
               </div>
             </div>
           } @empty {
-            <p class="mt-2 text-sm text-ink">Any</p>
-            <p class="text-[11px] text-ink-faint">The comp does not depend on a god's Power.</p>
+            <div class="mt-2 flex gap-2" data-testid="patron-any">
+              <span class="h-12 w-12 shrink-0 overflow-hidden rounded-md border border-gold/50">
+                <mt-any-god-art class="h-full w-full" />
+              </span>
+              <div class="min-w-0 text-xs">
+                <p class="font-medium text-ink">Any</p>
+                <p class="mt-0.5 text-ink-dim">The comp does not depend on a god's Power.</p>
+              </div>
+            </div>
           }
         </div>
 

@@ -32,8 +32,8 @@ export const COMP_SHEET_URL =
       <div>
         <h1 class="font-display text-3xl font-bold text-gold">Team Comps</h1>
         <p class="mt-1 max-w-2xl text-sm text-ink-dim">
-          Community comps with their ideal board, when to commit and how to pilot them. Open one to
-          read the guide, or take its board straight into the builder.
+          Community comps with their ideal board and how to pilot them. Open one to read the guide,
+          or take its board straight into the builder.
         </p>
       </div>
       <a
@@ -153,13 +153,7 @@ export const COMP_SHEET_URL =
                 <span>{{ patronLabel(comp) }}</span>
               </div>
 
-              <mt-comp-board [board]="comp.idealBoard" [compact]="true" />
-
-              @if (comp.whenToCommit) {
-                <p class="line-clamp-2 text-xs text-ink-dim">
-                  <span class="text-ink-faint">Commit:</span> {{ comp.whenToCommit }}
-                </p>
-              }
+              <mt-comp-board class="mt-auto" [board]="comp.idealBoard" [compact]="true" />
             </a>
           </li>
         } @empty {

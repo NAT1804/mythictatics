@@ -26,9 +26,17 @@ interface SlotView {
   selector: 'mt-board-grid',
   imports: [CardTile, DragSource],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'flex min-h-0 flex-col items-center justify-center' },
+  // A size container, so the grid can be capped by the height the page leaves it — see below.
+  host: { class: 'flex min-h-0 flex-col items-center justify-center lg:[container-type:size]' },
   template: `
-    <div class="grid w-full max-w-[34rem] gap-2" [style.grid-template-columns]="columns">
+    <!-- On wide screens the page does not scroll, so the board is capped by its height as well as
+         its width: two rows of tiles come to about 0.83 × width + 4rem, and the hint below is for the drag, which
+         a fixed screen can show as a tooltip instead. The board panel carries the floor: below
+         the height it insists on, the column scrolls rather than shrink the tiles further. -->
+    <div
+      class="grid w-full max-w-[34rem] gap-2 lg:max-w-[min(38rem,calc((100cqh-4rem)*1.2))]"
+      [style.grid-template-columns]="columns"
+    >
       @for (view of slots(); track view.index) {
         @let over = drag.overSlot() === view.index;
         @let lifted = store.selectedSlot() === view.index;
@@ -135,7 +143,7 @@ interface SlotView {
       }
     </div>
 
-    <p class="pt-2 text-center text-[11px] text-ink-faint">
+    <p class="pt-2 text-center text-[11px] text-ink-faint lg:hidden">
       Front row attacks first · drag to place, drag between slots to swap
     </p>
   `,

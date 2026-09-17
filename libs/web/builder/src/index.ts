@@ -1,3 +1,5 @@
+export * from './lib/any-god';
+export * from './lib/patron-portrait';
 export * from './lib/builder-page';
 export * from './lib/builder-store';
 export * from './lib/card-tile';

@@ -28,11 +28,14 @@ import { RichText } from './rich-text';
     >
       @if (!god) {
         <p class="text-ink-faint">
-          <span class="font-display text-gold">Descend</span> — choose a patron god first.
+          <span class="font-display text-gold">Descend</span> — needs a patron god; Any has nothing
+          to bring down.
         </p>
       } @else if (store.descend(); as descend) {
         <div class="flex items-start gap-3">
-          <span class="h-10 w-10 shrink-0 overflow-hidden rounded-full border-2 border-gold">
+          <span
+            class="h-10 w-10 shrink-0 overflow-hidden rounded-full border-2 border-gold lg:hidden"
+          >
             @if (god.image) {
               <img [src]="god.image" [alt]="god.name" class="h-full w-full object-cover" />
             }
@@ -53,11 +56,13 @@ import { RichText } from './rich-text';
               =
               <span class="text-gold-bright">{{ descend.attack }}/{{ descend.health }}</span>
             </p>
-            <p class="mt-0.5 text-ink-dim"><mt-rich-text [tokens]="god.descendText" /></p>
+            <p class="mt-0.5 line-clamp-2 text-ink-dim lg:line-clamp-1">
+              <mt-rich-text [tokens]="god.descendText" />
+            </p>
             <!-- The game's wording is "consuming their stats and effect", so the effect comes
                  across with the numbers and belongs on screen next to them. -->
             @if (consumed(); as consumed) {
-              <p class="mt-0.5 text-ink-faint">
+              <p class="mt-0.5 line-clamp-2 text-ink-faint lg:line-clamp-1">
                 <span class="font-medium">Consumed effect</span> —
                 <mt-rich-text [tokens]="consumed" />
               </p>
@@ -73,13 +78,15 @@ import { RichText } from './rich-text';
         </div>
       } @else {
         <div class="flex items-start gap-3">
-          <span class="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-line">
+          <span
+            class="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-line lg:hidden"
+          >
             @if (god.image) {
               <img [src]="god.image" [alt]="god.name" class="h-full w-full object-cover" />
             }
           </span>
           <div class="min-w-0 flex-1">
-            <p>
+            <p class="line-clamp-2 lg:line-clamp-1">
               <span class="font-display text-gold">Descend</span>
               <span class="text-ink-dim">
                 — {{ god.name }} lands on one of your allies ({{ god.attack }}/{{ god.health }}),
@@ -87,7 +94,7 @@ import { RichText } from './rich-text';
                 <span class="text-gold">&#9650;</span> button on a slot.
               </span>
             </p>
-            <p class="mt-0.5 text-ink-faint">
+            <p class="mt-0.5 line-clamp-2 text-ink-faint lg:line-clamp-1">
               <span class="font-medium">Unlocks:</span>&nbsp;<mt-rich-text
                 [tokens]="god.descendQuestText"
               />

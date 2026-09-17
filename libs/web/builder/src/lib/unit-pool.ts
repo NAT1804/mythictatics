@@ -9,7 +9,7 @@ import { RealmIcon } from './realm-icon';
 const TIERS: readonly Tier[] = [1, 2, 3, 4, 5, 6];
 
 /**
- * The units the draft makes available, and the only part of the screen that scrolls.
+ * The units the draft makes available, in a list that scrolls inside its own column.
  *
  * Tiles rather than rows, the same tiles the collection draws, so a unit looks the same in both.
  *
@@ -26,7 +26,7 @@ const TIERS: readonly Tier[] = [1, 2, 3, 4, 5, 6];
   host: { class: 'flex min-h-0 flex-col' },
   template: `
     <div class="flex items-baseline justify-between gap-2 pb-2">
-      <h2 class="font-display text-sm tracking-wide text-gold">Units</h2>
+      <h2 class="font-display text-lg text-gold">Units</h2>
       <span class="text-[11px] text-ink-faint">{{ units().length }} available</span>
     </div>
 
@@ -89,7 +89,6 @@ const TIERS: readonly Tier[] = [1, 2, 3, 4, 5, 6];
       }
     </div>
 
-    <!-- The one scroll container on the page. -->
     <ul
       class="-mr-1 grid min-h-0 flex-1 auto-rows-min grid-cols-3 gap-x-2 gap-y-3 overflow-y-auto pr-1 pt-2 xl:grid-cols-4"
       data-testid="unit-pool"

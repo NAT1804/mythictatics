@@ -19,50 +19,71 @@ type ChipState = 'locked' | 'picked' | 'available' | 'full' | 'always';
   selector: 'mt-realm-picker',
   imports: [RealmIcon],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'block' },
+  host: { class: 'block', 'data-testid': 'realm-picker' },
   template: `
-    <div class="flex items-baseline justify-between gap-2 pb-2">
-      <h2 class="font-display text-sm tracking-wide text-gold">Realms</h2>
-      <span class="text-[11px] text-ink-faint">
-        @if (store.picksLeft(); as left) {
-          pick {{ left }} more
-        } @else {
-          draft complete
-        }
-      </span>
-    </div>
+    <div
+      class="flex flex-wrap items-baseline gap-x-2 gap-y-1 lg:flex-nowrap lg:items-start lg:gap-3"
+    >
+      <div
+        class="flex flex-1 items-baseline justify-between gap-2 lg:w-16 lg:flex-none lg:flex-col lg:items-start lg:gap-0 lg:pt-1"
+      >
+        <h2 class="font-display text-lg text-gold lg:text-sm lg:leading-tight">Realms</h2>
+        <span class="text-[11px] text-ink-faint">
+          @if (store.picksLeft(); as left) {
+            pick {{ left }} more
+          } @else {
+            draft complete
+          }
+        </span>
+      </div>
 
-    <ul class="grid grid-cols-2 gap-1.5">
-      @for (realm of realms(); track realm.code) {
-        @let state = stateOf(realm.code);
-        @let onBoard = store.unitsOnBoardFrom(realm.code);
-        <li>
-          <button
-            type="button"
-            class="flex w-full items-center gap-1.5 rounded-md border px-2 py-1.5 text-left text-xs transition-colors"
-            [class]="chipClass(realm.code, state)"
-            [disabled]="state === 'always' || state === 'locked' || state === 'full'"
-            [attr.aria-pressed]="state === 'picked' || state === 'locked'"
-            [title]="hint(realm, state, onBoard)"
-            (click)="store.toggleRealm(realm.code)"
-          >
-            <mt-realm-icon
-              [realm]="realm.code"
-              class="h-4 w-4"
-              [class.opacity-40]="state === 'available' || state === 'full'"
-            />
-            <span class="min-w-0 flex-1 truncate">{{ realm.name }}</span>
-            @if (state === 'locked') {
-              <span class="shrink-0 text-[10px] text-gold" aria-hidden="true">&#128274;</span>
-            } @else if (state === 'always') {
-              <span class="shrink-0 text-[10px] text-ink-faint">any</span>
-            } @else if (onBoard) {
-              <span class="shrink-0 text-[10px] text-ink-faint">{{ onBoard }}</span>
-            }
-          </button>
-        </li>
-      }
-    </ul>
+      <ul
+        class="grid w-full min-w-0 grid-cols-2 gap-1.5 sm:grid-cols-5 lg:w-auto lg:flex-1 lg:grid-cols-9"
+      >
+        @for (realm of realms(); track realm.code) {
+          @let state = stateOf(realm.code);
+          @let onBoard = store.unitsOnBoardFrom(realm.code);
+          <li>
+            <button
+              type="button"
+              class="relative flex w-full items-center gap-1.5 rounded-md border px-2 py-1.5 text-left text-xs transition-colors lg:flex-col lg:gap-0.5 lg:px-1 lg:py-1"
+              [class]="chipClass(realm.code, state)"
+              [disabled]="state === 'always' || state === 'locked' || state === 'full'"
+              [attr.aria-pressed]="state === 'picked' || state === 'locked'"
+              [title]="hint(realm, state, onBoard)"
+              (click)="store.toggleRealm(realm.code)"
+            >
+              <mt-realm-icon
+                [realm]="realm.code"
+                class="h-4 w-4"
+                [class.opacity-40]="state === 'available' || state === 'full'"
+              />
+              <span
+                class="min-w-0 flex-1 truncate lg:w-full lg:flex-none lg:text-center lg:text-[10px]"
+                >{{ realm.name }}</span
+              >
+              @if (state === 'locked') {
+                <span
+                  class="shrink-0 text-[10px] text-gold lg:absolute lg:right-0.5 lg:top-0.5"
+                  aria-hidden="true"
+                  >&#128274;</span
+                >
+              } @else if (state === 'always') {
+                <span
+                  class="shrink-0 text-[10px] text-ink-faint lg:absolute lg:right-0.5 lg:top-0.5"
+                  >any</span
+                >
+              } @else if (onBoard) {
+                <span
+                  class="shrink-0 text-[10px] text-ink-faint lg:absolute lg:right-0.5 lg:top-0.5"
+                  >{{ onBoard }}</span
+                >
+              }
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
   `,
 })
 export class RealmPicker {

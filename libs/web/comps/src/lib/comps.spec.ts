@@ -109,6 +109,11 @@ describe('the comps screens', () => {
       expect(element.textContent).toContain('Wind Fire Wheel');
     });
 
+    it('draws the Any god card for a comp with no patron', async () => {
+      const { element } = await open('/comps/harmony');
+      expect(all(element, 'patron-any')[0].textContent).toContain('Any');
+    });
+
     it('links its board into the builder', async () => {
       const { element } = await open('/comps/trojan-horse');
       const link = all(element, 'open-in-builder')[0] as HTMLAnchorElement;

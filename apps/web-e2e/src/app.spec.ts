@@ -16,7 +16,7 @@ test('builder loads a Codex share link', async ({ page }) => {
 
 test('the builder fits the viewport, and only its unit list scrolls', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  // A draft of three realms is what fills the pool past the height of its container.
+  // A draft of three realms is what fills the pool past the height of its column.
   await page.goto('/builder?r=babylon-kami-niles');
   await expect(page.getByTestId('unit-pool')).toBeVisible();
 
@@ -30,6 +30,30 @@ test('the builder fits the viewport, and only its unit list scrolls', async ({ p
     .getByTestId('unit-pool')
     .evaluate((list) => list.scrollHeight > list.clientHeight);
   expect(poolScrolls).toBe(true);
+
+  // The 6 column fits without scrolling: the board's back row is on screen, and the god picker
+  // sits above the realms, which sit above the board.
+  await expect(page.getByTestId('slot-5')).toBeInViewport({ ratio: 1 });
+  const top = (id: string) =>
+    page.getByTestId(id).evaluate((element) => element.getBoundingClientRect().top);
+  const [god, realms, board] = [
+    await top('god-picker'),
+    await top('realm-picker'),
+    await top('slot-0'),
+  ];
+  expect(god).toBeLessThan(realms);
+  expect(realms).toBeLessThan(board);
+});
+
+test('the builder starts on Any, and a god can be picked above the board', async ({ page }) => {
+  await page.goto('/builder');
+  await expect(page.getByTestId('god-any')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByTestId('god-detail')).toContainText('Any patron god');
+
+  await page.getByTestId('god-picker').getByRole('button', { name: 'Anu' }).click();
+  await expect(page.getByTestId('god-any')).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.getByTestId('god-detail')).toContainText('Anu');
+  await expect(page).toHaveURL(/\/builder\?d=/);
 });
 
 test('comps list opens a comp, and its board opens in the builder', async ({ page }) => {

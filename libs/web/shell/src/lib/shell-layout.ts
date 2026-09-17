@@ -23,6 +23,10 @@ interface NavItem {
  * pins itself to the viewport and scrolls only its unit list — and a scrolling page would fight
  * it. A route asks for that with `data: { layout: 'fixed' }`, which turns the shell itself into a
  * fixed-height column so the outlet can be told to fill exactly what is left.
+ *
+ * Both keep the same width, so moving between the builder and the other pages does not reflow the
+ * header. And a fixed layout only pins from `lg` up: below that a workspace cannot fit on one
+ * screen, so it flows like any other page.
  */
 type Layout = 'flow' | 'fixed';
 
@@ -31,16 +35,14 @@ type Layout = 'flow' | 'fixed';
   imports: [RouterLink, RouterLinkActive, RouterOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'flex flex-col',
-    '[class.min-h-dvh]': "layout() === 'flow'",
-    '[class.h-dvh]': "layout() === 'fixed'",
-    '[class.overflow-hidden]': "layout() === 'fixed'",
+    class: 'flex min-h-dvh flex-col',
+    '[class]': "fixed() ? 'lg:h-dvh lg:overflow-hidden' : ''",
   },
   template: `
     <header class="shrink-0 border-b border-line bg-panel/80 backdrop-blur">
       <nav
-        class="mx-auto flex flex-wrap items-center gap-x-6 gap-y-2 px-4"
-        [class]="fixed() ? 'max-w-[110rem] py-2' : 'max-w-6xl py-3'"
+        class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4"
+        [class]="fixed() ? 'py-2' : 'py-3'"
       >
         <a routerLink="/" class="font-display text-lg font-bold tracking-wide text-gold">{{
           siteName
@@ -67,12 +69,8 @@ type Layout = 'flow' | 'fixed';
     </header>
 
     <main
-      class="mx-auto w-full flex-1"
-      [class]="
-        fixed()
-          ? 'flex min-h-0 max-w-[110rem] flex-col overflow-hidden px-3 py-3'
-          : 'max-w-6xl px-4 py-8'
-      "
+      class="mx-auto w-full max-w-6xl flex-1 px-4"
+      [class]="fixed() ? 'py-4 lg:flex lg:min-h-0 lg:flex-col lg:overflow-hidden' : 'py-8'"
     >
       <router-outlet />
     </main>

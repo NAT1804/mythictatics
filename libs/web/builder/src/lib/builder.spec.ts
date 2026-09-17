@@ -80,6 +80,36 @@ describe('the builder', () => {
     });
   });
 
+  describe('the patron god', () => {
+    it('offers Any, which clears the god a link carried', async () => {
+      const { store, element, settle } = await openBuilder(CODEX_LINK);
+      const any = element.querySelector<HTMLButtonElement>('[data-testid="god-any"]')!;
+      expect(any.getAttribute('aria-pressed')).toBe('false');
+
+      any.click();
+      await settle();
+      expect(store.patron()).toBeNull();
+      expect(any.getAttribute('aria-pressed')).toBe('true');
+      expect(element.querySelector('[data-testid="god-detail"]')?.textContent).toContain(
+        'Any patron god',
+      );
+    });
+
+    it('draws the god picker above the board', async () => {
+      const { element } = await openBuilder();
+      const picker = element.querySelector('[data-testid="god-picker"]')!;
+      const board = element.querySelector('[data-testid="slot-0"]')!;
+      expect(picker.compareDocumentPosition(board) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
+
+    it('picks a god from its tile', async () => {
+      const { store, element, settle } = await openBuilder();
+      element.querySelector<HTMLButtonElement>('[data-god="champ002"]')!.click();
+      await settle();
+      expect(store.patron()?.id).toBe('champ002');
+    });
+  });
+
   describe('the realm draft', () => {
     it('spends one realm on a god that locks it, and leaves three on one that does not', async () => {
       const { store, settle } = await openBuilder();

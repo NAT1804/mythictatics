@@ -47,7 +47,7 @@ export class CardPreview {
  * The detail popup: the card itself, the Ranks it can sit at, and the terms it uses.
  *
  * In the builder a god's Power is deliberately not here: it is what decides which god you take, so
- * it belongs beside the carousel where that choice is being made, not behind a tap. Anywhere else
+ * it belongs beside the god picker where that choice is being made, not behind a tap. Anywhere else
  * the preview is the only place to read it, so it is shown.
  *
  * It is a native `<dialog>`, which brings the focus trap, the backdrop and Escape without any of

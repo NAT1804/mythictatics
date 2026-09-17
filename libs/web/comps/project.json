@@ -1,0 +1,23 @@
+{
+  "name": "web-comps",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/web/comps/src",
+  "prefix": "mt",
+  "projectType": "library",
+  "tags": ["scope:web", "type:feature"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": ["default", "^default", "{workspaceRoot}/tsconfig.base.json"],
+      "options": {
+        "cwd": "{projectRoot}",
+        "commands": ["tsc -p tsconfig.lib.json --noEmit", "tsc -p tsconfig.spec.json --noEmit"],
+        "parallel": false
+      }
+    }
+  }
+}

@@ -32,6 +32,43 @@ test('the builder fits the viewport, and only its unit list scrolls', async ({ p
   expect(poolScrolls).toBe(true);
 });
 
+test('comps list opens a comp, and its board opens in the builder', async ({ page }) => {
+  await page.goto('/comps');
+  await expect(page.getByTestId('comp-card').first()).toBeVisible();
+
+  await page.getByTestId('comp-search').fill('sand golem');
+  await page.getByTestId('comp-card').filter({ hasText: 'Death on the Nile' }).click();
+
+  await expect(page).toHaveURL(/\/comps\/death-on-the-nile$/);
+  await expect(page).toHaveTitle(/^Death on the Nile · Comps · /);
+  await expect(page.getByTestId('when-to-commit')).toContainText('Sand Golem');
+  await expect(page.getByTestId('comp-slot-0')).toContainText('Thoth');
+
+  await page.getByTestId('open-in-builder').click();
+  await expect(page).toHaveURL(/\/builder\?d=/);
+  await expect(page.getByTestId('slot-0')).toContainText('Thoth');
+});
+
+test('a realm on the home ring opens the collection on that realm', async ({ page }) => {
+  // The ring never stops turning on its own, and Playwright only clicks what holds still. Reduced
+  // motion is the setting that stops it, so this also checks the ring honours that.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await page.getByTestId('realm-orbit').locator('a[data-realm="kami"]').click();
+
+  await expect(page).toHaveURL(/\/collection\?realm=kami$/);
+  await expect(page).toHaveTitle(/^Collection · /);
+  await expect(page.getByTestId('realm-name')).toHaveText('Kami');
+  await expect(page.getByTestId('collection-card').first()).toBeVisible();
+
+  await page.getByTestId('tab-gods').click();
+  await expect(page).toHaveURL(/realm=kami&tab=gods/);
+  await expect(page.getByTestId('collection-card')).toHaveCount(1);
+
+  await page.getByTestId('collection-card').first().click();
+  await expect(page.getByTestId('card-preview')).toBeVisible();
+});
+
 test('unknown routes show the not-found page', async ({ page }) => {
   const response = await page.goto('/does-not-exist');
   expect(response?.status()).toBe(404);

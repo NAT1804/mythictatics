@@ -1,7 +1,7 @@
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
 
-# General Guidelines for working with Nx
+## General Guidelines for working with Nx
 
 - For navigating/exploring the workspace, invoke the `nx-workspace` skill first - it has patterns for querying projects, targets, and dependencies
 - When running tasks (for example build, lint, test, e2e, etc.), always prefer running the task through `nx` (i.e. `nx run`, `nx run-many`, `nx affected`) instead of using the underlying tooling directly
@@ -52,3 +52,17 @@
   derivable from card text: Set names Niles twice and does not lock it. Re-extraction will not produce the field.
 - Card and icon art under `apps/web/public/images/` is the only copy; the extraction output is not kept. The dataset tests hash every file against `imageSha256`, so art can never be swapped without updating the dataset.
 - **The dataset tests live in `shared-domain`, not `shared-contracts`.** They validate all of `data/canonical/` against the contracts schemas and round-trip every card through `toCard`, so a contract change shows up there first — always run `npx nx test shared-domain` after touching a schema.
+
+## Comps (`data/canonical/comps.json`)
+
+- Imported from the community comp sheet with `python3 tools/comps/import_sheet.py` (stdlib only; pass a
+  downloaded `.xlsx` path or let it fetch the sheet). It resolves every unit/god name against `cards.json` and
+  exits non-zero on a name it cannot resolve — fix the sheet name or the script, do not hand-invent an id.
+  Re-running is a no-op for comps that did not change (`updatedAt` only moves on a real change).
+- A comp names cards by id only; names, art, realms and god Powers are read off the catalog at render time.
+- A `null` board slot is a flexible pick ("Any" in the sheet). Xiaotian Quan is listed in the sheet but has no
+  unit card (Erlang Shen's Power grants it), so it imports as a flexible slot — see `NOT_A_UNIT_CARD`.
+- The sheet gives no Ranks, so every imported slot is Rank 1 (`rank: 0`).
+- `howToPlay` is plain text, never Markdown/HTML — render it as text.
+- The UI lives in `libs/web/comps` (`/comps`, `/comps/:slug`, client-rendered) and reuses the builder's
+  `CatalogService`, `CardPreview` and card components exported from `@mythictatics/web/builder`.

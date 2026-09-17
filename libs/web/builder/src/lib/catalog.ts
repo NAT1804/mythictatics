@@ -8,6 +8,7 @@ import type {
   God,
   Keyword,
   Realm,
+  Spell,
   Unit,
 } from '@mythictatics/shared/contracts';
 import { REALM_CODES } from '@mythictatics/shared/contracts';
@@ -28,6 +29,7 @@ const CANONICAL = 'data/canonical';
 export interface Catalog {
   units: readonly Unit[];
   gods: readonly God[];
+  spells: readonly Spell[];
   realms: readonly Realm[];
   keywords: ReadonlyMap<string, Keyword>;
   /** Sprite name (`icon_taunt`) to the path the site serves it from. */
@@ -61,6 +63,7 @@ export class CatalogService {
 
   readonly units = computed<readonly Unit[]>(() => this.value()?.units ?? []);
   readonly gods = computed<readonly God[]>(() => this.value()?.gods ?? []);
+  readonly spells = computed<readonly Spell[]>(() => this.value()?.spells ?? []);
   readonly realms = computed<readonly Realm[]>(() => this.value()?.realms ?? []);
 
   /** Where an inline rules icon is served from, or undefined for a sprite the dataset lacks. */
@@ -107,16 +110,19 @@ export function buildCatalog(
 ): Catalog {
   const units: Unit[] = [];
   const gods: God[] = [];
+  const spells: Spell[] = [];
   for (const entry of cards) {
-    // Spells are not part of the builder's board, so they are not mapped here.
     if (entry.kind === 'unit') units.push(toCard(entry, locale) as Unit);
     else if (entry.kind === 'god') gods.push(toCard(entry, locale) as God);
+    // Spells never go on a board; the builder ignores them and the collection lists them.
+    else spells.push(toCard(entry, locale) as Spell);
   }
 
   // Cheapest Tier first, then name, which is the order the unit pool wants and the order a
   // player scanning for a Tier expects.
   units.sort((one, other) => one.tier - other.tier || one.name.localeCompare(other.name));
   gods.sort((one, other) => one.realm.localeCompare(other.realm) || one.id.localeCompare(other.id));
+  spells.sort((one, other) => one.tier - other.tier || one.name.localeCompare(other.name));
 
   const order = new Map(REALM_CODES.map((code, index) => [code, index]));
   const mapped = realms.map((realm) => toRealm(realm, locale));
@@ -125,6 +131,7 @@ export function buildCatalog(
   return {
     units,
     gods,
+    spells,
     realms: mapped,
     keywords: new Map(keywords.map((entry) => [entry.key, toKeyword(entry, locale)])),
     icons: new Map(icons.map((icon) => [icon.sprite, icon.image])),

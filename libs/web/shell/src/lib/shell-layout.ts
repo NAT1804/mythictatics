@@ -93,9 +93,9 @@ export class ShellLayout {
 
   protected readonly siteName = SITE_NAME;
   protected readonly nav: NavItem[] = [
-    { label: 'Comps' },
+    { label: 'Comps', path: '/comps' },
     { label: 'Builder', path: '/builder' },
-    { label: 'Codex' },
+    { label: 'Collection', path: '/collection' },
     { label: 'Guides' },
   ];
 

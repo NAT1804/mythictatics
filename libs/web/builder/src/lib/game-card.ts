@@ -30,7 +30,12 @@ import { TierStars } from './tier-stars';
           <img
             [src]="shown.image"
             [alt]="shown.name"
-            class="aspect-[4/3] w-full object-cover object-top"
+            class="aspect-[4/3] w-full"
+            [class]="
+              shown.type === 'spell'
+                ? 'bg-raised object-contain px-6 pb-2 pt-6'
+                : 'object-cover object-top'
+            "
             decoding="async"
             draggable="false"
           />
@@ -45,31 +50,43 @@ import { TierStars } from './tier-stars';
 
       <!-- The name plate sits over the join, with the body either side of it, as on the card. -->
       <div class="relative z-10 -mt-3.5 flex items-center justify-center px-1">
-        <span
-          class="absolute left-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-bg bg-attack text-xs font-bold text-white"
-          [title]="'Attack ' + attack()"
-          >{{ attack() }}</span
-        >
+        @if (shown.type !== 'spell') {
+          <span
+            class="absolute left-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-bg bg-attack text-xs font-bold text-white"
+            [title]="'Attack ' + attack()"
+            >{{ attack() }}</span
+          >
+        }
         <span
           class="max-w-[64%] text-balance rounded-md border border-gold/40 bg-raised px-3 py-0.5 text-center font-display text-sm leading-tight text-ink"
           >{{ shown.name }}</span
         >
-        <span
-          class="absolute right-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-bg bg-health text-xs font-bold text-white"
-          [title]="'Health ' + health()"
-          >{{ health() }}</span
-        >
+        @if (shown.type !== 'spell') {
+          <span
+            class="absolute right-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-bg bg-health text-xs font-bold text-white"
+            [title]="'Health ' + health()"
+            >{{ health() }}</span
+          >
+        }
       </div>
 
       <p class="min-h-0 flex-1 overflow-hidden px-2.5 py-2 text-center text-[11px] leading-snug">
         <mt-rich-text [tokens]="text()" />
+        @if (shown.type === 'spell') {
+          @for (option of shown.options; track $index) {
+            <span class="mt-1 block rounded border border-line px-1.5 py-0.5">
+              <mt-rich-text [tokens]="option" />
+            </span>
+          }
+        }
       </p>
 
       <div
         class="flex shrink-0 items-center justify-center gap-1.5 border-t border-line bg-raised py-1"
       >
         <mt-realm-icon [realm]="shown.realm ?? 'neutral'" class="h-4 w-4" />
-        <span class="text-[11px] capitalize text-ink-dim">{{ shown.realm ?? 'neutral' }}</span>
+        <!-- A spell with no realm is a Sanctum spell, which every realm can be offered. -->
+        <span class="text-[11px] capitalize text-ink-dim">{{ shown.realm ?? 'sanctum' }}</span>
       </div>
     </article>
   `,

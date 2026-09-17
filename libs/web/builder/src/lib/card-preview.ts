@@ -46,8 +46,9 @@ export class CardPreview {
 /**
  * The detail popup: the card itself, the Ranks it can sit at, and the terms it uses.
  *
- * A god's Power is deliberately not here: it is what decides which god you take, so it belongs
- * beside the carousel where that choice is being made, not behind a tap.
+ * In the builder a god's Power is deliberately not here: it is what decides which god you take, so
+ * it belongs beside the carousel where that choice is being made, not behind a tap. Anywhere else
+ * the preview is the only place to read it, so it is shown.
  *
  * It is a native `<dialog>`, which brings the focus trap, the backdrop and Escape without any of
  * it being written here. The keyword panels beside the card are the same ones the game puts there
@@ -101,7 +102,7 @@ export class CardPreview {
               </div>
             }
 
-            @if (target.placeable) {
+            @if (target.placeable && store) {
               <button
                 type="button"
                 class="mt-2 w-full rounded-md border border-gold/60 bg-gold/10 py-1.5 text-xs text-gold hover:bg-gold/20 disabled:opacity-40"
@@ -127,6 +128,17 @@ export class CardPreview {
               <p class="text-ink-faint">This card uses no keywords.</p>
             }
 
+            <!-- Outside the builder there is no carousel beside the preview, so the Power has
+                 nowhere else to be read. -->
+            @if (card.type === 'god' && !store && card.powerText.length) {
+              <section class="rounded-lg border border-gold/40 bg-panel p-2.5">
+                <h3 class="font-display text-sm text-gold">{{ card.powerName ?? 'Power' }}</h3>
+                <p class="mt-0.5 text-ink-dim">
+                  <mt-rich-text [tokens]="card.powerText" />
+                </p>
+              </section>
+            }
+
             @if (card.type === 'god') {
               <section class="rounded-lg border border-line bg-panel p-2.5">
                 <h3 class="font-display text-sm text-gold">Descend Condition</h3>
@@ -144,10 +156,13 @@ export class CardPreview {
 export class CardPreviewDialog {
   protected readonly preview = inject(CardPreview);
   private readonly catalog = inject(CatalogService);
-  private readonly store = inject(BuilderStore);
+  /** Absent outside the builder, where a card is only ever looked at, never placed. */
+  protected readonly store = inject(BuilderStore, { optional: true });
   private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
 
-  protected readonly canPlace = computed(() => this.store.placedCount() < BOARD_SIZE);
+  protected readonly canPlace = computed(
+    () => (this.store?.placedCount() ?? BOARD_SIZE) < BOARD_SIZE,
+  );
 
   protected readonly keywords = computed(() => {
     const target = this.preview.target();
@@ -181,7 +196,7 @@ export class CardPreviewDialog {
    * so without it a phone could only fill the board by dragging.
    */
   protected place(unitId: string): void {
-    this.store.placeFirstEmpty(unitId);
+    this.store?.placeFirstEmpty(unitId);
     this.preview.close();
   }
 }

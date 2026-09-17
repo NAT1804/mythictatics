@@ -24,6 +24,8 @@
       "@mythictatics/shared/contracts/schemas": ["./libs/shared/contracts/src/schemas.ts"],
       "@mythictatics/shared/domain": ["./libs/shared/domain/src/index.ts"],
       "@mythictatics/web/builder": ["./libs/web/builder/src/index.ts"],
+      "@mythictatics/web/collection": ["./libs/web/collection/src/index.ts"],
+      "@mythictatics/web/comps": ["./libs/web/comps/src/index.ts"],
       "@mythictatics/web/shell": ["./libs/web/shell/src/index.ts"]
     }
   },

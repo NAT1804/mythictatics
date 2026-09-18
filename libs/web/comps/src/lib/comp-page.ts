@@ -57,13 +57,6 @@ import { UnitList } from './unit-list';
         </div>
         <div class="flex flex-wrap gap-2">
           <a
-            routerLink="/builder"
-            [queryParams]="builderParams(comp.idealBoard)"
-            class="rounded-md bg-gold px-3 py-1.5 text-sm font-medium text-bg hover:bg-gold-bright"
-            data-testid="open-in-builder"
-            >Open in Builder</a
-          >
-          <a
             [href]="comp.source.url ?? sheetUrl"
             target="_blank"
             rel="noopener"
@@ -140,7 +133,16 @@ import { UnitList } from './unit-list';
         <!-- Boards -->
         <section class="space-y-6">
           <div>
-            <h2 class="font-display text-lg text-gold">Ideal board</h2>
+            <div class="flex items-center justify-between gap-2">
+              <h2 class="font-display text-lg text-gold">Ideal board</h2>
+              <a
+                routerLink="/builder"
+                [queryParams]="builderParams(comp.idealBoard)"
+                class="text-xs text-ink-faint hover:text-gold"
+                data-testid="open-in-builder"
+                >Open in Builder →</a
+              >
+            </div>
             <mt-comp-board class="mt-2" [board]="comp.idealBoard" />
           </div>
 

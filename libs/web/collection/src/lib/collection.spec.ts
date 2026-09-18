@@ -23,7 +23,14 @@ async function open(url: string) {
     harness.detectChanges();
   };
   await settle();
-  return { harness, element: harness.routeNativeElement as HTMLElement, settle };
+  // Only one harness may exist per test, so a test that visits a second URL navigates this one.
+  // `page()` is re-read after every navigation: the route's element is a new one each time.
+  const go = async (next: string) => {
+    await harness.navigateByUrl(next);
+    await settle();
+  };
+  const page = () => harness.routeNativeElement as HTMLElement;
+  return { harness, element: harness.routeNativeElement as HTMLElement, settle, go, page };
 }
 
 const all = (element: HTMLElement, testId: string) =>
@@ -76,14 +83,14 @@ describe('the collection screen', () => {
   });
 
   it('browses spells by kind, not by realm', async () => {
-    const { element } = await open('/collection?realm=neutral&tab=spells');
+    const { element, go, page } = await open('/collection?realm=neutral&tab=spells');
     expect(all(element, 'collection-card')).toHaveLength(
       cards.filter((card) => card.kind === 'spell').length,
     );
 
-    const { element: medicine } = await open('/collection?tab=spells&spell=medicine');
-    expect(one(medicine, 'scope-name')?.textContent).toContain('Medicine');
-    expect(all(medicine, 'collection-card')).toHaveLength(
+    await go('/collection?tab=spells&spell=medicine');
+    expect(one(page(), 'scope-name')?.textContent).toContain('Medicine');
+    expect(all(page(), 'collection-card')).toHaveLength(
       cards.filter((card) => card.kind === 'spell' && card.subtype === 'medicine').length,
     );
   });
@@ -99,7 +106,7 @@ describe('the collection screen', () => {
     element.querySelector<HTMLElement>('a[href*="realm=kami"]')?.click();
     await settle();
     const page = harness.routeNativeElement as HTMLElement;
-    expect(one(page, 'realm-name')?.textContent).toContain('Kami');
+    expect(one(page, 'scope-name')?.textContent).toContain('Kami');
     expect(all(page, 'collection-card')).toHaveLength(countOf('unit', 'kami'));
   });
 

@@ -1,8 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { Location } from '@angular/common';
 import { ApplicationRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Router, provideRouter } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { encodeShareCode } from '@mythictatics/shared/domain';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { BuilderPage } from './builder-page';
@@ -90,9 +91,8 @@ describe('the builder', () => {
       await settle();
       expect(store.patron()).toBeNull();
       expect(any.getAttribute('aria-pressed')).toBe('true');
-      expect(element.querySelector('[data-testid="god-detail"]')?.textContent).toContain(
-        'Any patron god',
-      );
+      // With no patron there is no card under the board: the picker is the only thing asking.
+      expect(element.querySelector('[data-testid="patron-card"]')).toBeNull();
     });
 
     it('draws the god picker above the board', async () => {
@@ -251,7 +251,7 @@ describe('the builder', () => {
       expect(store.descend()?.base.id).toBe('m01001');
     });
 
-    it('comes back off the board when its unit is removed', async () => {
+    it('holds its slot when the unit under it is removed, claiming no sum', async () => {
       const { store, settle } = await openBuilder();
       store.setPatron('champ002');
       await settle();
@@ -259,7 +259,10 @@ describe('the builder', () => {
       store.toggleDescend(2);
 
       store.remove(2);
-      expect(store.descendSlot()).toBeNull();
+      // Taking the unit out leaves the god standing on an empty slot — a state the board draws,
+      // and the one a board gets laid out through. Only dragging it clear recalls it.
+      expect(store.descendSlot()).toBe(2);
+      // No Descend is claimed while there is nothing under it to add to.
       expect(store.descend()).toBeNull();
     });
 
@@ -281,7 +284,7 @@ describe('the builder', () => {
       store.place('m01001', 1);
       await settle();
 
-      const url = TestBed.inject(Router).url;
+      const url = TestBed.inject(Location).path(true);
       // `?d=` stays exactly what the Codex teambuilder would write for this board.
       expect(url).toContain(
         `d=${encodeShareCode({ board: store.board(), patronGodId: 'champ002' })}`,

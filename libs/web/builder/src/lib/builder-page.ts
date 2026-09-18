@@ -37,9 +37,13 @@ import { UnitPool } from './unit-pool';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block' },
   template: `
-    <header class="flex shrink-0 flex-wrap items-center justify-between gap-3">
-      <div class="flex items-baseline gap-3">
-        <h1 class="font-display text-3xl font-bold text-gold lg:text-2xl">Team Builder</h1>
+    <header class="flex shrink-0 flex-wrap items-end justify-between gap-3">
+      <div>
+        <h1 class="font-display text-3xl font-bold text-gold">Team Builder</h1>
+        <p class="mt-1 max-w-2xl text-sm text-ink-dim">
+          Pick a patron god, the realms it leaves you, and the board to fill them with. Share the
+          build with a link, or start from one of the community comps.
+        </p>
       </div>
     </header>
 

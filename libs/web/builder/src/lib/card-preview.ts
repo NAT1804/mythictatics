@@ -87,8 +87,17 @@ export class CardPreview {
              and a god's standee for a god: the tall picture the client stands it up in, blown up
              to fill the dialog and dimmed until it is weather rather than a picture. The banner is
              a layer of the stage rather than an image beside the card, because a god is the room
-             it is being read in — and it leaves the card the middle of the dialog. -->
-        <div class="relative isolate overflow-hidden rounded-2xl">
+             it is being read in — and it leaves the card the middle of the dialog.
+
+             A god's stage is given a height of its own rather than the card's: the standee is a
+             tall portrait, so a stage only as tall as the card crops it to a band of shoulders.
+             The floor is the whole height the dialog is allowed, and the card sits centred on it.
+             Nothing else gets it — a unit has no banner, and an empty stage under it would be a
+             hole. -->
+        <div
+          class="relative isolate flex flex-col justify-center overflow-hidden rounded-2xl"
+          [class]="card.type === 'god' ? 'min-h-[min(60rem,92dvh)]' : ''"
+        >
           @if (card.type === 'god') {
             <img
               [src]="card.bannerImage"
@@ -104,19 +113,21 @@ export class CardPreview {
               class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-bg/60 via-bg/45 to-bg/80"
             ></div>
           }
+          <!-- The close sits on the stage rather than on the card, so it keeps the dialog's own
+               corner however tall the stage is and wherever the card has been scrolled to. -->
+          <button
+            type="button"
+            class="absolute right-2 top-2 z-10 rounded-full border border-gold/50 bg-panel px-2 py-0.5 text-xs text-ink-dim shadow-lg shadow-black/50 hover:border-gold hover:text-gold"
+            aria-label="Close"
+            (click)="preview.close()"
+          >
+            &#10005;
+          </button>
+
           <div
-            class="relative flex max-h-[92dvh] flex-col items-center gap-4 overflow-y-auto p-4"
+            class="relative flex max-h-[92dvh] w-full flex-col items-center gap-4 overflow-y-auto p-4"
             data-testid="card-preview"
           >
-            <button
-              type="button"
-              class="absolute right-2 top-2 z-10 rounded-full border border-gold/50 bg-panel px-2 py-0.5 text-xs text-ink-dim shadow-lg shadow-black/50 hover:border-gold hover:text-gold"
-              aria-label="Close"
-              (click)="preview.close()"
-            >
-              &#10005;
-            </button>
-
             <!-- The card and its terms, side by side as the game has them: the panels start a
                little down the card's side, level with the art rather than with the Tier stars
                above it. On a narrow screen they fall in underneath instead, still in that order

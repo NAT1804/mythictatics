@@ -52,8 +52,12 @@ describe('the collection', () => {
   it('browses spells by kind rather than by realm', () => {
     const sanctum = collectionCards(cards, { tab: 'spells', realm: null, spellKind: 'sanctum' });
     const medicine = collectionCards(cards, { tab: 'spells', realm: null, spellKind: 'medicine' });
-    expect(sanctum.every((spell) => spell.subtype === 'sanctum')).toBe(true);
-    expect(medicine.every((spell) => spell.subtype === 'medicine')).toBe(true);
+    // `collectionCards` hands back `Card`, so the kind is part of what is being asserted: the
+    // Spells tab may only ever yield spells, and each of them the kind that was asked for.
+    expect(sanctum.every((card) => card.type === 'spell' && card.subtype === 'sanctum')).toBe(true);
+    expect(medicine.every((card) => card.type === 'spell' && card.subtype === 'medicine')).toBe(
+      true,
+    );
     expect(sanctum.length + medicine.length).toBe(cards.spells.length);
   });
 

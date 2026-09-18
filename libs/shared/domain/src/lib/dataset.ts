@@ -153,6 +153,8 @@ function toGod(card: DatasetGod, locale: string): God {
     keywords: card.keywords,
     powerName: pick(card.power.name, locale) || null,
     powerText: parseRichText(pick(card.power.description, locale)),
+    powerImage: card.power.image,
+    bannerImage: card.banner.image,
     descendText: parseRichText(pick(card.descendUnit, locale)),
     descendQuestText: parseRichText(pick(card.descendQuest, locale)),
   };
@@ -185,11 +187,17 @@ export function toCard(card: DatasetCard, locale = DEFAULT_LOCALE): Card {
 }
 
 export function toKeyword(keyword: DatasetKeyword, locale = DEFAULT_LOCALE): Keyword {
+  const title = pick(keyword.title, locale);
   return {
     code: keyword.key,
     // The title ships with its own icon and colour markup; the app wants the words.
-    title: toPlainText(pick(keyword.title, locale)),
+    title: toPlainText(title),
     description: keyword.description ? toPlainText(pick(keyword.description, locale)) : null,
+    // …and the icon that markup named, kept as a field so a keyword panel can show the same
+    // picture the game does without re-parsing the title. The first sprite is the keyword's own:
+    // any later one belongs to a term the title refers to, the way Alchemy's title ends in
+    // Celestial Medicine's icon.
+    icon: parseRichText(title).find((token) => token.type === 'icon')?.name ?? null,
   };
 }
 

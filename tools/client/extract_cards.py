@@ -24,6 +24,12 @@ families and the width of the padding is what separates them: a plain spell is t
 they are read back off the unit sprites, which state them (`babylon_card_character_5001` is what
 makes Babylon realm 5).
 
+A god carries two more pictures that are not its card — the icon for its Power and the tall banner
+the game stands it up in — and the game numbers both the way it numbers the card, so both bind by
+the same arithmetic: `icon_power_16` and `icon_god-flag_16` are Erlang Shen's. Each ships in a
+bundle of its own and is extracted in a pass of its own; see `extract_god_art` for why neither can
+ride along with the card art.
+
 What does not bind is reported rather than guessed at, in `unresolved.json`. In v1.5.7 that is
 art the game still ships for content it no longer lists — one Olympus unit and seven spells with
 no entry in any localization table. An id bound to the wrong picture is worse than an id openly
@@ -65,6 +71,29 @@ ICON_BUNDLES = {
     "rank": re.compile(r"^caelus_assets_icon_player_rank_[0-9a-f]{32}\.bundle$"),
     # A card's Tier, drawn as that many stars. The game files these under "rarity".
     "tier": re.compile(r"^caelus_assets_rarity_[0-9a-f]{32}\.bundle$"),
+}
+
+# Art that belongs to a god but is not the god's card: the Power's icon, and the tall banner the
+# game stands the god up in. Both are in bundles of their own and both are numbered the way the
+# god's card is — `icon_power_16` and `icon_god-flag_16` are Erlang Shen's — so both bind by the
+# same arithmetic, and neither is a card.
+#
+# They are not entries in ICON_BUNDLES, because those are icons no card owns, and not in
+# ART_BUNDLE, because binding them there would leave every god holding three sprites with nothing
+# to say which of them is the card.
+#
+# The two do not cover the same gods, which is why each is asked for separately rather than
+# assumed from the other: 1.5.7 ships a Power icon for exactly the twenty gods the game offers,
+# and a banner for twenty-four — four of them for gods that have no card at all.
+GOD_ART = {
+    "power": (
+        re.compile(r"^caelus_assets_icon_power_[0-9a-f]{32}\.bundle$"),
+        re.compile(r"^icon_power_(\d+)$"),
+    ),
+    "banner": (
+        re.compile(r"^caelus_assets_icon_god_flag_[0-9a-f]{32}\.bundle$"),
+        re.compile(r"^icon_god-flag_(\d+)$"),
+    ),
 }
 
 # `rarity-star_05-2` is Tier 5 in its second layout; `rarity-star_06` has only one. The layouts
@@ -360,6 +389,57 @@ def extract_icons(pack: zipfile.ZipFile, out_dir: Path, write_images: bool) -> l
     return icons
 
 
+def extract_god_art(pack: zipfile.ZipFile, kind: str, out_dir: Path, write_images: bool) -> list[dict]:
+    """Art that belongs to a god rather than being its card — see GOD_ART for which kinds exist.
+
+    A pass of its own rather than a group inside `extract_art`, because it binds to the same
+    `champ` id the god's card art does: run through the card-art pass it would come out as extra
+    sprites on every god, and which of them was the card would be down to ordering. These are
+    fields of a god, so they are extracted as fields.
+    """
+    bundle_pattern, sprite_pattern = GOD_ART[kind]
+    found: list[dict] = []
+
+    for name in sorted(pack.namelist()):
+        base = name.split("/")[-1]
+        if not bundle_pattern.match(base):
+            continue
+        env = UnityPy.load(pack.read(name))
+
+        for obj in env.objects:
+            if obj.type.name != "Sprite":
+                continue
+            data = obj.read()
+            match = sprite_pattern.match(data.m_Name)
+            if not match:
+                continue
+            record = {
+                "sprite": data.m_Name,
+                "kind": kind,
+                "bundle": base,
+                "pathId": obj.path_id,
+                "container": obj.container,
+                "cardId": f"champ{int(match.group(1)):03d}",
+            }
+
+            if write_images:
+                destination = out_dir / "images" / kind / f"{data.m_Name}.png"
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                buffer = io.BytesIO()
+                data.image.save(buffer, format="PNG")
+                payload = buffer.getvalue()
+                destination.write_bytes(payload)
+                record["file"] = str(destination.relative_to(out_dir)).replace("\\", "/")
+                record["bytes"] = len(payload)
+                record["sha256"] = sha256(payload)
+                record["width"], record["height"] = data.image.size
+
+            found.append(record)
+
+    found.sort(key=lambda row: row["sprite"])
+    return found
+
+
 def bind(sprite_name: str) -> str | None:
     for pattern, to_id in SPRITE_PATTERNS:
         if match := pattern.match(sprite_name):
@@ -423,8 +503,16 @@ def main() -> int:
 
     images = extract_art(pack, out_dir, not args.no_images)
     icons = extract_icons(pack, out_dir, not args.no_images)
+    god_art = {
+        kind: extract_god_art(pack, kind, out_dir, not args.no_images) for kind in GOD_ART
+    }
     write_json(out_dir / "icons.json", icons)
-    print(f"  {len(images)} sprites, {len(icons)} icons{'' if args.no_images else ' exported'}")
+    write_json(out_dir / "god-art.json", god_art)
+    counted = ", ".join(f"{len(rows)} {kind}" for kind, rows in god_art.items())
+    print(
+        f"  {len(images)} sprites, {len(icons)} icons, {counted}"
+        f"{'' if args.no_images else ' exported'}"
+    )
 
     # Attach art to cards, and keep both directions of the leftovers.
     by_card: dict[str, list[dict]] = collections.defaultdict(list)
@@ -435,10 +523,20 @@ def main() -> int:
     realms = realm_numbers(images)
     print(f"  realms: {', '.join(f'{n}={name}' for n, name in sorted(realms.items()))}")
 
+    god_art_by_card = {
+        kind: {row["cardId"]: row for row in rows} for kind, rows in god_art.items()
+    }
+
     for card_id, card in cards.items():
         art = by_card.get(card_id, [])
         card["sprites"] = [image["sprite"] for image in art]
         card["realm"] = realm_of(card_id, realms)
+        # Only a god has a Power or a banner, so only a god is asked for them; a god missing one
+        # shows up in unresolved.json rather than as a silently absent field.
+        if card["kind"] == "god":
+            for kind, by_god in god_art_by_card.items():
+                if found := by_god.get(card_id):
+                    card[kind] = found
         # Which atlas a spell's art came out of is the game's own split between the shared
         # Sanctum spells and a realm's Medicine.
         if card["kind"] == "spell" and art:
@@ -452,6 +550,15 @@ def main() -> int:
 
     art_without_card = [i for i in images if not i["cardId"] or i["cardId"] not in cards]
     cards_without_art = [cid for cid, card in cards.items() if not card["sprites"]]
+    god_art_without_god = [
+        row for rows in god_art.values() for row in rows if row["cardId"] not in cards
+    ]
+    gods_missing_art = {
+        kind: [
+            cid for cid, card in cards.items() if card["kind"] == "god" and kind not in card
+        ]
+        for kind in GOD_ART
+    }
 
     write_json(out_dir / "meta.json", {
         "source": args.build.name,
@@ -462,6 +569,8 @@ def main() -> int:
         "spriteCount": len(images),
         "unboundSprites": len(art_without_card),
         "cardsWithoutArt": len(cards_without_art),
+        "godArtCounts": {kind: len(rows) for kind, rows in god_art.items()},
+        "godsMissingArt": {kind: len(ids) for kind, ids in gods_missing_art.items()},
     })
     write_json(out_dir / "cards.json", sorted(cards.values(), key=lambda c: (c["kind"], c["id"])))
     write_json(out_dir / "images.json", images)
@@ -474,9 +583,21 @@ def main() -> int:
             {"sprite": i["sprite"], "group": i["group"], "wouldBe": i["cardId"]} for i in art_without_card
         ],
         "cardsWithoutSprite": cards_without_art,
+        # God art for a god the tables do not list is the same story as unbound card art: a god
+        # the game has not released yet, or one it has withdrawn. In 1.5.7 this is four banners
+        # and nothing else, which is why a banner is never taken as proof a god exists.
+        "godArtWithoutGod": [
+            {"sprite": row["sprite"], "kind": row["kind"], "wouldBe": row["cardId"]}
+            for row in god_art_without_god
+        ],
+        "godsMissingArt": {kind: ids for kind, ids in gods_missing_art.items() if ids},
     })
 
-    print(f"  unbound: {len(art_without_card)} sprites, {len(cards_without_art)} cards -> unresolved.json")
+    missing = sum(len(ids) for ids in gods_missing_art.values())
+    print(
+        f"  unbound: {len(art_without_card)} sprites, {len(cards_without_art)} cards, "
+        f"{len(god_art_without_god)} god art, {missing} god fields -> unresolved.json"
+    )
     return 0
 
 

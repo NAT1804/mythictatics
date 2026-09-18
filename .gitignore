@@ -61,6 +61,7 @@ vitest.config.*.timestamp*
 # Hexpion's copyrighted binary — extract from it, never redistribute it. The second rule catches
 # a build dropped anywhere else in the tree, since these run to hundreds of megabytes.
 tools/client/.venv
+tools/client/__pycache__/
 tools/client/builds/
 *.xapk
 *.apk

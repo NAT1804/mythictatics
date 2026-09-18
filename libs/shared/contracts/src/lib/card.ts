@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { SPELL_SUBTYPES } from './constants';
 import { GodIdSchema, SpellIdSchema, UnitIdSchema } from './ids';
 import { KeywordCodeSchema, RankSchema, SlugSchema, TierSchema } from './primitives';
 import { RealmCodeSchema } from './realm';
@@ -22,6 +23,14 @@ export const KeywordSchema = z.object({
   code: KeywordCodeSchema,
   title: z.string().min(1),
   description: z.string().nullable(),
+  /**
+   * The sprite the game shows beside the term, or null for a keyword it writes as words alone.
+   *
+   * It is the icon's name in the game's atlas, not a path: resolve it through `icons.json` the
+   * same way an inline `icon` token in card text is resolved. Not every keyword has one — the
+   * purely structural ones (`aura`, `descend`, the `event_*` rows) carry no art in the client.
+   */
+  icon: z.string().min(1).nullable(),
 });
 export type Keyword = z.infer<typeof KeywordSchema>;
 
@@ -67,6 +76,13 @@ export const GodSchema = z.object({
   keywords: z.array(KeywordCodeSchema),
   powerName: z.string().nullable(),
   powerText: z.array(RichTextTokenSchema),
+  /**
+   * The Power's own icon. Not nullable, unlike a card's `image`: the client ships one per god, so
+   * the dataset requires it and this can be rendered without a guard.
+   */
+  powerImage: z.string().min(1),
+  /** The god's full-height standee, for showing a chosen patron at more than tile size. */
+  bannerImage: z.string().min(1),
   /** What the god turns into on Descend. */
   descendText: z.array(RichTextTokenSchema),
   /** What the player has to do to unlock the Descend. */
@@ -78,7 +94,7 @@ export const SpellSchema = z.object({
   ...cardBase,
   id: SpellIdSchema,
   type: z.literal('spell'),
-  subtype: z.enum(['sanctum', 'medicine']),
+  subtype: z.enum(SPELL_SUBTYPES),
   /**
    * Set for the thirteen spells that belong to one realm — every Shenzhou Medicine, plus Niles'
    * Promotion Reward. Null for the fifty Sanctum spells any realm can be offered.

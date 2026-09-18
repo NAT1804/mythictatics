@@ -51,6 +51,16 @@
   (Ra, Tiamat, Zeus, Poseidon, Odin, Erlang Shen, Izanami, Samsin), read off the game's Patron God screen. It is not
   derivable from card text: Set names Niles twice and does not lock it. Re-extraction will not produce the field.
 - Card and icon art under `apps/web/public/images/` is the only copy; the extraction output is not kept. The dataset tests hash every file against `imageSha256`, so art can never be swapped without updating the dataset.
+- A god carries two more pictures beside its card: `power` (the Power's icon, 128×128, from `icon_power`) and
+  `banner` (the tall standee, 156×348, from `icon_god_flag`). Both are `sprite`/`image`/`imageWidth`/`imageHeight`/
+  `imageSha256` and both are hashed by the dataset tests. `extract_god_art` (see `GOD_ART`) does each in a pass of
+  its own, bound to the god by the number in the sprite name (`icon_power_16` → `champ016`), so neither can be
+  mistaken for a second piece of card art. Unlike `tier`/`realmLock` they are fully in the client, so they are
+  required, not nullable: re-extraction produces them, and a god without one is a broken extraction.
+- **The two atlases do not cover the same gods.** `icon_power` has exactly the twenty the game offers; `icon_god_flag`
+  has twenty-four, four of them for gods with no card at all (`champ006`, `champ018`, `champ020`, `champ023`). A
+  banner is never evidence that a god exists — the localization tables are. Re-extraction lists the four spares under
+  `godArtWithoutGod` in `unresolved.json`; leave them out again.
 - **The dataset tests live in `shared-domain`, not `shared-contracts`.** They validate all of `data/canonical/` against the contracts schemas and round-trip every card through `toCard`, so a contract change shows up there first — always run `npx nx test shared-domain` after touching a schema.
 
 ## Comps (`data/canonical/comps.json`)

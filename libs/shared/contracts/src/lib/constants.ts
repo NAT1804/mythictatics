@@ -30,6 +30,13 @@ export const REALM_NUMBERS = {
   yggdrasil: 3,
 } as const satisfies Record<(typeof REALM_CODES)[number], number>;
 
+/**
+ * The two kinds of spell, and the only axis the collection's Spells tab browses by: the Sanctum
+ * spells any realm can be offered, and Shenzhou's Medicines, which Alchemy grants.
+ */
+export const SPELL_SUBTYPES = ['sanctum', 'medicine'] as const;
+export type SpellSubtype = (typeof SPELL_SUBTYPES)[number];
+
 export const UNIT_ID_PATTERN = /^m\d{5}$/;
 export const GOD_ID_PATTERN = /^champ\d{3}$/;
 /**

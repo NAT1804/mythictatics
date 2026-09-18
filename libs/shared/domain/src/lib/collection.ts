@@ -1,11 +1,12 @@
 import {
-  NEUTRAL_REALM,
   REALM_CODES,
   REALM_NUMBERS,
+  SPELL_SUBTYPES,
   type Card,
   type God,
   type RealmCode,
   type Spell,
+  type SpellSubtype,
   type Tier,
   type Unit,
 } from '@mythictatics/shared/contracts';
@@ -26,10 +27,28 @@ export type CollectionTab = (typeof COLLECTION_TABS)[number];
 export const DEFAULT_COLLECTION_REALM: RealmCode = REALMS_IN_GAME_ORDER[0];
 export const DEFAULT_COLLECTION_TAB: CollectionTab = 'units';
 
+/** The query-string value for "every one of them", on either axis. */
+export const COLLECTION_ALL = 'all';
+
 export interface CollectionCards {
   units: readonly Unit[];
   gods: readonly God[];
   spells: readonly Spell[];
+}
+
+/**
+ * What the screen is browsing, before the search box and the Tier buttons narrow it.
+ *
+ * The two axes do not overlap: gods and units are browsed by realm, spells by kind. A spell's
+ * realm is not worth browsing by — fifty of the game's sixty-three belong to none, and all but
+ * one of the rest are Shenzhou Medicines, which `spellKind` already names.
+ */
+export interface CollectionScope {
+  tab: CollectionTab;
+  /** The realm the Patron God and Units tabs show; null is every realm. */
+  realm: RealmCode | null;
+  /** The kind of spell the Spells tab shows; null is both kinds. */
+  spellKind: SpellSubtype | null;
 }
 
 export interface CollectionFilter {
@@ -39,11 +58,22 @@ export interface CollectionFilter {
 
 export const EMPTY_COLLECTION_FILTER: CollectionFilter = { query: '', tier: null };
 
-/** A query-string value read as a realm, falling back to the one the game opens on. */
-export function toCollectionRealm(value: string | null | undefined): RealmCode {
+/**
+ * A query-string value read as a realm: `all` is every realm, anything unrecognised — a missing
+ * value included — is the realm the game opens on.
+ */
+export function toCollectionRealm(value: string | null | undefined): RealmCode | null {
+  if (value === COLLECTION_ALL) return null;
   return (REALM_CODES as readonly string[]).includes(value ?? '')
     ? (value as RealmCode)
     : DEFAULT_COLLECTION_REALM;
+}
+
+/** A query-string value read as a kind of spell; anything unrecognised is both kinds. */
+export function toCollectionSpellKind(value: string | null | undefined): SpellSubtype | null {
+  return (SPELL_SUBTYPES as readonly string[]).includes(value ?? '')
+    ? (value as SpellSubtype)
+    : null;
 }
 
 export function toCollectionTab(value: string | null | undefined): CollectionTab {
@@ -52,31 +82,27 @@ export function toCollectionTab(value: string | null | undefined): CollectionTab
     : DEFAULT_COLLECTION_TAB;
 }
 
-/**
- * The realm a card is filed under. A Sanctum spell belongs to no realm and can be offered to any,
- * so it is filed with Neutral — the one realm every draft has.
- */
-export function collectionRealmOf(card: Card): RealmCode {
-  return card.realm ?? NEUTRAL_REALM;
-}
-
-/** The cards one tab shows for one realm, narrowed by name/rules text and Tier. */
+/** The cards one tab shows in scope, narrowed by name/rules text and Tier. */
 export function collectionCards(
   cards: CollectionCards,
-  tab: CollectionTab,
-  realm: RealmCode,
+  scope: CollectionScope,
   filter: CollectionFilter = EMPTY_COLLECTION_FILTER,
 ): Card[] {
   const words = normalize(filter.query).split(' ').filter(Boolean);
-  const source: readonly Card[] = cards[tab];
+  const source: readonly Card[] = cards[scope.tab];
 
   return source.filter((card) => {
-    if (collectionRealmOf(card) !== realm) return false;
+    if (!inScope(card, scope)) return false;
     if (filter.tier !== null && card.tier !== filter.tier) return false;
     if (!words.length) return true;
     const haystack = normalize(`${card.name} ${plainText(rulesOf(card))}`);
     return words.every((word) => haystack.includes(word));
   });
+}
+
+function inScope(card: Card, scope: CollectionScope): boolean {
+  if (card.type === 'spell') return !scope.spellKind || card.subtype === scope.spellKind;
+  return !scope.realm || card.realm === scope.realm;
 }
 
 function rulesOf(card: Card) {

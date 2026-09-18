@@ -186,6 +186,36 @@ describe('the canonical dataset', () => {
     }
   });
 
+  it.each(['power', 'banner'])('serves the %s art it recorded, for every god', (kind) => {
+    // Held to the same standard as the card art: the committed PNG is the only copy, so the hash
+    // is what proves it came out of the build the dataset names.
+    const gods = cards.filter((card: { kind: string }) => card.kind === 'god');
+    expect(gods.length).toBeGreaterThan(0);
+    for (const god of gods) {
+      const art = god[kind];
+      const bytes = readFileSync(join(PUBLIC_ROOT, art.image));
+      expect(createHash('sha256').update(bytes).digest('hex'), `${god.id} ${art.image}`).toBe(
+        art.imageSha256,
+      );
+    }
+    // Each god's own art, never another's — the whole point of binding by the sprite's number.
+    expect(
+      new Set(gods.map((god: Record<string, { sprite: string }>) => god[kind].sprite)).size,
+    ).toBe(gods.length);
+  });
+
+  it('has art for every icon a keyword names', () => {
+    // A keyword panel renders the icon its title named, so a sprite with no art there would be a
+    // silently missing picture rather than a failure.
+    const sprites = new Set(read('icons.json').map((icon: { sprite: string }) => icon.sprite));
+    const keywords = read('keywords.json').map((keyword: unknown) => toKeyword(keyword as never));
+    const named = keywords.filter((keyword: { icon: string | null }) => keyword.icon !== null);
+    expect(named.length).toBeGreaterThan(0);
+    for (const keyword of named) {
+      expect(sprites.has(keyword.icon), `${keyword.code} -> ${keyword.icon}`).toBe(true);
+    }
+  });
+
   it('serves every icon the dataset lists', () => {
     for (const icon of read('icons.json')) {
       const bytes = readFileSync(join(PUBLIC_ROOT, icon.image));
@@ -305,6 +335,8 @@ describe('mapping the dataset into contracts', () => {
     expect(poseidon.tier).toBe(6);
     expect(poseidon.attack).toBeGreaterThan(0);
     expect(poseidon.powerName).toBeTruthy();
+    expect(poseidon.powerImage).toBe('images/gods/powers/champ012.png');
+    expect(poseidon.bannerImage).toBe('images/gods/banners/champ012.png');
     expect(poseidon.descendText.length).toBeGreaterThan(0);
     expect(poseidon.descendQuestText.length).toBeGreaterThan(0);
   });
@@ -365,6 +397,13 @@ describe('mapping the dataset into contracts', () => {
     );
     expect(keyword.code).toBe('deploy');
     expect(keyword.title).not.toContain('<');
+    // The title's markup names the icon the game shows beside the term; the words lose it, the
+    // field keeps it.
+    expect(keyword.icon).toBe('icon_deploy');
+    // A keyword the client writes as words alone has none, rather than an invented sprite.
+    expect(
+      toKeyword(read('keywords.json').find((k: { key: string }) => k.key === 'aura')).icon,
+    ).toBe(null);
     const realm = toRealm(read('realms.json').find((r: { code: string }) => r.code === 'babylon'));
     expect(realm).toEqual({ code: 'babylon', number: 5, name: 'Babylon' });
   });

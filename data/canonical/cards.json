@@ -29,7 +29,12 @@
       "description": {
         "en": "<color=#D46C17>Conjure</color> an unit one Tier higher than your current <color=#D46C17>Sanctum</color>",
         "vi-VN": "<color=#D46C17>Triệu Tập</color> một đơn vị cao hơn một Bậc so với <color=#D46C17>Thánh Đền</color> của ngươi"
-      }
+      },
+      "sprite": "icon_power_01",
+      "image": "images/gods/powers/champ001.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "e6a4b67abe0f990df3bc03fd99b8589768f23faa853dc9163502328dafe332a6"
     },
     "powerPlain": {
       "en": "Conjure an unit one Tier higher than your current Sanctum",
@@ -42,6 +47,13 @@
     "descendQuest": {
       "en": "Use <color=#D46C17>Eye of Horus</color> at 3 different Sanctum Tiers",
       "vi-VN": "Sử dụng <color=#D46C17>Mắt Thần Horus</color> ở 3 Bậc Thánh Đền khác nhau"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_01",
+      "image": "images/gods/banners/champ001.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "4fc38804d1c4a18a2b95540eec25930943870dcf60a9a47f476620c5f97496fe"
     }
   },
   {
@@ -74,7 +86,12 @@
       "description": {
         "en": "Passive: After you summon a unit in battle, give it +1/+1 and <sprite name=icon_taunt><color=#D46C17>Taunt</color>",
         "vi-VN": "Nội tại: Sau khi ngươi triệu hồi một đơn vị trong chiến đấu, cho nó +1/+1 và <sprite name=icon_taunt><color=#D46C17>Khiêu Khích</color>"
-      }
+      },
+      "sprite": "icon_power_02",
+      "image": "images/gods/powers/champ002.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "f4282ecf85dc30b84825716c6bc5d3e2aabb6b3cef2b0f8fe0e077d857faec9b"
     },
     "powerPlain": {
       "en": "Passive: After you summon a unit in battle, give it +1/+1 and Taunt",
@@ -87,6 +104,13 @@
     "descendQuest": {
       "en": "Summon 45 units in battle",
       "vi-VN": "Triệu hồi 45 đơn vị trong chiến đấu"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_02",
+      "image": "images/gods/banners/champ002.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "94a0a7d59ed14cbd27c73105ab9257dcb1dc98128e5b630841b0dfb769818b6e"
     }
   },
   {
@@ -119,7 +143,12 @@
       "description": {
         "en": "Destroy a <color=#D46C17>Niles</color> ally, your <color=#D46C17>Niles</color> have extra Attack equal to its Tier (wherever they are). This Power cost 1 less if left unused.",
         "vi-VN": "Phá hủy một đồng minh <color=#D46C17>Niles</color>, đơn vị <color=#D46C17>Niles</color> của ngươi có thêm Sát Thương bằng với Bậc của nó (bất kể ở đâu). Giảm 1 vàng nếu không sử dụng trong lượt này."
-      }
+      },
+      "sprite": "icon_power_03",
+      "image": "images/gods/powers/champ003.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "b9c4378a0438e547808784e17cf43df4dad6ab81193a933c06d8b7bf8201e3bc"
     },
     "powerPlain": {
       "en": "Destroy a Niles ally, your Niles have extra Attack equal to its Tier (wherever they are). This Power cost 1 less if left unused.",
@@ -132,6 +161,13 @@
     "descendQuest": {
       "en": "Use Multilate to give <color=#D46C17>Niles</color> allies at least +12 Attack",
       "vi-VN": "Sử dụng <color=#D46C17>Cắt Xén</color> để cho <color=#D46C17>Niles</color> đồng minh ít nhất +12 Sát Thương"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_03",
+      "image": "images/gods/banners/champ003.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "876917e4245888908c7bf9f942eef4efac80e3aa4c05b06e514bc82e59efd3d1"
     }
   },
   {
@@ -164,7 +200,12 @@
       "description": {
         "en": "Choose a unit, then choose another unit from a Tier higher to transform it into.",
         "vi-VN": "Chọn một đơn vị, sau đó chọn một đơn vị cao hơn 1 Bậc để biến nó thành"
-      }
+      },
+      "sprite": "icon_power_04",
+      "image": "images/gods/powers/champ004.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "446d01ceeaa8879d30b8924893b9c131755702cf8da7cca31ad3c0b6cb79ec9b"
     },
     "powerPlain": {
       "en": "Choose a unit, then choose another unit from a Tier higher to transform it into.",
@@ -177,6 +218,13 @@
     "descendQuest": {
       "en": "Use <color=#D46C17>Ascend</color> 10 times",
       "vi-VN": "Sử dụng <color=#D46C17>Thăng Hoa</color> 10 lần"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_04",
+      "image": "images/gods/banners/champ004.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "434b5b3b8f46fa477ca95e3b1fd9c51cd9920bef5a3b1a6044572bb5089d42b5"
     }
   },
   {
@@ -209,7 +257,12 @@
       "description": {
         "en": "Rank up an ally, once per game (Unlocks on Turn 3)",
         "vi-VN": "Thăng Cấp cho một đồng minh, một lần mỗi trận (Mở khóa ở lượt 3)"
-      }
+      },
+      "sprite": "icon_power_05",
+      "image": "images/gods/powers/champ005.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "6ad03d45c2bfdbe58e397990ca18101e9a76f22abe05c2d6343a0782ee6ffeac"
     },
     "powerPlain": {
       "en": "Rank up an ally, once per game (Unlocks on Turn 3)",
@@ -222,6 +275,13 @@
     "descendQuest": {
       "en": "Rank up a Tier 4 or higher unit to Rank 3",
       "vi-VN": "Thăng cấp một đơn vị Bậc 4 hoặc cao hơn lên Cấp 3"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_05",
+      "image": "images/gods/banners/champ005.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "aa89e66f810cf4b835e91e62cfc9544bc4bbecd32a52f3f55bef09c2bff25ede"
     }
   },
   {
@@ -254,7 +314,12 @@
       "description": {
         "en": "Choose a unit in the <color=#D46C17>Sanctum</color>, give it +1/+1 and lock it in your hand for 2 turns",
         "vi-VN": "Chọn một đơn vị trong <color=#D46C17>Thánh Đền</color>, cho nó +1/+1 và khóa nó trong tay ngươi trong 2 lượt"
-      }
+      },
+      "sprite": "icon_power_07",
+      "image": "images/gods/powers/champ007.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "979eda07bc4966b7b254fb347d2f9f79d062df9d0ddeeb0b0907ffa401d261f5"
     },
     "powerPlain": {
       "en": "Choose a unit in the Sanctum, give it +1/+1 and lock it in your hand for 2 turns",
@@ -267,6 +332,13 @@
     "descendQuest": {
       "en": "Slay 20 enemies with units from <color=#D46C17>Underworld's Chain</color>",
       "vi-VN": "Kết liễu 20 kẻ địch với đơn vị lấy từ <color=#D46C17>Xiềng Xích Địa Ngục</color>"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_07",
+      "image": "images/gods/banners/champ007.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "3cafce1685759610a73317eaaa34a5db9eb9ba0c4503c90c927ad99b2329aa60"
     }
   },
   {
@@ -299,7 +371,12 @@
       "description": {
         "en": "<color=#D46C17>Conjure</color> a <color=#D46C17>Babylon</color> unit\\n(Locked until you deployed 24 units)",
         "vi-VN": "<color=#D46C17>Triệu Tập</color> một đơn vị <color=#D46C17>Babylon</color>\\n(Khóa đến khi ngươi triển khai 24 đơn vị)"
-      }
+      },
+      "sprite": "icon_power_08",
+      "image": "images/gods/powers/champ008.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "5ed048168d9449b5f8e44740544404763355fa08f4b65285956ee5fc2aa86d8b"
     },
     "powerPlain": {
       "en": "Conjure a Babylon unit\\n(Locked until you deployed 24 units)",
@@ -312,6 +389,13 @@
     "descendQuest": {
       "en": "Have 45 <color=#D46C17>Babylon</color> units added to your hand",
       "vi-VN": "Có 45 đơn vị <color=#D46C17>Babylon</color> được thêm vào tay bạn"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_08",
+      "image": "images/gods/banners/champ008.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "4e2542d3d07cf28db30b0482027c81f53db994b5372b57ac016ca344a9487156"
     }
   },
   {
@@ -344,7 +428,12 @@
       "description": {
         "en": "Start with 3 extra Lives",
         "vi-VN": "Nhận thêm 3 Mạng khi vào trận"
-      }
+      },
+      "sprite": "icon_power_09",
+      "image": "images/gods/powers/champ009.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "65c47b0f9ca301e059b65e54e4037b109b3af0699915b18686a59697f6e1e302"
     },
     "powerPlain": {
       "en": "Start with 3 extra Lives",
@@ -357,6 +446,13 @@
     "descendQuest": {
       "en": "Have 1 Life left",
       "vi-VN": "Còn 1 Mạng"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_09",
+      "image": "images/gods/banners/champ009.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "4e3b8644e870c711e7af7ed8f480b807733f9f13e8eca55126fafc7d9a1b6998"
     }
   },
   {
@@ -389,7 +485,12 @@
       "description": {
         "en": "After an ally is slain, give its <sprite name=icon_attack><color=#0068A9>Attack</color> to another random ally (Once per battle). After using this 3 times, increase the number of receiving ally by 1",
         "vi-VN": "Sau khi một đồng minh bị kết liễu, đưa chỉ số <sprite name=icon_attack><color=#0068A9>Sát Thương</color> của nó cho 1 đồng minh khác (1 lần mỗi lượt chiến). Sau khi sử dụng 3 lần, tăng số đồng minh được nhận chỉ số lên 1"
-      }
+      },
+      "sprite": "icon_power_10",
+      "image": "images/gods/powers/champ010.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "2ca93beb0123f7d461e858b40762a5d46699ca1339f8d576df54be87d524c0d1"
     },
     "powerPlain": {
       "en": "After an ally is slain, give its Attack to another random ally (Once per battle). After using this 3 times, increase the number of receiving ally by 1",
@@ -402,6 +503,13 @@
     "descendQuest": {
       "en": "Transfer 500 <sprite name=icon_attack><color=#0068A9>Attack</color> with <color=#D46C17>God of the Dead</color>",
       "vi-VN": "Cho 500 <sprite name=icon_attack><color=#0068A9>Sát Thương</color> bằng <color=#D46C17>Thần của người chết</color>"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_10",
+      "image": "images/gods/banners/champ010.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "72cf337aa470ba144f86effe734acdade29c5a0d83ced23ab392545c46a782cc"
     }
   },
   {
@@ -434,7 +542,12 @@
       "description": {
         "en": "<color=#D46C17>Start of Battle:</color> Deal 1 damage to the highest <sprite name=icon_health><color=#DA4D31>Health</color> enemy. Increase damage by 2 after you play a <color=#D46C17>Sanctum Spell</color> (Unlock on Turn 3)",
         "vi-VN": "<color=#D46C17>Khai Trận:</color> Gây 1 sát thương lên kẻ dịch nhiều <sprite name=icon_health><color=#DA4D31>Máu</color> nhất. Tăng sát thương thêm 2 mỗi khi ngươi sử dụng <color=#D46C17>Phép Thánh Đền</color> (Mở khóa ở lượt 3)"
-      }
+      },
+      "sprite": "icon_power_11",
+      "image": "images/gods/powers/champ011.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "b1f04d4483d50d97dd69050f13a9e0dc4cb929bbb6ea2cdf7783e535ae1a62a9"
     },
     "powerPlain": {
       "en": "Start of Battle: Deal 1 damage to the highest Health enemy. Increase damage by 2 after you play a Sanctum Spell (Unlock on Turn 3)",
@@ -447,6 +560,13 @@
     "descendQuest": {
       "en": "Deal 120 damage with <color=#D46C17>The Lightning Bolt</color>",
       "vi-VN": "Gây 120 sát thương bằng <color=#D46C17>Tia Chớp của Zeus</color>"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_11",
+      "image": "images/gods/banners/champ011.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "89d8bfca575daae856f9531a84992e12a381727013402c45f0cbc063f8ad53ea"
     }
   },
   {
@@ -479,7 +599,12 @@
       "description": {
         "en": "After you play 3 <color=#D46C17>Sanctum Spell</color>, get a random <color=#D46C17>Sanctum Spell</color> (3 times per turn)",
         "vi-VN": "Sau khi ngươi sử dụng 3 <color=#D46C17>Phép Thánh Đền</color>, nhận một <color=#D46C17>Phép Thánh Đền</color> ngẫu nhiên (3 lần mỗi lượt)"
-      }
+      },
+      "sprite": "icon_power_12",
+      "image": "images/gods/powers/champ012.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "15d95d126a51fd7d295a9469d032aa8c78b901cc0e3b41a4d31dc36137a23882"
     },
     "powerPlain": {
       "en": "After you play 3 Sanctum Spell, get a random Sanctum Spell (3 times per turn)",
@@ -492,6 +617,13 @@
     "descendQuest": {
       "en": "Play 45 <color=#D46C17>Sanctum Spell</color>",
       "vi-VN": "Sử dụng 45 <color=#D46C17>Phép Thánh Đền</color>"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_12",
+      "image": "images/gods/banners/champ012.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "4f0e1f5bd67069920d62c6514016cc3ae518e00f99d543e2643eaaf03db05437"
     }
   },
   {
@@ -524,7 +656,12 @@
       "description": {
         "en": "<color=#D46C17>Remove</color> an ally, give its stats to the ally on the same column",
         "vi-VN": "<color=#D46C17>Loại Bỏ</color> một đồng minh, đưa chỉ số của nó cho đồng minh cùng cột"
-      }
+      },
+      "sprite": "icon_power_13",
+      "image": "images/gods/powers/champ013.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "2e8f7d7a154b4cb2a68ecd1bc4c13d15a29a142254bafa981dd4c2750650a0fb"
     },
     "powerPlain": {
       "en": "Remove an ally, give its stats to the ally on the same column",
@@ -537,6 +674,13 @@
     "descendQuest": {
       "en": "Transfer 100 total stats with <color=#D46C17>Lifeforce Shift</color>",
       "vi-VN": "Chuyển dịch 100 chỉ số bằng <color=#D46C17>Chuyển Giao Sinh Lực</color>"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_13",
+      "image": "images/gods/banners/champ013.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "194f73825a548441617096424ee059c96887763f73c563bf4a5cde1ec6db3a9c"
     }
   },
   {
@@ -569,7 +713,12 @@
       "description": {
         "en": "At the start of the game and every 7 turns, choose from 2 new <color=#D46C17>God's Powers</color>",
         "vi-VN": "Khi bắt đầu trận đấu và sau mỗi 7 lượt, chọn một trong 2 <color=#D46C17>Quyền năng</color> mới"
-      }
+      },
+      "sprite": "icon_power_14",
+      "image": "images/gods/powers/champ014.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "9cb1d669f95cf5c592b09648b8fef92a26d89d7dbdb492b8653f9fb134df7243"
     },
     "powerPlain": {
       "en": "At the start of the game and every 7 turns, choose from 2 new God's Powers",
@@ -582,6 +731,13 @@
     "descendQuest": {
       "en": "Win 3 battles with each of 2 different Powers",
       "vi-VN": "Thắng 3 lượt đấu với mỗi Quyền Năng trong 2 Quyền Năng khác nhau"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_14",
+      "image": "images/gods/banners/champ014.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "df13b6fec6c371bf9ef026b104b96f41a02140671fab326d085d7443145da698"
     }
   },
   {
@@ -614,7 +770,12 @@
       "description": {
         "en": "Passive: After your allies has slain 15 enemies or after you triggered <sprite name=icon_slay><color=#D46C17>Slay</color> 9 times, get a <color=#D46C17>Promotion Reward</color> (Once per battle)",
         "vi-VN": "Passive: Sau khi đồng minh kết liễu 15 kẻ địch hoặc kích hoạt <sprite name=icon_slay><color=#D46C17>Kết Liễu</color> 9 lần, nhận một <color=#D46C17>Phần Thưởng Thăng Cấp</color> (Once per battle)"
-      }
+      },
+      "sprite": "icon_power_15",
+      "image": "images/gods/powers/champ015.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "dc12a7e695760b6b9a1484d38e76a95e2f6684c41fff0398a95641f65b46acbe"
     },
     "powerPlain": {
       "en": "Passive: After your allies has slain 15 enemies or after you triggered Slay 9 times, get a Promotion Reward (Once per battle)",
@@ -627,6 +788,13 @@
     "descendQuest": {
       "en": "Slay 45 enemies",
       "vi-VN": "Kết liễu 45 kẻ địch"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_15",
+      "image": "images/gods/banners/champ015.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "ebdaefcc95a63fa22009702048bb7c7c8cf6b8eb40df1cd0d083f99c33715c92"
     }
   },
   {
@@ -659,7 +827,12 @@
       "description": {
         "en": "Passive: After 25 <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color> casted, get a <color=#D46C17>Xiaotian Quan</color>",
         "vi-VN": "Nội tại: Sau khi 25 <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color> được sử dụng, nhận một <color=#D46C17>Hạo Thiên Khuyển</color>"
-      }
+      },
+      "sprite": "icon_power_16",
+      "image": "images/gods/powers/champ016.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "5d9f201e0b605a2d8450b50c398e8d819f17a1dfc36470c1bd412408e46b63b1"
     },
     "powerPlain": {
       "en": "Passive: After 25 Celestial Medicine casted, get a Xiaotian Quan",
@@ -672,6 +845,13 @@
     "descendQuest": {
       "en": "Deploy a Rank 3 Xiao Tianquan",
       "vi-VN": "Triển khai một Hao Thiên Khuyển Cấp 3"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_16",
+      "image": "images/gods/banners/champ016.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "0b21b0e2d927f5a1ea1de2f7a927119c6fb15c3d200696bcd06f8cb71d75a3fc"
     }
   },
   {
@@ -704,7 +884,12 @@
       "description": {
         "en": "Choose an ally. <color=#D46C17>Start of Battle:</color> It gain +2/+2 and attack immediately (Unlocks on Turn 4)",
         "vi-VN": "Chọn một đồng minh. <color=#D46C17>Khai Trận:</color> Nó nhận +2/+2 và tấn công ngay lập tức (Mở khóa ở lượt 4)"
-      }
+      },
+      "sprite": "icon_power_17",
+      "image": "images/gods/powers/champ017.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "afbdd1af0349631d238ce5429e1c30537d5224d8325554897f004215f43cdfc2"
     },
     "powerPlain": {
       "en": "Choose an ally. Start of Battle: It gain +2/+2 and attack immediately (Unlocks on Turn 4)",
@@ -717,6 +902,13 @@
     "descendQuest": {
       "en": "Slay 12 enemies with <color=#D46C17>Wind Fire Wheel</color> units",
       "vi-VN": "Kết liễu 12 kẻ địch với đơn vị được ban <color=#D46C17>Phong Hỏa Luân</color>"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_17",
+      "image": "images/gods/banners/champ017.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "4f726b6fd275cae2ca2432420e51dee8619196925f132003d64bab473b1729c9"
     }
   },
   {
@@ -749,7 +941,12 @@
       "description": {
         "en": "Passive: After 3 <color=#D46C17>Kami</color> allies are slain, summon the first <color=#D46C17>Kami</color> ally slain this battle",
         "vi-VN": "Nội tại: Sau khi 3 đồng minh <color=#D46C17>Kami</color> bị kết liễu, triệu hồi đồng minh <color=#D46C17>Kami</color> đầu tiên bị kết liễu trong chiến đấu"
-      }
+      },
+      "sprite": "icon_power_19",
+      "image": "images/gods/powers/champ019.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "19fc0e2239cf728172777d2052c226538a0bae4aa938b9d297e9f1b115adf354"
     },
     "powerPlain": {
       "en": "Passive: After 3 Kami allies are slain, summon the first Kami ally slain this battle",
@@ -762,6 +959,13 @@
     "descendQuest": {
       "en": "Have 40 <color=#D46C17>Kami</color> allies slain",
       "vi-VN": "40 đồng minh <color=#D46C17>Kami</color> bị kết liễu"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_19",
+      "image": "images/gods/banners/champ019.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "bb8951635f2955ada2043db53f5527ff6235667011f41283f166766f2c263fd0"
     }
   },
   {
@@ -794,7 +998,12 @@
       "description": {
         "en": "Trigger a unit's <sprite name=icon_deploy><color=#D46C17>Deploy</color>",
         "vi-VN": "Kích hoạt <sprite name=icon_deploy><color=#D46C17>Triển Khai</color> của một đơn vị"
-      }
+      },
+      "sprite": "icon_power_22",
+      "image": "images/gods/powers/champ022.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "59c4d129bf9916870c08c01375558913bf81e8cf6ea61c5dd3557f28f37b7d0d"
     },
     "powerPlain": {
       "en": "Trigger a unit's Deploy",
@@ -807,6 +1016,13 @@
     "descendQuest": {
       "en": "Trigger <sprite name=icon_deploy><color=#D46C17>Deploy</color> 20 times",
       "vi-VN": "Kích hoạt <sprite name=icon_deploy><color=#D46C17>Triển Khai</color> 20 lần"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_22",
+      "image": "images/gods/banners/champ022.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "148ac56c016942968f5874062fa2730eb3902ca7d1f334e73e52c61c05f48fee"
     }
   },
   {
@@ -839,7 +1055,12 @@
       "description": {
         "en": "Passive: At the start of the game, choose a Tier 6 unit. Add two Rank 2 copies of it to your hand, and unlock one for each 90 Gold you spend.",
         "vi-VN": "Nội tại: Khi bắt đầu trận, chọn một đơn vị Bậc 6. Nhận 2 bản sao Cấp 2, và mở khóa một lá mỗi khi ngươi sử dụng 90 Vàng"
-      }
+      },
+      "sprite": "icon_power_27",
+      "image": "images/gods/powers/champ027.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "4f5fa7e6553d1e4f3600ec0d9ad5ce423d6044b964a4c4f3f6863fa0f4c97922"
     },
     "powerPlain": {
       "en": "Passive: At the start of the game, choose a Tier 6 unit. Add two Rank 2 copies of it to your hand, and unlock one for each 90 Gold you spend.",
@@ -852,6 +1073,13 @@
     "descendQuest": {
       "en": "Unlock your <color=#D46C17>Path of Fate</color> unit",
       "vi-VN": "Mở khóa đơn vị từ <color=#D46C17>Con Đường Số Phận</color>"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_27",
+      "image": "images/gods/banners/champ027.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "94f56bccfff1d4ec754e3a7831f1717b6f0a7734b21fddb54ff7ff87d492c63c"
     }
   },
   {
@@ -884,7 +1112,12 @@
       "description": {
         "en": "After you deploy an odd Tier and an even Tier unit consecutively, or vice versa, get a random <color=#D46C17>Daehan</color> unit (Once per turn)",
         "vi-VN": "Sau khi ngươi lần lượt triển khai một đơn vị bậc lẻ và bậc chẵn, hoặc ngược lại, nhận một đơn vị <color=#D46C17>Daehan</color> ngẫu nhiên (Một lần mỗi lượt)"
-      }
+      },
+      "sprite": "icon_power_28",
+      "image": "images/gods/powers/champ028.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "79bf4fd69f936e2d9e1fa443e3b54f319126ac3cd1884e0a4b26a0c75c3cea9d"
     },
     "powerPlain": {
       "en": "After you deploy an odd Tier and an even Tier unit consecutively, or vice versa, get a random Daehan unit (Once per turn)",
@@ -897,6 +1130,13 @@
     "descendQuest": {
       "en": "Get 10 units from <color=#D46C17>Miracle of Life</color>",
       "vi-VN": "Nhận 10 đơn vị từ <color=#D46C17>Phép Màu Sự Sống</color>"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_28",
+      "image": "images/gods/banners/champ028.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "fa3f36304e30b94eaaa2d3202dbe8d1e62287a329efe1606710846f6fac63b15"
     }
   },
   {

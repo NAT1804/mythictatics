@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { SPELL_SUBTYPES } from './constants';
 import { GodIdSchema, SpellIdSchema, UnitIdSchema } from './ids';
 import { GameVersionSchema, RankSchema, TierSchema } from './primitives';
 import { RealmCodeSchema } from './realm';
@@ -82,8 +83,39 @@ export const DatasetGodSchema = z.object({
     attack: z.number().int().nonnegative(),
     health: z.number().int().nonnegative(),
   }),
-  power: z.object({ name: LocalizedSchema, description: LocalizedSchema }),
+  /**
+   * A god's Power, art included. The art fields are named exactly as the card's own are, because
+   * they are the same thing one level down: the client draws the Power from its own `icon_power`
+   * atlas, one 128×128 sprite per god.
+   *
+   * None of them is nullable. Unlike `tier` or `realmLock` this is in the shipped client for
+   * every god the game offers, so a patch that leaves one without art is a broken extraction and
+   * should fail here rather than reach the site as a missing picture.
+   */
+  power: z.object({
+    name: LocalizedSchema,
+    description: LocalizedSchema,
+    sprite: z.string().min(1),
+    image: z.string().min(1),
+    imageWidth: z.number().int().positive(),
+    imageHeight: z.number().int().positive(),
+    imageSha256: z.string().length(64),
+  }),
   powerPlain: LocalizedSchema,
+  /**
+   * The tall standee the game stands the god up in on its Patron God screen — 156×348, from the
+   * client's `icon_god_flag` atlas. Required for the same reason the Power art is.
+   *
+   * That atlas is wider than the roster: it also holds four banners for gods the game has no card
+   * for. A banner is therefore never evidence that a god exists — the localization tables are.
+   */
+  banner: z.object({
+    sprite: z.string().min(1),
+    image: z.string().min(1),
+    imageWidth: z.number().int().positive(),
+    imageHeight: z.number().int().positive(),
+    imageSha256: z.string().length(64),
+  }),
   /** The unit a god becomes on Descend. */
   descendUnit: LocalizedSchema,
   descendQuest: LocalizedSchema,
@@ -93,7 +125,7 @@ export const DatasetSpellSchema = z.object({
   ...datasetCardBase,
   id: SpellIdSchema,
   kind: z.literal('spell'),
-  subtype: z.enum(['sanctum', 'medicine']),
+  subtype: z.enum(SPELL_SUBTYPES),
   /** Set for a spell that belongs to one realm, null for a shared Sanctum spell. */
   realm: RealmCodeSchema.nullable(),
   tier: TierSchema,

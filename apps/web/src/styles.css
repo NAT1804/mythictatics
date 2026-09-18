@@ -29,6 +29,358 @@
   --color-realm-olympus: #8199cb;
   --color-realm-shenzhou: #cc5247;
   --color-realm-yggdrasil: #76ab83;
+
+  /*
+   * The parchment the game reads a term out on, and the ink it uses there.
+   *
+   * These are sampled off the client's own tooltip sprites rather than picked to go with the
+   * site's dark palette: a panel drawn in them is the panel the game draws. `tip-term` is the
+   * orange a highlighted word takes on that parchment — the same word the site writes in gold on
+   * its own dark panels — and `tip-head` the navy the game bands a panel's title across.
+   */
+  --color-tip: #fffef3;
+  --color-tip-ink: #3f3a33;
+  --color-tip-dim: #6b6152;
+  --color-tip-term: #b8761f;
+  --color-tip-head: #2c2c59;
+}
+
+/*
+ * The patron god landing on the board.
+ *
+ * Three parts of one impact, run together: the card falls from above and accelerates as it comes,
+ * squashes against the slot and rebounds, while a ring blows out from under it and the board takes
+ * the hit. The squash is what sells it, so every step below the fall keys off `transform-origin:
+ * bottom` — the card compresses onto the slot rather than about its own middle.
+ *
+ * Every one of these is paired with `motion-reduce:animate-none` at the use site; a drop that
+ * throws the board around is exactly what a reduced-motion setting is asking not to happen.
+ */
+@keyframes god-landing {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -180%, 0) scale(1.25);
+    /* Gravity: slow at the top of the fall, fastest at the bottom. */
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+  46% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1.06);
+    animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1);
+  }
+  58% {
+    transform: translate3d(0, 2%, 0) scale(1.14, 0.84);
+  }
+  72% {
+    transform: translate3d(0, -4%, 0) scale(0.96, 1.06);
+  }
+  86% {
+    transform: translate3d(0, 0, 0) scale(1.02, 0.98);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+/*
+ * The ring the impact blows out along the ground.
+ *
+ * It gets its own duration and its own delay rather than idling through the first half of the
+ * fall: that earlier arrangement left it about a third of a second of actual life, most of it
+ * spent fading, and it was over before the eye found it. Now it starts at the moment of impact,
+ * at full brightness and already wider than a point, and spends its whole life expanding.
+ *
+ * Only scale and opacity here. The element that carries this is centred by its parent, so a
+ * `translate` in these frames would fight that and drag the ring off its own landing point.
+ */
+@keyframes god-shockwave {
+  0% {
+    opacity: 1;
+    transform: scale(0.3);
+  }
+  70% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.9);
+  }
+}
+
+@keyframes god-quake {
+  0%,
+  100% {
+    transform: none;
+  }
+  20% {
+    transform: translate3d(-2px, 1px, 0);
+  }
+  40% {
+    transform: translate3d(2px, -1px, 0);
+  }
+  60% {
+    transform: translate3d(-1px, 1px, 0);
+  }
+  80% {
+    transform: translate3d(1px, 0, 0);
+  }
+}
+
+/*
+ * The frame around a card, in the game's own art rather than a gradient of our own.
+ *
+ * A unit and a god wear the frame the game puts them in on the board: an arch, with the Attack and
+ * Health discs drawn into its foot. That sprite cannot be nine-sliced the way a rectangle can — its
+ * dome is one unbroken curve and the discs sit in the bottom corners — but it does not need to be.
+ * It is three bands stacked: dome (its top 160 rows), two plain vertical bars (the next 176), then
+ * the foot with the discs (the last 139). So it is sliced across only — `160 0 139 0 fill` — which
+ * leaves the dome and the foot to scale with the card's width, and stretches nothing but the bars.
+ * A card can then be any height at all and the ornament is never distorted, only the plain middle
+ * is longer. `fill` is what paints that middle band, and without it the bars would be missing.
+ *
+ * Every measurement here is a share of the card's width (`cqw`), read off the sprite: 160/480 of
+ * the width for the dome, 139/480 for the foot, 40/480 for a bar. The card is therefore a
+ * `@container`, and one sprite serves a 7rem tile and a reading-size card alike.
+ *
+ * A spell has no body, and so no use for a frame with an Attack and a Health disc in it; it wears
+ * the game's own spell card frame instead, which is a rectangle and is nine-sliced normally.
+ */
+@layer components {
+  /*
+   * The arch, laid over the card as a sheet of its own: the art goes underneath, so the dome's
+   * curve and the discs are painted over it exactly as the game paints them over a unit.
+   */
+  .card-arch {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-style: solid;
+    /* dome, nothing, foot, nothing — the bars come from the filled middle band. */
+    border-width: 33.33cqw 0 28.96cqw 0;
+    border-image-slice: 160 0 139 0 fill;
+    border-image-repeat: stretch;
+  }
+
+  .card-arch-r01 {
+    border-image-source: url('/images/frames/unit-frame_01.png');
+  }
+
+  .card-arch-r02 {
+    border-image-source: url('/images/frames/unit-frame_02.png');
+  }
+
+  .card-arch-r03 {
+    border-image-source: url('/images/frames/unit-frame_03.png');
+  }
+
+  .card-arch-r04 {
+    border-image-source: url('/images/frames/unit-frame_04.png');
+  }
+
+  /*
+   * The card's own matter, inside the arch: inset by a bar either side, and cut to the dome at the
+   * top so nothing shows through the curve the frame leaves open.
+   */
+  .card-arch-inner {
+    margin: 0 8.33cqw 4.4cqw;
+    border-radius: 50% 50% 0.3rem 0.3rem / 30cqw 30cqw 0.3rem 0.3rem;
+  }
+
+  /* The same, for the rectangle a spell wears: a bar's width in on every side. */
+  .card-frame-inner {
+    margin: 7cqw;
+    border-radius: 0.3rem;
+  }
+
+  /*
+   * A number over one of the discs the frame draws. The disc is 24cqw across with its centre
+   * 14.9cqw in from the side and 15.1cqw up from the foot, so the plate sits at 2.9cqw / 3.1cqw
+   * and scales, text and all, with the card.
+   */
+  .card-arch-plate {
+    position: absolute;
+    bottom: 3.1cqw;
+    display: flex;
+    height: 24cqw;
+    width: 24cqw;
+    align-items: center;
+    justify-content: center;
+    font-size: 9.5cqw;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 0.4cqw 0.8cqw rgba(0, 0, 0, 0.75);
+  }
+
+  .card-arch-attack {
+    left: 2.9cqw;
+  }
+
+  .card-arch-health {
+    right: 2.9cqw;
+  }
+
+  /*
+   * The rectangles: the god card frame the picker uses and the spell frame, both ordinary
+   * nine-slices. Its bar is 28px of a 280px-wide
+   * sprite, and `border-image-width` is written as multiples of that bar so the whole frame scales
+   * from one number.
+   */
+  .card-frame {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-style: solid;
+    border-width: calc(var(--card-frame-bar) * var(--card-frame-scale, 0.7));
+    border-image-repeat: stretch;
+  }
+
+  .card-frame-champion {
+    --card-frame-bar: 7.78cqw;
+    border-image-source: url('/images/frames/card_champion_container_01_xl_high.png');
+    border-image-slice: 116 172 32 171;
+    border-image-width: 4.143 6.143 1.143 6.107;
+  }
+
+  .card-frame-spell {
+    --card-frame-bar: 10cqw;
+    border-image-source: url('/images/frames/card_spell-01_container_01_xl_high.png');
+    border-image-slice: 32 32 32 32;
+    border-image-width: 1.143 1.143 1.143 1.143;
+  }
+
+  /*
+   * The ring around a spell's cost, which the game draws in gold. It is a background rather than a
+   * border so the plate's own colour still fills the disc underneath it.
+   */
+  .card-ring {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url('/images/frames/card_r03_stat-frame_s_high.png');
+  }
+
+  /*
+   * The card at reading size, in the frame the game deals it in: a rectangle, not the board's
+   * arch. The two are the game's own two shapes for one card — the arch is what a unit stands in
+   * on the board, and this is the card it was dealt from — and the site uses them the same way:
+   * the arch on every tile, this one in the detail view, where the card is being read rather than
+   * played.
+   *
+   * These are the client's `card_r01_container_01_xl_high` sprites and their siblings, nine-sliced
+   * as ordinary rectangles. Unlike the arch the bar is a border on the card's own body, so the
+   * body is what the layout sees and the ornament hangs outside it: `border-image-width` is
+   * written as multiples of the 28px bar, which leaves `--card-rect-bar` as the one number that
+   * scales a frame whole — bar, corner curls and all.
+   *
+   * Which frame is which is the game's own vocabulary: r01 bronze, r02 silver, r03 gold, and
+   * `champion` the iridescent one a patron god's card wears.
+   */
+  .card-rect {
+    border-style: solid;
+    border-width: var(--card-rect-bar, 0.5rem);
+    border-image-repeat: stretch;
+  }
+
+  .card-rect-r01 {
+    border-image-source: url('/images/frames/card_r01_container_01_xl_high.png');
+    border-image-slice: 32 31 32 31;
+    border-image-width: 1.143 1.107 1.143 1.107;
+  }
+
+  .card-rect-r02 {
+    border-image-source: url('/images/frames/card_r02_container_01_xl_high.png');
+    border-image-slice: 116 126 32 126;
+    border-image-width: 4.143 4.5 1.143 4.5;
+  }
+
+  .card-rect-r03 {
+    border-image-source: url('/images/frames/card_r03_container_01_xl_high.png');
+    border-image-slice: 120 173 32 173;
+    border-image-width: 4.286 6.179 1.143 6.179;
+  }
+
+  .card-rect-champion {
+    border-image-source: url('/images/frames/card_champion_container_01_xl_high.png');
+    border-image-slice: 116 172 32 171;
+    border-image-width: 4.143 6.143 1.143 6.107;
+  }
+
+  .card-rect-spell {
+    border-image-source: url('/images/frames/card_spell-01_container_01_xl_high.png');
+    border-image-slice: 32 32 32 32;
+    border-image-width: 1.143 1.143 1.143 1.143;
+  }
+
+  /*
+   * The ring around a stat disc, in the same metal as the frame it is threaded onto. It is a
+   * background rather than a border so the disc's own colour — the blue of an Attack, the red of a
+   * Health — still fills it. A god has no ring of its own in the client, so its discs take r04's,
+   * the iridescent one, which is the only metal that matches a god's frame.
+   */
+  .card-rect-ring {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .card-rect-ring-r01 {
+    background-image: url('/images/frames/card_r01_stat-frame_s_high.png');
+  }
+
+  .card-rect-ring-r02 {
+    background-image: url('/images/frames/card_r02_stat-frame_s_high.png');
+  }
+
+  .card-rect-ring-r03 {
+    background-image: url('/images/frames/card_r03_stat-frame_s_high.png');
+  }
+
+  .card-rect-ring-r04 {
+    background-image: url('/images/frames/card_r04_stat-frame_s_high.png');
+  }
+
+  /*
+   * The panel the game reads a term out on: cream parchment inside a bevelled frame, nine-sliced
+   * the way the spell frame above is.
+   *
+   * `container-tooltip_01` and `_02` are the client's own sprites — 64px square, with a 28px
+   * border all the way round. That slice is Unity's own, shipped with the sprite rather than
+   * measured here, and it leaves eight pixels of parchment in the middle; `fill` is what stretches
+   * those eight pixels across the panel, so the frame brings its own background and nothing
+   * underneath shows through.
+   *
+   * Both ship, and the game uses them for two different things: `_01` in brown frames a keyword,
+   * `_02` in purple frames a Descend. `--game-panel-bar` is the width the frame is drawn at, and
+   * it is the only number a panel sets.
+   */
+  .game-panel {
+    --rich-highlight: var(--color-tip-term);
+    border-style: solid;
+    border-width: var(--game-panel-bar, 0.85rem);
+    border-image-slice: 28 fill;
+    border-image-width: 1;
+    border-image-repeat: stretch;
+    color: var(--color-tip-ink);
+  }
+
+  .game-panel-keyword {
+    border-image-source: url('/images/panels/container-tooltip_01.png');
+  }
+
+  .game-panel-descend {
+    border-image-source: url('/images/panels/container-tooltip_02.png');
+  }
+
+  /*
+   * A term the game highlights inside its own text.
+   *
+   * Gold on the site's dark panels, and the game's own orange wherever the text sits on
+   * parchment — `.game-panel` sets `--rich-highlight`, so the colour follows the surface the text
+   * landed on rather than every caller having to say which surface that is.
+   */
+  .rich-highlight {
+    font-weight: 500;
+    color: var(--rich-highlight, var(--color-gold-bright));
+  }
 }
 
 @layer base {

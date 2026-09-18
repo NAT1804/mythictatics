@@ -27,9 +27,6 @@ export const appRoutes: Route[] = [
       {
         path: 'builder',
         title: 'Team Builder',
-        // From `lg` up the builder pins itself to the viewport and scrolls only its unit list, so
-        // the shell must not put it inside a scrolling page.
-        data: { layout: 'fixed' },
         loadComponent: () => import('@mythictatics/web/builder').then((m) => m.BuilderPage),
       },
       { path: '**', title: 'Page not found', component: NotFoundPage },

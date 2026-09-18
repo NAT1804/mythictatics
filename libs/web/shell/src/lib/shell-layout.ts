@@ -1,14 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import {
-  NavigationEnd,
-  Router,
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-  type ActivatedRouteSnapshot,
-} from '@angular/router';
-import { filter, map } from 'rxjs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SITE_NAME } from './site';
 
 interface NavItem {
@@ -17,33 +8,22 @@ interface NavItem {
 }
 
 /**
- * Two layouts, chosen by the route.
+ * The frame every page sits in: header, outlet, fan-site footer.
  *
- * Most pages are documents: they flow, and the page scrolls. The builder is a workspace — it
- * pins itself to the viewport and scrolls only its unit list — and a scrolling page would fight
- * it. A route asks for that with `data: { layout: 'fixed' }`, which turns the shell itself into a
- * fixed-height column so the outlet can be told to fill exactly what is left.
- *
- * Both keep the same width, so moving between the builder and the other pages does not reflow the
- * header. And a fixed layout only pins from `lg` up: below that a workspace cannot fit on one
- * screen, so it flows like any other page.
+ * One layout, and it flows — the page is as tall as its content and the window scrolls. The
+ * builder used to ask for a second, viewport-pinned layout so that only its unit list scrolled;
+ * it no longer does, so the shell does not carry the machinery for it either. A page that wants
+ * something of its own to stay in view can say so itself, the way the builder's unit column does
+ * with `sticky`, without the shell having to know.
  */
-type Layout = 'flow' | 'fixed';
-
 @Component({
   selector: 'mt-shell-layout',
   imports: [RouterLink, RouterLinkActive, RouterOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    class: 'flex min-h-dvh flex-col',
-    '[class]': "fixed() ? 'lg:h-dvh lg:overflow-hidden' : ''",
-  },
+  host: { class: 'flex min-h-dvh flex-col' },
   template: `
     <header class="shrink-0 border-b border-line bg-panel/80 backdrop-blur">
-      <nav
-        class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4"
-        [class]="fixed() ? 'py-2' : 'py-3'"
-      >
+      <nav class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
         <a routerLink="/" class="font-display text-lg font-bold tracking-wide text-gold">{{
           siteName
         }}</a>
@@ -68,17 +48,11 @@ type Layout = 'flow' | 'fixed';
       </nav>
     </header>
 
-    <main
-      class="mx-auto w-full max-w-6xl flex-1 px-4"
-      [class]="fixed() ? 'py-4 lg:flex lg:min-h-0 lg:flex-col lg:overflow-hidden' : 'py-8'"
-    >
+    <main class="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
       <router-outlet />
     </main>
 
-    <footer
-      class="shrink-0 border-t border-line text-center text-ink-faint"
-      [class]="fixed() ? 'px-4 py-1 text-[10px]' : 'px-4 py-6 text-xs'"
-    >
+    <footer class="shrink-0 border-t border-line px-4 py-6 text-center text-xs text-ink-faint">
       <p>
         {{ siteName }} is an unofficial fan site and is not affiliated with or endorsed by Hepxion.
         Game names and assets belong to their respective owners.
@@ -87,8 +61,6 @@ type Layout = 'flow' | 'fixed';
   `,
 })
 export class ShellLayout {
-  private readonly router = inject(Router);
-
   protected readonly siteName = SITE_NAME;
   protected readonly nav: NavItem[] = [
     { label: 'Comps', path: '/comps' },
@@ -96,24 +68,4 @@ export class ShellLayout {
     { label: 'Collection', path: '/collection' },
     { label: 'Guides' },
   ];
-
-  protected readonly layout = toSignal(
-    this.router.events.pipe(
-      filter((event) => event instanceof NavigationEnd),
-      map(() => layoutOf(this.router.routerState.snapshot.root)),
-    ),
-    { initialValue: 'flow' },
-  );
-
-  protected readonly fixed = computed(() => this.layout() === 'fixed');
-}
-
-/** The deepest route that names a layout wins, so a child can opt in without the parent knowing. */
-function layoutOf(route: ActivatedRouteSnapshot): Layout {
-  let layout: Layout = 'flow';
-  for (let current: ActivatedRouteSnapshot | null = route; current; current = current.firstChild) {
-    if (current.data['layout'] === 'fixed') layout = 'fixed';
-    else if (current.data['layout'] === 'flow') layout = 'flow';
-  }
-  return layout;
 }

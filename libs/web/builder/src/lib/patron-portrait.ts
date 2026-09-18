@@ -4,13 +4,13 @@ import { AnyGodArt } from './any-god';
 import { RealmIcon } from './realm-icon';
 
 /**
- * A patron god as a portrait: the game's arched frame, the realm's diamond hung off the bottom,
- * the name beneath.
+ * A patron god as a portrait: the game's own champion frame, the realm's diamond hung off the
+ * bottom, the name beneath.
  *
- * Smaller than `CardTile` on purpose. The picker shows twenty-one of these above a board that has
- * to fit the same screen, and a god's numbers are not what the choice turns on — its Power is, and
- * that is written out beside the row. `null` is "Any", which is a choice of its own: no god, and
- * so no lock and no Descend.
+ * Smaller than `CardTile` on purpose. The picker shows twenty-one of these at once, and a god's
+ * numbers are not what the choice turns on — its Power is, and that is on `PatronCard` down by the
+ * board, behind its own art. `null` is "Any", which is a choice of its own: no god, and so no lock
+ * and no Descend.
  */
 @Component({
   selector: 'mt-patron-portrait',
@@ -19,13 +19,11 @@ import { RealmIcon } from './realm-icon';
   host: { class: 'block' },
   template: `
     @let shown = god();
-    <span class="relative block">
+    <span class="@container relative block">
       <span
-        class="block bg-gradient-to-b from-gold-bright via-gold to-[#6e4f1d] p-[2px] shadow shadow-black/40 transition-transform duration-200 [border-radius:50%_50%_0.7rem_0.7rem/34%_34%_0.7rem_0.7rem] group-hover:-translate-y-0.5"
+        class="relative block aspect-[4/5] transition-transform duration-200 group-hover:-translate-y-0.5"
       >
-        <span
-          class="block aspect-[4/5] overflow-hidden bg-raised [border-radius:50%_50%_0.55rem_0.55rem/33%_33%_0.55rem_0.55rem]"
-        >
+        <span class="card-frame-inner absolute inset-0 block overflow-hidden bg-raised">
           @if (shown) {
             @if (shown.image) {
               <img
@@ -41,6 +39,13 @@ import { RealmIcon } from './realm-icon';
             <mt-any-god-art class="h-full w-full" />
           }
         </span>
+
+        <!-- The frame at its own weight: a bar here is the 7.78cqw the sprite itself draws, which
+             is what card-frame-inner is inset by. -->
+        <span
+          class="card-frame card-frame-champion [--card-frame-scale:1]"
+          aria-hidden="true"
+        ></span>
       </span>
 
       <span

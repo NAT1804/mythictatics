@@ -10,10 +10,11 @@ type ChipState = 'locked' | 'picked' | 'available' | 'full' | 'always';
 /**
  * The three-realm draft.
  *
- * Neutral is shown with the rest but never costs a pick — it is always buyable, and saying so on
- * screen is cheaper than explaining later why a Neutral unit is in a list the player did not
- * draft. A realm the patron god locked is shown as the god's, not as a pick, because releasing it
- * means changing god or releasing the lock, not clicking here.
+ * Neutral is shown with the rest but never costs a pick — it is always buyable, which is what its
+ * dead chip and its hover text say; the badge is left to the board count, so the one number a
+ * player reads off a chip means the same thing on every chip. A realm the patron god locked is
+ * shown as the god's, not as a pick, because releasing it means changing god or releasing the
+ * lock, not clicking here.
  */
 @Component({
   selector: 'mt-realm-picker',
@@ -21,25 +22,19 @@ type ChipState = 'locked' | 'picked' | 'available' | 'full' | 'always';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block', 'data-testid': 'realm-picker' },
   template: `
-    <div
-      class="flex flex-wrap items-baseline gap-x-2 gap-y-1 lg:flex-nowrap lg:items-start lg:gap-3"
-    >
-      <div
-        class="flex flex-1 items-baseline justify-between gap-2 lg:w-16 lg:flex-none lg:flex-col lg:items-start lg:gap-0 lg:pt-1"
-      >
-        <h2 class="font-display text-lg text-gold lg:text-sm lg:leading-tight">Realms</h2>
+    <div class="flex flex-col">
+      <div class="flex flex-wrap items-baseline justify-between gap-x-2 pb-2">
+        <h2 class="shrink-0 font-display text-lg text-gold">Realms</h2>
         <span class="text-[11px] text-ink-faint">
           @if (store.picksLeft(); as left) {
             pick {{ left }} more
           } @else {
-            draft complete
+            draft done
           }
         </span>
       </div>
 
-      <ul
-        class="grid w-full min-w-0 grid-cols-2 gap-1.5 sm:grid-cols-5 lg:w-auto lg:flex-1 lg:grid-cols-9"
-      >
+      <ul class="grid min-w-0 grid-cols-3 gap-1.5 sm:grid-cols-5 lg:grid-cols-9">
         @for (realm of realms(); track realm.code) {
           @let state = stateOf(realm.code);
           @let onBoard = store.unitsOnBoardFrom(realm.code);
@@ -67,11 +62,6 @@ type ChipState = 'locked' | 'picked' | 'available' | 'full' | 'always';
                   class="shrink-0 text-[10px] text-gold lg:absolute lg:right-0.5 lg:top-0.5"
                   aria-hidden="true"
                   >&#128274;</span
-                >
-              } @else if (state === 'always') {
-                <span
-                  class="shrink-0 text-[10px] text-ink-faint lg:absolute lg:right-0.5 lg:top-0.5"
-                  >any</span
                 >
               } @else if (onBoard) {
                 <span

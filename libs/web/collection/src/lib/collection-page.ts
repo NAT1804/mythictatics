@@ -1,19 +1,13 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  computed,
-  inject,
-  input,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NEUTRAL_REALM, type RealmCode, type Tier } from '@mythictatics/shared/contracts';
+import { type RealmCode, type SpellSubtype, type Tier } from '@mythictatics/shared/contracts';
 import {
+  COLLECTION_ALL,
   COLLECTION_TABS,
   REALMS_IN_GAME_ORDER,
   collectionCards,
   toCollectionRealm,
+  toCollectionSpellKind,
   toCollectionTab,
   type CollectionTab,
 } from '@mythictatics/shared/domain';
@@ -33,108 +27,52 @@ const TAB_LABEL: Record<CollectionTab, string> = {
   spells: 'Spells',
 };
 
+/** The Spells tab's own chip row: the game offers spells as Sanctum or Medicine, nothing else. */
+const SPELL_KINDS: readonly { label: string; value: SpellSubtype | null }[] = [
+  { label: 'All', value: null },
+  { label: 'Sanctum', value: 'sanctum' },
+  { label: 'Medicine', value: 'medicine' },
+];
+
 /**
- * Every card in the game, browsed the way the game's own Collection screen browses it: one realm
- * at a time, chosen from the bar across the top, with Patron God / Units / Spells along the
- * bottom.
+ * Every card in the game, browsed one realm at a time, with Patron God / Units / Spells along the
+ * bottom the way the game's own Collection screen has them.
  *
- * The realm and the tab live in the query string (`?realm=kami&tab=gods`), so a realm can be
- * linked to — the home page's realm ring does exactly that — and the back button walks back
- * through what was browsed. The search and the Tier filter are the game's funnel button: local to
- * the visit, and not worth a URL.
+ * Filtering is the panel Team Comps uses — always open, search and the narrowing buttons on one
+ * row, the realm chips on the next — so the site's two browsing screens are filtered alike. The
+ * scope still lives in the query string (`?realm=kami&tab=gods`), which is why the chips are
+ * links: a realm can be linked to — the home page's realm ring does exactly that — and the back
+ * button walks back through what was browsed. The search and the Tier filter are local to the
+ * visit, and not worth a URL.
  *
- * Sanctum spells belong to no realm; they are filed under Neutral, the realm every draft has.
+ * What the chips offer depends on the tab. Patron God and Units are browsed by realm, plus All.
+ * Spells are browsed by kind — All, Sanctum, Medicine — because a spell's realm says almost
+ * nothing: fifty of the sixty-three belong to none, and all but one of the rest are the Shenzhou
+ * Medicines that the Medicine chip already gathers.
  */
 @Component({
   selector: 'mt-collection-page',
   imports: [CardPreviewDialog, CardTile, RealmIcon, RouterLink],
   providers: [CardPreview],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    class: 'block',
-    '(document:keydown.escape)': 'menuOpen.set(false)',
-    '(document:click)': 'closeMenuFromOutside($event)',
-  },
+  host: { class: 'block' },
   template: `
-    <header class="text-center">
-      <div class="flex items-center justify-center gap-3">
-        <span
-          class="h-px w-12 bg-gradient-to-r from-transparent to-gold sm:w-24"
-          aria-hidden="true"
-        ></span>
-        <h1 class="font-display text-3xl font-bold tracking-wide text-gold sm:text-4xl">
-          Collection
-        </h1>
-        <span
-          class="h-px w-12 bg-gradient-to-l from-transparent to-gold sm:w-24"
-          aria-hidden="true"
-        ></span>
+    <header class="flex flex-wrap items-end justify-between gap-3">
+      <div>
+        <h1 class="font-display text-3xl font-bold text-gold">Collection</h1>
+        <p class="mt-1 max-w-2xl text-sm text-ink-dim">
+          Every card the game can offer you. Browse patron gods and units by realm, spells by kind,
+          and open any card to read its rules text in full.
+        </p>
       </div>
-      <p class="mt-1 text-[10px] tracking-[0.5em] text-gold/70" aria-hidden="true">
-        ◆ ◆ <span class="text-sm">◆</span> ◆ ◆
-      </p>
     </header>
 
-    <!-- Realm bar -->
-    <div class="relative mt-5" data-realm-menu>
-      <button
-        type="button"
-        class="flex w-full items-center gap-3 rounded-md border-2 border-gold/70 bg-gradient-to-r from-[#4d3a1c] via-[#2e2416] to-[#4d3a1c] py-1 pl-1 pr-4 text-left shadow-md transition-colors hover:border-gold"
-        aria-haspopup="true"
-        [attr.aria-expanded]="menuOpen()"
-        data-testid="realm-menu"
-        (click)="menuOpen.set(!menuOpen())"
-      >
-        <span
-          class="ml-1.5 flex h-8 w-8 rotate-45 items-center justify-center rounded-md border-2 border-gold bg-bg"
-        >
-          <mt-realm-icon [realm]="currentRealm()" class="h-5 w-5 -rotate-45" />
-        </span>
-        <span class="ml-1 font-display text-lg font-semibold text-ink" data-testid="realm-name">{{
-          realmName(currentRealm())
-        }}</span>
-        <span class="ml-auto text-xs text-ink-dim">{{ countLabel() }}</span>
-        <span
-          class="text-gold transition-transform"
-          [class.rotate-180]="menuOpen()"
-          aria-hidden="true"
-          >▾</span
-        >
-      </button>
-
-      @if (menuOpen()) {
-        <ul
-          class="absolute inset-x-0 top-full z-30 mt-1 grid grid-cols-2 gap-1 rounded-md border border-gold/50 bg-panel p-2 shadow-2xl shadow-black/60 sm:grid-cols-4"
-        >
-          @for (code of realms; track code) {
-            <li>
-              <a
-                routerLink="."
-                [queryParams]="{ realm: code }"
-                queryParamsHandling="merge"
-                class="flex items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors"
-                [class]="
-                  code === currentRealm()
-                    ? 'bg-gold/15 text-gold'
-                    : 'text-ink-dim hover:bg-raised hover:text-ink'
-                "
-                [attr.aria-current]="code === currentRealm() ? 'true' : null"
-                (click)="menuOpen.set(false)"
-              >
-                <mt-realm-icon [realm]="code" class="h-5 w-5" />
-                {{ realmName(code) }}
-              </a>
-            </li>
-          }
-        </ul>
-      }
-    </div>
-
-    @if (filterOpen()) {
-      <div
-        class="mt-3 flex flex-wrap items-center gap-2 rounded-md border border-line bg-panel p-2"
-        data-testid="collection-filters"
-      >
+    <!-- Filters -->
+    <div
+      class="mt-6 flex flex-col gap-3 rounded-lg border border-line bg-panel p-3"
+      data-testid="collection-filters"
+    >
+      <div class="flex flex-wrap items-center gap-2">
         <input
           type="search"
           class="min-w-0 flex-1 rounded-md border border-line bg-bg px-3 py-1.5 text-sm text-ink placeholder:text-ink-faint focus:border-gold focus:outline-none"
@@ -148,7 +86,7 @@ const TAB_LABEL: Record<CollectionTab, string> = {
           @for (option of tiers; track option) {
             <button
               type="button"
-              class="w-7 rounded border py-1 text-xs transition-colors"
+              class="w-8 rounded-md border py-1 text-xs transition-colors"
               [class]="
                 tier() === option
                   ? 'border-gold bg-gold/10 text-gold'
@@ -162,17 +100,63 @@ const TAB_LABEL: Record<CollectionTab, string> = {
             </button>
           }
         </div>
+      </div>
+
+      <div
+        class="flex flex-wrap items-center gap-1.5"
+        role="group"
+        [attr.aria-label]="currentTab() === 'spells' ? 'Kind of spell' : 'Realm'"
+      >
+        @if (currentTab() === 'spells') {
+          @for (kind of spellKinds; track kind.label) {
+            <a
+              routerLink="."
+              [queryParams]="{ spell: kind.value ?? all }"
+              queryParamsHandling="merge"
+              class="rounded-full border px-2.5 py-0.5 text-xs transition-colors"
+              [class]="chipClass(currentSpellKind() === kind.value)"
+              [attr.aria-current]="currentSpellKind() === kind.value ? 'true' : null"
+              [attr.data-spell]="kind.value ?? all"
+              >{{ kind.label }}</a
+            >
+          }
+        } @else {
+          <a
+            routerLink="."
+            [queryParams]="{ realm: all }"
+            queryParamsHandling="merge"
+            class="rounded-full border px-2.5 py-0.5 text-xs transition-colors"
+            [class]="chipClass(currentRealm() === null)"
+            [attr.aria-current]="currentRealm() === null ? 'true' : null"
+            [attr.data-realm]="all"
+            >All</a
+          >
+          @for (code of realms; track code) {
+            <a
+              routerLink="."
+              [queryParams]="{ realm: code }"
+              queryParamsHandling="merge"
+              class="flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs transition-colors"
+              [class]="chipClass(currentRealm() === code)"
+              [attr.aria-current]="currentRealm() === code ? 'true' : null"
+              [attr.data-realm]="code"
+            >
+              <mt-realm-icon [realm]="code" class="h-3.5 w-3.5" />
+              {{ realmName(code) }}
+            </a>
+          }
+        }
         @if (filtered()) {
           <button
             type="button"
-            class="text-xs text-ink-faint hover:text-ink"
+            class="ml-auto text-xs text-ink-faint hover:text-ink"
             (click)="clearFilters()"
           >
-            Clear
+            Clear filters
           </button>
         }
       </div>
-    }
+    </div>
 
     @if (catalog.error()) {
       <div class="py-16 text-center">
@@ -188,14 +172,19 @@ const TAB_LABEL: Record<CollectionTab, string> = {
     } @else if (!catalog.value()) {
       <p class="py-16 text-center text-sm text-ink-faint">Loading the collection…</p>
     } @else {
-      @if (currentTab() === 'spells' && currentRealm() === neutral) {
-        <p class="mt-4 text-center text-xs text-ink-faint">
+      <p class="mt-4 text-xs text-ink-faint" data-testid="collection-count">
+        <span class="text-ink-dim" data-testid="scope-name">{{ scopeLabel() }}</span>
+        — {{ countLabel() }}
+      </p>
+
+      @if (currentTab() === 'spells' && currentSpellKind() !== 'medicine') {
+        <p class="mt-2 text-xs text-ink-faint">
           Sanctum spells belong to no realm — any draft can be offered them.
         </p>
       }
 
       <ul
-        class="mt-6 grid grid-cols-3 gap-x-3 gap-y-5 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7"
+        class="mt-4 grid grid-cols-3 gap-x-3 gap-y-5 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7"
         data-testid="collection-grid"
       >
         @for (card of cards(); track card.id) {
@@ -219,11 +208,8 @@ const TAB_LABEL: Record<CollectionTab, string> = {
       </ul>
     }
 
-    <!-- The game's bottom bar: the three tabs, and the funnel beside them. -->
-    <nav
-      class="sticky bottom-3 z-20 mt-10 flex items-center justify-center gap-3"
-      aria-label="Card type"
-    >
+    <!-- The game's bottom bar. -->
+    <nav class="sticky bottom-3 z-20 mt-10 flex justify-center" aria-label="Card type">
       <div
         class="flex rounded-lg border-2 border-gold/70 bg-gradient-to-b from-[#3d2f1c] to-[#241c12] p-1 shadow-xl shadow-black/60"
       >
@@ -244,22 +230,6 @@ const TAB_LABEL: Record<CollectionTab, string> = {
           >
         }
       </div>
-
-      <button
-        type="button"
-        class="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-gold bg-gradient-to-b from-[#4d3a1c] to-[#241c12] text-gold shadow-xl shadow-black/60 transition-colors hover:text-gold-bright"
-        aria-label="Filter"
-        [attr.aria-expanded]="filterOpen()"
-        data-testid="collection-filter-toggle"
-        (click)="filterOpen.set(!filterOpen())"
-      >
-        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true">
-          <path d="M3 4h18l-7 8.5V19l-4 2v-8.5L3 4z" />
-        </svg>
-        @if (filtered()) {
-          <span class="absolute right-0 top-0 h-2.5 w-2.5 rounded-full bg-health"></span>
-        }
-      </button>
     </nav>
 
     <mt-card-preview />
@@ -268,24 +238,25 @@ const TAB_LABEL: Record<CollectionTab, string> = {
 export class CollectionPage {
   protected readonly catalog = inject(CatalogService);
   protected readonly preview = inject(CardPreview);
-  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
 
-  /** Bound from `?realm=`; anything unrecognised reads as the realm the game opens on. */
+  /** Bound from `?realm=`; `all` is every realm, anything unrecognised the realm the game opens on. */
   readonly realm = input<string>();
   /** Bound from `?tab=`. */
   readonly tab = input<string>();
+  /** Bound from `?spell=`; the Spells tab's own axis, ignored by the other two tabs. */
+  readonly spell = input<string>();
 
   protected readonly realms = REALMS_IN_GAME_ORDER;
   protected readonly tabs = COLLECTION_TABS;
   protected readonly tabLabel = TAB_LABEL;
+  protected readonly spellKinds = SPELL_KINDS;
   protected readonly tiers = TIERS;
-  protected readonly neutral = NEUTRAL_REALM;
+  protected readonly all = COLLECTION_ALL;
 
   protected readonly currentRealm = computed(() => toCollectionRealm(this.realm()));
   protected readonly currentTab = computed(() => toCollectionTab(this.tab()));
+  protected readonly currentSpellKind = computed(() => toCollectionSpellKind(this.spell()));
 
-  protected readonly menuOpen = signal(false);
-  protected readonly filterOpen = signal(false);
   protected readonly query = signal('');
   protected readonly tier = signal<Tier | null>(null);
 
@@ -302,11 +273,24 @@ export class CollectionPage {
         gods: this.catalog.gods(),
         spells: this.catalog.spells(),
       },
-      this.currentTab(),
-      this.currentRealm(),
+      {
+        tab: this.currentTab(),
+        realm: this.currentRealm(),
+        spellKind: this.currentSpellKind(),
+      },
       { query: this.query(), tier: this.tier() },
     ),
   );
+
+  /** What the chip row is showing, named: a realm, a kind of spell, or All. */
+  protected readonly scopeLabel = computed(() => {
+    if (this.currentTab() === 'spells') {
+      const kind = this.currentSpellKind();
+      return SPELL_KINDS.find((option) => option.value === kind)?.label ?? 'All';
+    }
+    const realm = this.currentRealm();
+    return realm ? this.realmName(realm) : 'All';
+  });
 
   protected readonly countLabel = computed(() => {
     if (!this.catalog.value()) return '';
@@ -317,11 +301,16 @@ export class CollectionPage {
 
   protected readonly emptyMessage = computed(() => {
     if (this.filtered()) return 'Nothing matches these filters.';
-    const realm = this.realmName(this.currentRealm());
-    if (this.currentTab() === 'gods') return `${realm} has no patron god.`;
-    if (this.currentTab() === 'spells') return `${realm} has no spells of its own.`;
-    return `${realm} has no units.`;
+    if (this.currentTab() === 'spells') return 'No spells of this kind.';
+    const realm = this.currentRealm();
+    if (!realm) return 'Nothing to show.';
+    const name = this.realmName(realm);
+    return this.currentTab() === 'gods' ? `${name} has no patron god.` : `${name} has no units.`;
   });
+
+  protected chipClass(active: boolean): string {
+    return active ? 'border-gold bg-gold/10 text-gold' : 'border-line text-ink-dim hover:text-ink';
+  }
 
   protected realmName(code: RealmCode): string {
     return this.realmNames().get(code) ?? code.charAt(0).toUpperCase() + code.slice(1);
@@ -330,11 +319,5 @@ export class CollectionPage {
   protected clearFilters(): void {
     this.query.set('');
     this.tier.set(null);
-  }
-
-  protected closeMenuFromOutside(event: Event): void {
-    if (!this.menuOpen()) return;
-    const menu = this.host.nativeElement.querySelector('[data-realm-menu]');
-    if (menu && !menu.contains(event.target as Node)) this.menuOpen.set(false);
   }
 }

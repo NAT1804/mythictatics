@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Injectable, computed, effect, inject, signal, untracked } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -51,6 +52,7 @@ export class BuilderStore {
   private readonly catalog = inject(CatalogService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly location = inject(Location);
 
   private readonly params = toSignal(this.route.queryParams, { initialValue: {} });
   /** The URL is read once, at the first paint that has a catalog; after that it follows state. */
@@ -62,6 +64,10 @@ export class BuilderStore {
   readonly board = signal<Board>(createEmptyBoard());
   readonly descendSlot = signal<number | null>(null);
   readonly filters = signal<PoolFilters>(NO_FILTERS);
+
+  /** The most recent time the patron was *dropped* onto a slot — see `descendOnto`. */
+  readonly landing = signal<{ slot: number; seq: number } | null>(null);
+  private landings = 0;
 
   /** What a second click will act on: a unit taken from the pool, or a unit lifted off the board. */
   readonly selectedUnitId = signal<string | null>(null);
@@ -132,6 +138,9 @@ export class BuilderStore {
   setPatron(godId: string | null): void {
     if (godId === untracked(this.patronGodId)) return;
     this.patronGodId.set(godId);
+    // The slot belonged to the god that just left it. Any brings nothing down, and a new patron
+    // is a new decision about where it stands.
+    this.descendSlot.set(null);
     this.rebaseDraft();
   }
 
@@ -188,7 +197,9 @@ export class BuilderStore {
       next[slotIndex] = null;
       return next;
     });
-    if (untracked(this.descendSlot) === slotIndex) this.descendSlot.set(null);
+    // The god stays on the slot it was put on. Taking the unit out from under it leaves a god
+    // holding an empty place, which is a state the board can show — and losing the patron off
+    // the board because a unit was swapped out would be its own surprise.
     this.clearSelection();
   }
 
@@ -217,6 +228,32 @@ export class BuilderStore {
   toggleDescend(slotIndex: number): void {
     if (!untracked(this.patron) || !untracked(this.board)[slotIndex]) return;
     this.descendSlot.update((slot) => (slot === slotIndex ? null : slotIndex));
+  }
+
+  /**
+   * Puts the patron on a slot, whether or not a unit is already standing there.
+   *
+   * Separate from `toggleDescend` because a drag says where the god is going, not that it should
+   * change its mind: dropping it on the slot it is already on has to leave it there, or the drop
+   * would read as having missed.
+   *
+   * An empty slot is allowed. The god is then just on the board, holding a place — which is how
+   * a board gets laid out in practice, the god put down first and the ally it will come down on
+   * chosen after. `descend` stays null until there is a unit under it, so nothing claims a sum
+   * that has not happened.
+   */
+  descendOnto(slotIndex: number): void {
+    if (slotIndex < 0 || slotIndex >= BOARD_SIZE || !untracked(this.patron)) return;
+    this.descendSlot.set(slotIndex);
+    // Announce the arrival separately from the position. A god that is simply *on* slot 3 —
+    // restored from a link, say — has not just landed there, and should not be thrown down the
+    // screen every time the page opens. `seq` keeps two landings on the same slot distinct.
+    this.landing.set({ slot: slotIndex, seq: ++this.landings });
+  }
+
+  /** Takes the patron back off the board, wherever it came down. */
+  recallDescend(): void {
+    this.descendSlot.set(null);
   }
 
   // --- selection: the tap and keyboard path onto the board -----------------------------------
@@ -282,8 +319,8 @@ export class BuilderStore {
         return !slot || !unit || isUnitDraftable(unit, draft) ? slot : null;
       }),
     );
-    const descend = untracked(this.descendSlot);
-    if (descend !== null && !untracked(this.board)[descend]) this.descendSlot.set(null);
+    // The god is not pruned with the unit it was standing on: a slot with a god and no unit is
+    // a state the board draws, so it stays put and can be given a new ally.
   }
 
   // --- the URL -------------------------------------------------------------------------------
@@ -314,8 +351,11 @@ export class BuilderStore {
       if (realm === NEUTRAL_REALM || untracked(this.realms).includes(realm)) continue;
       this.pickedRealms.update((picked) => [...picked, realm]);
     }
+    // Only the patron has to be real for the slot to mean anything; the slot itself may be empty,
+    // which is a god put down before its ally was chosen.
     const slot = draft.descendSlot;
-    this.descendSlot.set(slot !== null && untracked(this.board)[slot] ? slot : null);
+    const inRange = slot !== null && slot >= 0 && slot < BOARD_SIZE;
+    this.descendSlot.set(inRange && untracked(this.patronGodId) ? slot : null);
 
     this.restored.set(true);
   }
@@ -329,13 +369,26 @@ export class BuilderStore {
         descendSlot: this.descendSlot(),
       }),
     };
-    // Nothing is written before the URL has been read, or the first navigation would erase it.
+    // Nothing is written before the URL has been read, or the first write would erase it.
     if (!this.restored()) return;
-    void this.router.navigate([], {
+
+    // Rewritten, not navigated to. Placing a unit is not a change of page, and routing it as one
+    // made the router scroll the window to the top on every single edit: the app asks for
+    // `scrollPositionRestoration: 'enabled'`, which scrolls to 0,0 for any navigation the browser
+    // did not itself pop, and `replaceUrl` does not exempt it. That was invisible while the
+    // builder was pinned to the viewport with nowhere to scroll, and unmissable the moment the
+    // page was allowed to grow.
+    //
+    // `Location.replaceState` puts the same URL in the address bar and in the history entry —
+    // which is all this needs, the link being the point — and fires no navigation at all. The
+    // router's own state is left behind, which costs nothing here: the URL is read once on the
+    // way in, every parameter this owns is written on every pass, and the shell's links are
+    // absolute.
+    const url = this.router.createUrlTree([], {
       relativeTo: this.route,
       queryParams,
       queryParamsHandling: 'merge',
-      replaceUrl: true,
     });
+    this.location.replaceState(this.router.serializeUrl(url));
   }
 }

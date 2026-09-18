@@ -11,7 +11,8 @@ const FILES = ['cards.json', 'keywords.json', 'realms.json', 'icons.json'] as co
 const DATASET = Object.fromEntries(
   FILES.map((name) => [name, JSON.parse(readFileSync(join(CANONICAL, name), 'utf8'))]),
 );
-const cards: { kind: string; realm: string | null }[] = DATASET['cards.json'];
+const cards: { kind: string; realm: string | null; subtype: string | null }[] =
+  DATASET['cards.json'];
 const countOf = (kind: string, realm: string | null) =>
   cards.filter((card) => card.kind === kind && card.realm === realm).length;
 
@@ -55,20 +56,36 @@ describe('the collection screen', () => {
 
   it('opens on Niles units, as the game does', async () => {
     const { element } = await open('/collection');
-    expect(one(element, 'realm-name')?.textContent).toContain('Niles');
+    expect(one(element, 'scope-name')?.textContent).toContain('Niles');
     expect(one(element, 'tab-units')?.getAttribute('aria-current')).toBe('page');
     expect(all(element, 'collection-card')).toHaveLength(countOf('unit', 'niles'));
   });
 
   it('shows the realm and tab named in the query string', async () => {
     const { element } = await open('/collection?realm=babylon&tab=gods');
-    expect(one(element, 'realm-name')?.textContent).toContain('Babylon');
+    expect(one(element, 'scope-name')?.textContent).toContain('Babylon');
     expect(all(element, 'collection-card')).toHaveLength(countOf('god', 'babylon'));
   });
 
-  it('files Sanctum spells under Neutral', async () => {
+  it('shows every realm at once on All', async () => {
+    const { element } = await open('/collection?realm=all');
+    expect(one(element, 'scope-name')?.textContent).toContain('All');
+    expect(all(element, 'collection-card')).toHaveLength(
+      cards.filter((card) => card.kind === 'unit').length,
+    );
+  });
+
+  it('browses spells by kind, not by realm', async () => {
     const { element } = await open('/collection?realm=neutral&tab=spells');
-    expect(all(element, 'collection-card')).toHaveLength(countOf('spell', null));
+    expect(all(element, 'collection-card')).toHaveLength(
+      cards.filter((card) => card.kind === 'spell').length,
+    );
+
+    const { element: medicine } = await open('/collection?tab=spells&spell=medicine');
+    expect(one(medicine, 'scope-name')?.textContent).toContain('Medicine');
+    expect(all(medicine, 'collection-card')).toHaveLength(
+      cards.filter((card) => card.kind === 'spell' && card.subtype === 'medicine').length,
+    );
   });
 
   it('says so when a realm has nothing on a tab', async () => {
@@ -77,10 +94,8 @@ describe('the collection screen', () => {
     expect(element.textContent).toContain('Neutral has no patron god.');
   });
 
-  it('switches realm from the realm bar', async () => {
+  it('switches realm from the realm chips', async () => {
     const { harness, element, settle } = await open('/collection');
-    one(element, 'realm-menu')?.click();
-    await settle();
     element.querySelector<HTMLElement>('a[href*="realm=kami"]')?.click();
     await settle();
     const page = harness.routeNativeElement as HTMLElement;
@@ -90,8 +105,6 @@ describe('the collection screen', () => {
 
   it('narrows the grid from the filter panel', async () => {
     const { element, settle } = await open('/collection');
-    one(element, 'collection-filter-toggle')?.click();
-    await settle();
     const tierOne = element.querySelector<HTMLElement>('[aria-label="Tier 1"]');
     tierOne?.click();
     await settle();

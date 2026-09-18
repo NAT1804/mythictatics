@@ -14,7 +14,16 @@ import { Directive, Injectable, computed, inject, input, signal } from '@angular
  * onto the board, and the one that works with a keyboard.
  */
 export type DragPayload =
-  { kind: 'unit'; unitId: string } | { kind: 'slot'; index: number; unitId: string };
+  | { kind: 'unit'; unitId: string }
+  // A unit already on the board. `godId` is the patron, when it has come down on that slot: the
+  // slot draws the god's card rather than the unit's, so the ghost has to draw the same card —
+  // picking a tile up must not change what it looks like. The drop is still a slot move either
+  // way; the god travels with the unit it came down on.
+  | { kind: 'slot'; index: number; unitId: string; godId?: string }
+  // The patron god, dragged onto the unit it comes down on. A god is not a seventh piece, so it
+  // is never placed in a slot of its own — dropping it on an occupied slot is the Descend, and
+  // dropping it anywhere else recalls it.
+  | { kind: 'god'; godId: string };
 
 export type DropHandler = (payload: DragPayload, slotIndex: number | null) => void;
 

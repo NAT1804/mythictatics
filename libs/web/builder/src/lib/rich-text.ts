@@ -11,6 +11,11 @@ import { CatalogService } from './catalog';
  * text to `innerHTML`.
  *
  * `{0}` placeholders are left exactly as written — the game computes those numbers at runtime.
+ *
+ * A highlighted term takes its colour from the surface it landed on rather than from here:
+ * `.rich-highlight` in `styles.css` is gold on the site's dark panels and the game's own orange
+ * on the parchment of a `.game-panel`, which is the same term in the same two colours the game
+ * writes it in.
  */
 @Component({
   selector: 'mt-rich-text',
@@ -23,7 +28,7 @@ import { CatalogService } from './catalog';
           <span>{{ token.value }}</span>
         }
         @case ('highlight') {
-          <span class="font-medium text-gold-bright">{{ token.value }}</span>
+          <span class="rich-highlight">{{ token.value }}</span>
         }
         @case ('icon') {
           @if (src(token.name); as source) {

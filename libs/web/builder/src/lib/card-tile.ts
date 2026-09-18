@@ -1,5 +1,20 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { NEUTRAL_REALM, type Card, type Rank } from '@mythictatics/shared/contracts';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import {
+  NEUTRAL_REALM,
+  type Card,
+  type KeywordCode,
+  type Rank,
+} from '@mythictatics/shared/contracts';
+import { CatalogService } from './catalog';
+import {
+  FRAME_KEYWORDS,
+  TAUNT_GOD_MARK,
+  TAUNT_MARKS,
+  WEAPON_MARKS,
+  type FrameArt,
+  type WeaponMark,
+} from './frame-marks';
+import { KeywordIcons } from './keyword-icons';
 import { GOD_FRAME, PLAIN_FRAME, RANK_FRAME, SPELL_FRAME } from './rank-frame';
 import { RealmIcon } from './realm-icon';
 import { TierStars } from './tier-stars';
@@ -13,9 +28,9 @@ export interface TileStats {
 /**
  * One card as a tile, framed the way the game frames it: the portrait inside the arch the game
  * stands a unit in (see `rank-frame.ts`), under a crown of Tier stars, its Attack and Health in
- * the two discs the frame draws into its foot, the realm hung between them. The collection, the
- * unit pool, the board and the comps all draw cards with it, so a card looks the same wherever it
- * turns up.
+ * the two discs the frame draws into its foot, the realm hung between them and its keywords as a
+ * rail of the game's own marks down the right bar. The collection, the unit pool, the board and
+ * the comps all draw cards with it, so a card looks the same wherever it turns up.
  *
  * A spell has no body and so no use for those discs; it wears the game's own spell frame, with its
  * cost and its realm under it. Unlike the game the name sits under the tile — the site is read by
@@ -26,7 +41,7 @@ export interface TileStats {
  */
 @Component({
   selector: 'mt-card-tile',
-  imports: [RealmIcon, TierStars],
+  imports: [KeywordIcons, RealmIcon, TierStars],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block' },
   template: `
@@ -58,6 +73,12 @@ export interface TileStats {
             }
           </span>
 
+          <!-- Safeguard's aura, between the portrait and the frame: the ward is around the
+               unit, so the metal stays crisp on top of it and the marks are never washed out. -->
+          @if (warded()) {
+            <span class="card-arch-aura" aria-hidden="true"></span>
+          }
+
           <span [class]="frame()" aria-hidden="true"></span>
 
           <span class="card-arch-plate card-arch-attack" [title]="'Attack ' + stats.attack">{{
@@ -66,6 +87,43 @@ export interface TileStats {
           <span class="card-arch-plate card-arch-health" [title]="'Health ' + stats.health">{{
             stats.health
           }}</span>
+
+          <!-- The attack shapes, hung on the arch's left bar the way the game hangs them: the
+               quiver, the axe and the spear rather than the flat description icons, which is the
+               whole reason the client ships a unit-frame set beside them. A card carries at most
+               two, so 30cqw of the bar's 62.7cqw run each is room for both. -->
+          @if (weapons().length) {
+            <span
+              class="absolute bottom-[28.96cqw] left-[12.08cqw] top-[33.33cqw] flex -translate-x-1/2 flex-col items-center justify-center gap-[2cqw]"
+            >
+              @for (weapon of weapons(); track weapon.code) {
+                <img
+                  [src]="weapon.image"
+                  [alt]="weapon.title"
+                  [title]="weapon.title"
+                  [width]="weapon.width"
+                  [height]="weapon.height"
+                  class="h-[30cqw] w-auto drop-shadow-[0_0.4cqw_0.8cqw_rgba(0,0,0,0.85)]"
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                />
+              }
+            </span>
+          }
+
+          <!-- Everything the frame does not draw itself, as the game's own marks down the arch's
+               right bar. Measured off the sprite rather than guessed at: in the frame's middle
+               band the right bar runs 84.17% to 91.67% of the card's width, so a 14cqw mark
+               centred on it sits 5.08cqw in from the card's edge. The rail keeps to the bar's
+               clear stretch — under the dome's 33.33cqw, above the foot's 28.96cqw — which is
+               62.7cqw, and four marks at that size is 61cqw: Tribal Flayer carries four and
+               nothing on the site carries more. -->
+          <mt-keyword-icons
+            [codes]="rail()"
+            [frameArt]="frameArt()"
+            class="absolute bottom-[28.96cqw] right-[5.08cqw] top-[33.33cqw] text-[14cqw]"
+          />
 
           <!-- The realm, hung on the foot bar between the two discs. -->
           <span
@@ -130,6 +188,8 @@ export interface TileStats {
   `,
 })
 export class CardTile {
+  private readonly catalog = inject(CatalogService);
+
   readonly card = input.required<Card>();
   /** Which Rank a unit's body is shown at. Ignored for gods and spells. */
   readonly rank = input<Rank>(0);
@@ -168,9 +228,43 @@ export class CardTile {
     return { attack: ranked.attack, health: ranked.health };
   });
 
+  /** The keywords left for the rail: the ones the frame does not draw itself. */
+  protected readonly rail = computed<readonly KeywordCode[]>(() =>
+    this.card().keywords.filter((code) => !FRAME_KEYWORDS.has(code)),
+  );
+
+  /** The weapons hung on the left bar, in `WEAPON_MARKS` order rather than the dataset's. */
+  protected readonly weapons = computed<readonly HungWeapon[]>(() => {
+    const carried = new Set(this.card().keywords);
+    return WEAPON_MARKS.filter((mark) => carried.has(mark.code)).map((mark) => ({
+      ...mark,
+      title: this.catalog.keywordTitle(mark.code),
+    }));
+  });
+
+  /** Whether the card carries Safeguard, and so wears the aura. */
+  protected readonly warded = computed(() => this.card().keywords.includes('safeguard'));
+
+  /**
+   * The art the frame lends the rail — only Taunt has any, and it follows the card's own metal so
+   * the shield in the rail is the shield the game would stand this unit in.
+   */
+  protected readonly frameArt = computed<Readonly<Partial<Record<KeywordCode, FrameArt>>>>(() => {
+    const card = this.card();
+    if (!card.keywords.includes('taunt')) return {};
+    if (card.type === 'god') return { taunt: TAUNT_GOD_MARK };
+    const plain = TAUNT_MARKS[TAUNT_MARKS.length - 1];
+    if (!this.rankFrame()) return { taunt: plain };
+    return { taunt: TAUNT_MARKS[Math.min(this.rank(), TAUNT_MARKS.length - 1)] };
+  });
+
   /** What a spell costs, when it has a cost at all — a Medicine is granted, not bought. */
   protected readonly cost = computed<number | null>(() => {
     const card = this.card();
     return card.type === 'spell' ? card.cost : null;
   });
+}
+
+interface HungWeapon extends WeaponMark {
+  title: string;
 }

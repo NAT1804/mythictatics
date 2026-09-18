@@ -212,6 +212,28 @@
     text-shadow: 0 0.4cqw 0.8cqw rgba(0, 0, 0, 0.75);
   }
 
+  /*
+   * Safeguard, as the game shows it: a golden aura around the unit's frame.
+   *
+   * `demo_safeguard_01` is the client's own glow and is arch-shaped like the frame it hugs, so it
+   * is laid over the card rather than redrawn as a CSS shadow. It is inset to the frame's own
+   * outer edge — the bars run 8.33cqw in from either side — and let a little wider so the glow's
+   * soft edge falls outside the metal instead of on it.
+   */
+  .card-arch-aura {
+    position: absolute;
+    inset: -1cqw 5cqw 0;
+    pointer-events: none;
+    background-image: url('/images/frames/demo_safeguard_01.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    /* The sprite is drawn for a lit board, where the ward glows over its own unit. Against a card
+       read at rest it would bleach the portrait, so it is thinned to a wash and laid under the
+       metal: bright where it hugs the frame, barely there across the art. */
+    opacity: 0.4;
+    mix-blend-mode: screen;
+  }
+
   .card-arch-attack {
     left: 2.9cqw;
   }

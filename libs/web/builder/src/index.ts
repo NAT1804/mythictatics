@@ -6,6 +6,7 @@ export * from './lib/card-tile';
 export * from './lib/card-preview';
 export * from './lib/catalog';
 export * from './lib/drag';
+export * from './lib/frame-marks';
 export * from './lib/game-card';
 export * from './lib/keyword-icons';
 export * from './lib/rank-deck';

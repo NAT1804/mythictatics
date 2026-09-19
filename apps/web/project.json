@@ -89,10 +89,7 @@
       }
     },
     "test": {
-      "executor": "@angular/build:unit-test",
-      "options": {
-        "watch": false
-      }
+      "options": { "command": "node ../../tools/vitest/run.mjs" }
     },
     "serve-static": {
       "continuous": true,

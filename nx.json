@@ -53,9 +53,8 @@
         "{workspaceRoot}/tools/eslint-rules/**/*"
       ]
     },
-    "@angular/build:unit-test": {
-      "cache": true,
-      "inputs": ["default", "^production"]
+    "test": {
+      "options": { "command": "node ../../../tools/vitest/run.mjs" }
     }
   },
   "generators": {

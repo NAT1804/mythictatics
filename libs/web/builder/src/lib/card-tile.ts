@@ -125,16 +125,25 @@ export interface TileStats {
             class="absolute bottom-[28.96cqw] right-[5.08cqw] top-[33.33cqw] text-[14cqw]"
           />
 
-          <!-- The realm, hung on the foot bar between the two discs. -->
-          <span
-            class="absolute bottom-[-1cqw] left-1/2 flex h-[11cqw] w-[11cqw] -translate-x-1/2 rotate-45 items-center justify-center rounded-[18%] border border-gold bg-bg shadow"
-          >
-            <mt-realm-icon
-              [realm]="shown.realm ?? neutral"
-              class="h-[6.5cqw] w-[6.5cqw] -rotate-45"
-            />
-          </span>
+          <!-- The realm, standing on its own on the bar the arch closes with: the foot is already
+               metal, so a plate around the mark only rimmed metal with more metal and left the
+               realm the hardest thing on the tile to read. No plate, and a drop shadow rather
+               than a border to hold it off the frame.
+
+               Centred on that bar, not on the band the nine-slice reserves for it: the bottom
+               border is 28.96cqw tall, but the sprite paints the closing bar across the middle of
+               it, 2.5cqw to 8.75cqw up from the card's edge — the rest of the band is the two
+               discs, which stand either side of it. So the mark's centre is 5.6cqw, and at 26cqw
+               (the discs' own 24cqw, since the point was to be read) it hangs 7.4cqw below the
+               card. The spacer under the arch is that overhang, kept so the name the tile writes
+               underneath is not sat on. -->
+          <mt-realm-icon
+            [realm]="shown.realm ?? neutral"
+            class="absolute bottom-[-7.4cqw] left-1/2 h-[26cqw] w-[26cqw] -translate-x-1/2 drop-shadow-[0_0.4cqw_0.8cqw_rgba(0,0,0,0.85)]"
+          />
         </span>
+
+        <span class="block h-[7.4cqw]" aria-hidden="true"></span>
       } @else {
         <!-- A spell, in the game's own spell frame: a rectangle, and no discs to fill. Its cost
              and its realm hang under it, the way the discs hang in the arch's foot. -->

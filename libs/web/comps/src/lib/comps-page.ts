@@ -105,7 +105,7 @@ export const COMP_SHEET_URL =
       </div>
     </div>
 
-    @if (comps.error() || catalog.error()) {
+    @if (failed()) {
       <div class="mt-10 text-center">
         <p class="text-sm text-red-300">The comps could not be loaded.</p>
         <button
@@ -182,7 +182,12 @@ export class CompsPage {
   protected readonly realm = signal<RealmCode | null>(null);
 
   /** Both files are needed before a card can be drawn: the comps name units, the catalog has them. */
-  protected readonly ready = computed(() => !!this.catalog.value() && this.comps.loaded());
+  protected readonly ready = computed(() => this.catalog.canLookUp() && this.comps.loaded());
+
+  /** A catalog that failed behind cards the server already sent leaves the page readable. */
+  protected readonly failed = computed(
+    () => !!this.comps.error() || (!!this.catalog.error() && !this.catalog.canLookUp()),
+  );
 
   protected readonly filtered = computed(
     () => !!this.query().trim() || this.difficulty() !== null || this.realm() !== null,
@@ -196,6 +201,11 @@ export class CompsPage {
       (id) => this.catalog.unit(id)?.realm,
     ),
   );
+
+  constructor() {
+    // Prerendered with every board drawn, so the list is there before any script runs.
+    this.catalog.renderOnServer();
+  }
 
   /** The realms the comp drafts; one that drafts none is a Neutral comp, and says so. */
   protected realmsOf(comp: Comp): RealmCode[] {

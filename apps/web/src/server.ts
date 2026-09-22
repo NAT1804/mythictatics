@@ -3,7 +3,7 @@ import { AngularAppEngine, createRequestHandler } from '@angular/ssr';
 /**
  * Fetch-based entry so the same bundle runs on Cloudflare Workers and the Angular dev server.
  * Prerendered pages and static files are served by Workers Static Assets before this runs;
- * the Worker only handles client-rendered routes (e.g. /builder) and unknown URLs.
+ * the Worker only handles unknown URLs (the 404 page).
  */
 const angularApp = new AngularAppEngine();
 

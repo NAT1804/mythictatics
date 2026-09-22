@@ -32,7 +32,7 @@ import { UnitList } from './unit-list';
   template: `
     <a routerLink="/comps" class="text-xs text-ink-faint hover:text-gold">← All comps</a>
 
-    @if (comps.error() || catalog.error()) {
+    @if (failed()) {
       <p class="mt-10 text-center text-sm text-red-300">The comp could not be loaded.</p>
     } @else if (!ready()) {
       <p class="mt-10 text-center text-sm text-ink-faint">Loading comp…</p>
@@ -212,7 +212,12 @@ export class CompPage {
 
   protected readonly sheetUrl = COMP_SHEET_URL;
 
-  protected readonly ready = computed(() => !!this.catalog.value() && this.comps.loaded());
+  protected readonly ready = computed(() => this.catalog.canLookUp() && this.comps.loaded());
+
+  /** A catalog that failed behind cards the server already sent leaves the page readable. */
+  protected readonly failed = computed(
+    () => !!this.comps.error() || (!!this.catalog.error() && !this.catalog.canLookUp()),
+  );
   protected readonly comp = computed(() => this.comps.comp(this.slug()));
 
   protected readonly patrons = computed(() =>
@@ -229,6 +234,9 @@ export class CompPage {
   protected readonly guide = computed(() => paragraphs(this.comp()?.howToPlay));
 
   constructor() {
+    // Prerendered in full — boards, guide and units — so the comp is readable without a script.
+    this.catalog.renderOnServer();
+
     // The route cannot know a comp's name before the data is in, so the tab title catches up here.
     effect(() => {
       const comp = this.comp();

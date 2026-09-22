@@ -32,8 +32,18 @@ API); it pulls in zod.
 Configured in `apps/web/src/app/app.routes.server.ts`:
 
 - `Prerender` — static HTML served straight from Workers Static Assets (free, no Worker call).
-- `Client` — `/builder`, whose state lives in the query string and which fetches the dataset.
+  Every page is prerendered, in one of two ways:
+  - **With its data** — `/`, `/comps` and every `/comps/:slug`. The comps pages call
+    `CatalogService.renderOnServer()`; the cards they read go out with the HTML (`TransferState`),
+    so the browser hydrates the same markup before its own fetch of the dataset lands.
+  - **As its loading state** — `/builder` and `/collection`, which depend on the query string and
+    on the whole catalog. The browser starts from the same loading state, so hydration matches, and
+    the page is still served without a Worker call.
 - `Server` — everything else (currently the 404 page), rendered by the Worker.
+
+During prerendering the dataset is fetched from `data/canonical/` like in the browser: Angular
+answers requests to the page's own origin from the build's assets. A comp added to `comps.json`
+gets its page on the next build; an unknown slug falls back to the browser's "no comp by that name".
 
 A route can also ask the shell for a viewport-height layout with `data: { layout: 'fixed' }`;
 `/builder` uses it so the page itself never scrolls.

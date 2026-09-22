@@ -74,5 +74,9 @@
   unit card (Erlang Shen's Power grants it), so it imports as a flexible slot — see `NOT_A_UNIT_CARD`.
 - The sheet gives no Ranks, so every imported slot is Rank 1 (`rank: 0`).
 - `howToPlay` is plain text, never Markdown/HTML — render it as text.
-- The UI lives in `libs/web/comps` (`/comps`, `/comps/:slug`, client-rendered) and reuses the builder's
+- The UI lives in `libs/web/comps` (`/comps`, `/comps/:slug`, prerendered with their data) and reuses the builder's
   `CatalogService`, `CardPreview` and card components exported from `@mythictatics/web/builder`.
+- Only pages that call `CatalogService.renderOnServer()` get cards on the server; every other page is
+  prerendered as its loading state. A page that does call it must draw its cards through the lookups
+  (`unit`/`god`/`keyword`/`iconSrc`), never the lists (`units()`, `value()`): only the cards it looked up
+  are sent to the browser, and the lists stay empty until the full catalog is in.

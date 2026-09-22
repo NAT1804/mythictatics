@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { ApplicationRef } from '@angular/core';
+import { ApplicationRef, PLATFORM_ID, TransferState, makeStateKey } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
@@ -128,5 +128,81 @@ describe('the comps screens', () => {
       const { element } = await open('/comps/not-a-comp');
       expect(all(element, 'comp-not-found')).toHaveLength(1);
     });
+  });
+});
+
+describe('the prerendered comps', () => {
+  const routes = () =>
+    provideRouter(
+      [
+        { path: 'comps', component: CompsPage },
+        { path: 'comps/:slug', component: CompPage },
+      ],
+      withComponentInputBinding(),
+    );
+
+  /** A fetch that answers from `data/canonical/`, or — a browser still waiting — never answers. */
+  function stubFetch(answer = true) {
+    const fetch = vi.fn((input: URL | string) => {
+      if (!answer) return new Promise<Response>(() => undefined);
+      const name = FILES.find((file) => String(input).endsWith(file));
+      return Promise.resolve({
+        ok: !!name,
+        status: name ? 200 : 404,
+        json: () => Promise.resolve(name ? DATASET[name] : null),
+      } as Response);
+    });
+    vi.stubGlobal('fetch', fetch);
+    return fetch;
+  }
+
+  /** Renders `url` the way the build does, and returns the state that goes out with its HTML. */
+  async function prerender(url: string): Promise<{ html: string; state: Record<string, unknown> }> {
+    TestBed.configureTestingModule({
+      providers: [routes(), { provide: PLATFORM_ID, useValue: 'server' }],
+    });
+    stubFetch();
+    const { element } = await open(url);
+    const html = element.textContent ?? '';
+    const state = JSON.parse(TestBed.inject(TransferState).toJson());
+    TestBed.resetTestingModule();
+    return { html, state };
+  }
+
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('draws a comp in full on the server', async () => {
+    const { html } = await prerender('/comps/giga-gilg');
+    expect(html).toContain('Nezha');
+    expect(html).toContain('Wind Fire Wheel');
+    expect(html).not.toContain('Loading');
+  });
+
+  it('hands the browser enough to draw the same comp before any fetch lands', async () => {
+    const { html, state } = await prerender('/comps/giga-gilg');
+
+    TestBed.configureTestingModule({ providers: [routes()] });
+    const transfer = TestBed.inject(TransferState);
+    for (const [key, value] of Object.entries(state)) transfer.set(makeStateKey(key), value);
+    const fetch = stubFetch(false);
+
+    // Not `open()`: that waits for the app to settle, which it cannot while the fetch hangs.
+    const harness = await RouterTestingHarness.create();
+    void harness.navigateByUrl('/comps/giga-gilg');
+    await vi.waitFor(() => {
+      harness.detectChanges();
+      expect(harness.routeNativeElement?.textContent).toBe(html);
+    });
+    // The comps came with the page; only the full catalog is still on its way.
+    const requested = fetch.mock.calls.map(([input]) => String(input));
+    expect(requested.some((url) => url.endsWith('comps.json'))).toBe(false);
+  });
+
+  it('sends only the cards the page drew, not the whole catalog', async () => {
+    const { state } = await prerender('/comps/giga-gilg');
+    const seed = state['catalog'] as { units: unknown[] };
+    const units = DATASET['cards.json'].filter((card: { kind: string }) => card.kind === 'unit');
+    expect(seed.units.length).toBeGreaterThan(0);
+    expect(seed.units.length).toBeLessThan(units.length / 2);
   });
 });

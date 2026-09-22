@@ -222,6 +222,72 @@ test('comps list opens a comp, and its board opens in the builder', async ({ pag
   await expect(page.getByTestId('slot-0')).toContainText('Thoth');
 });
 
+test('a comp page is readable before any script runs', async ({ browser }) => {
+  // Prerendered with its data, so search engines and slow phones get the comp, not a spinner.
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto('/comps/death-on-the-nile');
+  await expect(page).toHaveTitle(/^Death on the Nile · Comps · /);
+  await expect(page.getByTestId('when-to-commit')).toContainText('Sand Golem');
+  await expect(page.getByTestId('comp-slot-0')).toContainText('Thoth');
+  await context.close();
+});
+
+// Each page, with what it shows once the browser has taken over from the prerendered HTML and
+// the full dataset is in — the moment a hydration mismatch would have surfaced.
+const HYDRATED: [url: string, testId: string, text: string][] = [
+  ['/comps', 'comp-card', 'Death on the Nile'],
+  ['/comps/death-on-the-nile', 'comp-slot-0', 'Thoth'],
+  ['/builder?d=ASEEiRMCOTAB', 'slot-0', 'Sumerian Scholar'],
+  ['/collection?realm=kami', 'scope-name', 'Kami'],
+];
+
+for (const [url, testId, text] of HYDRATED) {
+  test(`${url} hydrates its prerendered page without an error`, async ({ page }) => {
+    const errors: string[] = [];
+    page.on('console', (message) => {
+      if (message.type() === 'error') errors.push(message.text());
+    });
+    page.on('pageerror', (error) => errors.push(error.message));
+
+    await page.goto(url);
+    await expect(page.getByTestId(testId).filter({ hasText: text }).first()).toBeVisible();
+    expect(errors).toEqual([]);
+  });
+}
+
+for (const [url, testId] of [
+  ['/comps', 'comp-card'],
+  ['/comps/death-on-the-nile', 'comp-slot-0'],
+]) {
+  test(`${url} keeps the server's markup when the browser takes over`, async ({ page }) => {
+    // Hydration that misses its data does not fail: Angular quietly throws the server's DOM away and
+    // draws the page again, and the reader sees it flash. Watching for that removal is the only way
+    // to tell the two apart, so the watch starts before any script on the page runs.
+    await page.addInitScript((watched) => {
+      const removed: string[] = [];
+      Object.assign(window, { removed });
+      new MutationObserver((records) => {
+        for (const record of records) {
+          for (const node of record.removedNodes) {
+            if (node instanceof Element && (node.matches(watched) || node.querySelector(watched))) {
+              removed.push(node.outerHTML.slice(0, 80));
+            }
+          }
+        }
+      }).observe(document, { childList: true, subtree: true });
+    }, `[data-testid="${testId}"]`);
+
+    const catalog = page.waitForResponse((response) => response.url().endsWith('/cards.json'));
+    await page.goto(url);
+    await catalog;
+    await expect(page.getByTestId(testId).first()).toBeVisible();
+    expect(await page.evaluate(() => (window as unknown as { removed: string[] }).removed)).toEqual(
+      [],
+    );
+  });
+}
+
 test('a realm on the home ring opens the collection on that realm', async ({ page }) => {
   // The ring never stops turning on its own, and Playwright only clicks what holds still. Reduced
   // motion is the setting that stops it, so this also checks the ring honours that.

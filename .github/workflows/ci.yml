@@ -38,22 +38,31 @@ jobs:
       - run: npx nx affected -t e2e
 
   deploy:
-    # Enable by setting the repository variable CLOUDFLARE_DEPLOY=true and adding
-    # the CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID secrets.
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.CLOUDFLARE_DEPLOY == 'true'
+    # Enable by setting CLOUDFLARE_DEPLOY=true and the CLOUDFLARE_API_TOKEN /
+    # CLOUDFLARE_ACCOUNT_ID secrets on the CLOUDFLARE_ENVIRONMENT environment.
+    # Environment variables are not readable from a job-level `if`, so the
+    # switch is checked on the steps instead.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: main
     runs-on: ubuntu-latest
-    environment: production
+    environment: CLOUDFLARE_ENVIRONMENT
     steps:
-      - uses: actions/checkout@v5
+      - if: vars.CLOUDFLARE_DEPLOY != 'true'
+        run: echo "::notice::Deploy skipped - CLOUDFLARE_DEPLOY is not 'true'."
 
-      - uses: actions/setup-node@v5
+      - if: vars.CLOUDFLARE_DEPLOY == 'true'
+        uses: actions/checkout@v5
+
+      - if: vars.CLOUDFLARE_DEPLOY == 'true'
+        uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: 'npm'
 
-      - run: npm ci
-      - run: npx nx deploy web
+      - if: vars.CLOUDFLARE_DEPLOY == 'true'
+        run: npm ci
+      - if: vars.CLOUDFLARE_DEPLOY == 'true'
+        run: npx nx deploy web
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

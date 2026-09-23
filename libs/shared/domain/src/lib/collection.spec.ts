@@ -29,8 +29,8 @@ describe('the collection', () => {
 
   it('reads unknown query values as the defaults, and `all` as no scope at all', () => {
     expect(toCollectionRealm('kami')).toBe('kami');
-    expect(toCollectionRealm('atlantis')).toBe('niles');
-    expect(toCollectionRealm(undefined)).toBe('niles');
+    expect(toCollectionRealm('atlantis')).toBeNull();
+    expect(toCollectionRealm(undefined)).toBeNull();
     expect(toCollectionRealm('all')).toBeNull();
     expect(toCollectionSpellKind('medicine')).toBe('medicine');
     expect(toCollectionSpellKind('all')).toBeNull();

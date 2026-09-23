@@ -61,11 +61,14 @@ describe('the collection screen', () => {
 
   afterEach(() => vi.unstubAllGlobals());
 
-  it('opens on Niles units, as the game does', async () => {
+  it("opens on every realm's units", async () => {
     const { element } = await open('/collection');
-    expect(one(element, 'scope-name')?.textContent).toContain('Niles');
+    expect(one(element, 'scope-name')?.textContent).toContain('All');
     expect(one(element, 'tab-units')?.getAttribute('aria-current')).toBe('page');
-    expect(all(element, 'collection-card')).toHaveLength(countOf('unit', 'niles'));
+    expect(element.querySelector('[data-realm="all"]')?.getAttribute('aria-current')).toBe('true');
+    expect(all(element, 'collection-card')).toHaveLength(
+      cards.filter((card) => card.kind === 'unit').length,
+    );
   });
 
   it('shows the realm and tab named in the query string', async () => {
@@ -116,8 +119,7 @@ describe('the collection screen', () => {
     tierOne?.click();
     await settle();
     const expected = cards.filter(
-      (card) =>
-        card.kind === 'unit' && card.realm === 'niles' && (card as { tier?: number }).tier === 1,
+      (card) => card.kind === 'unit' && (card as { tier?: number }).tier === 1,
     ).length;
     expect(all(element, 'collection-card')).toHaveLength(expected);
   });

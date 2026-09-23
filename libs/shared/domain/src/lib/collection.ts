@@ -24,7 +24,6 @@ export const REALMS_IN_GAME_ORDER: readonly RealmCode[] = [...REALM_CODES].sort(
 export const COLLECTION_TABS = ['gods', 'units', 'spells'] as const;
 export type CollectionTab = (typeof COLLECTION_TABS)[number];
 
-export const DEFAULT_COLLECTION_REALM: RealmCode = REALMS_IN_GAME_ORDER[0];
 export const DEFAULT_COLLECTION_TAB: CollectionTab = 'units';
 
 /** The query-string value for "every one of them", on either axis. */
@@ -59,14 +58,11 @@ export interface CollectionFilter {
 export const EMPTY_COLLECTION_FILTER: CollectionFilter = { query: '', tier: null };
 
 /**
- * A query-string value read as a realm: `all` is every realm, anything unrecognised — a missing
- * value included — is the realm the game opens on.
+ * A query-string value read as a realm: anything that is not a realm — `all`, a missing value,
+ * anything unrecognised — is every realm.
  */
 export function toCollectionRealm(value: string | null | undefined): RealmCode | null {
-  if (value === COLLECTION_ALL) return null;
-  return (REALM_CODES as readonly string[]).includes(value ?? '')
-    ? (value as RealmCode)
-    : DEFAULT_COLLECTION_REALM;
+  return (REALM_CODES as readonly string[]).includes(value ?? '') ? (value as RealmCode) : null;
 }
 
 /** A query-string value read as a kind of spell; anything unrecognised is both kinds. */

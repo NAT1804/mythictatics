@@ -35,8 +35,8 @@ const SPELL_KINDS: readonly { label: string; value: SpellSubtype | null }[] = [
 ];
 
 /**
- * Every card in the game, browsed one realm at a time, with Patron God / Units / Spells along the
- * bottom the way the game's own Collection screen has them.
+ * Every card in the game, every realm at once or one at a time, with Patron God / Units / Spells
+ * along the bottom the way the game's own Collection screen has them.
  *
  * Filtering is the panel Team Comps uses — always open, search and the narrowing buttons on one
  * row, the realm chips on the next — so the site's two browsing screens are filtered alike. The
@@ -239,7 +239,7 @@ export class CollectionPage {
   protected readonly catalog = inject(CatalogService);
   protected readonly preview = inject(CardPreview);
 
-  /** Bound from `?realm=`; `all` is every realm, anything unrecognised the realm the game opens on. */
+  /** Bound from `?realm=`; `all`, a missing value or anything unrecognised is every realm. */
   readonly realm = input<string>();
   /** Bound from `?tab=`. */
   readonly tab = input<string>();

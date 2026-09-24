@@ -49,7 +49,7 @@
       "vi-VN": "Sử dụng <color=#D46C17>Mắt Thần Horus</color> ở 3 Bậc Thánh Đền khác nhau"
     },
     "banner": {
-      "sprite": "icon_god-flag_01",
+      "sprite": "icon_god-flag_101",
       "image": "images/gods/banners/champ001.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -106,7 +106,7 @@
       "vi-VN": "Triệu hồi 45 đơn vị trong chiến đấu"
     },
     "banner": {
-      "sprite": "icon_god-flag_02",
+      "sprite": "icon_god-flag_201",
       "image": "images/gods/banners/champ002.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -163,7 +163,7 @@
       "vi-VN": "Sử dụng <color=#D46C17>Cắt Xén</color> để cho <color=#D46C17>Niles</color> đồng minh ít nhất +12 Sát Thương"
     },
     "banner": {
-      "sprite": "icon_god-flag_03",
+      "sprite": "icon_god-flag_301",
       "image": "images/gods/banners/champ003.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -220,7 +220,7 @@
       "vi-VN": "Sử dụng <color=#D46C17>Thăng Hoa</color> 10 lần"
     },
     "banner": {
-      "sprite": "icon_god-flag_04",
+      "sprite": "icon_god-flag_401",
       "image": "images/gods/banners/champ004.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -277,7 +277,7 @@
       "vi-VN": "Thăng cấp một đơn vị Bậc 4 hoặc cao hơn lên Cấp 3"
     },
     "banner": {
-      "sprite": "icon_god-flag_05",
+      "sprite": "icon_god-flag_501",
       "image": "images/gods/banners/champ005.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -334,7 +334,7 @@
       "vi-VN": "Kết liễu 20 kẻ địch với đơn vị lấy từ <color=#D46C17>Xiềng Xích Địa Ngục</color>"
     },
     "banner": {
-      "sprite": "icon_god-flag_07",
+      "sprite": "icon_god-flag_701",
       "image": "images/gods/banners/champ007.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -391,7 +391,7 @@
       "vi-VN": "Có 45 đơn vị <color=#D46C17>Babylon</color> được thêm vào tay bạn"
     },
     "banner": {
-      "sprite": "icon_god-flag_08",
+      "sprite": "icon_god-flag_801",
       "image": "images/gods/banners/champ008.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -448,7 +448,7 @@
       "vi-VN": "Còn 1 Mạng"
     },
     "banner": {
-      "sprite": "icon_god-flag_09",
+      "sprite": "icon_god-flag_901",
       "image": "images/gods/banners/champ009.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -505,7 +505,7 @@
       "vi-VN": "Cho 500 <sprite name=icon_attack><color=#0068A9>Sát Thương</color> bằng <color=#D46C17>Thần của người chết</color>"
     },
     "banner": {
-      "sprite": "icon_god-flag_10",
+      "sprite": "icon_god-flag_1001",
       "image": "images/gods/banners/champ010.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -562,7 +562,7 @@
       "vi-VN": "Gây 120 sát thương bằng <color=#D46C17>Tia Chớp của Zeus</color>"
     },
     "banner": {
-      "sprite": "icon_god-flag_11",
+      "sprite": "icon_god-flag_1101",
       "image": "images/gods/banners/champ011.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -619,7 +619,7 @@
       "vi-VN": "Sử dụng 45 <color=#D46C17>Phép Thánh Đền</color>"
     },
     "banner": {
-      "sprite": "icon_god-flag_12",
+      "sprite": "icon_god-flag_1201",
       "image": "images/gods/banners/champ012.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -676,7 +676,7 @@
       "vi-VN": "Chuyển dịch 100 chỉ số bằng <color=#D46C17>Chuyển Giao Sinh Lực</color>"
     },
     "banner": {
-      "sprite": "icon_god-flag_13",
+      "sprite": "icon_god-flag_1301",
       "image": "images/gods/banners/champ013.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -733,7 +733,7 @@
       "vi-VN": "Thắng 3 lượt đấu với mỗi Quyền Năng trong 2 Quyền Năng khác nhau"
     },
     "banner": {
-      "sprite": "icon_god-flag_14",
+      "sprite": "icon_god-flag_1401",
       "image": "images/gods/banners/champ014.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -769,7 +769,7 @@
       },
       "description": {
         "en": "Passive: After your allies has slain 15 enemies or after you triggered <sprite name=icon_slay><color=#D46C17>Slay</color> 9 times, get a <color=#D46C17>Promotion Reward</color> (Once per battle)",
-        "vi-VN": "Passive: Sau khi đồng minh kết liễu 15 kẻ địch hoặc kích hoạt <sprite name=icon_slay><color=#D46C17>Kết Liễu</color> 9 lần, nhận một <color=#D46C17>Phần Thưởng Thăng Cấp</color> (Once per battle)"
+        "vi-VN": "Nội tại: Sau khi đồng minh kết liễu 15 kẻ địch hoặc kích hoạt <sprite name=icon_slay><color=#D46C17>Kết Liễu</color> 9 lần, nhận một <color=#D46C17>Phần Thưởng Thăng Cấp</color> (Once per battle)"
       },
       "sprite": "icon_power_15",
       "image": "images/gods/powers/champ015.png",
@@ -779,7 +779,7 @@
     },
     "powerPlain": {
       "en": "Passive: After your allies has slain 15 enemies or after you triggered Slay 9 times, get a Promotion Reward (Once per battle)",
-      "vi-VN": "Passive: Sau khi đồng minh kết liễu 15 kẻ địch hoặc kích hoạt Kết Liễu 9 lần, nhận một Phần Thưởng Thăng Cấp (Once per battle)"
+      "vi-VN": "Nội tại: Sau khi đồng minh kết liễu 15 kẻ địch hoặc kích hoạt Kết Liễu 9 lần, nhận một Phần Thưởng Thăng Cấp (Once per battle)"
     },
     "descendUnit": {
       "en": "When you have space, summon a Valkyrie and give it this <sprite name=icon_attack><color=#0068A9>Attack</color> (3 times per battle)",
@@ -790,7 +790,7 @@
       "vi-VN": "Kết liễu 45 kẻ địch"
     },
     "banner": {
-      "sprite": "icon_god-flag_15",
+      "sprite": "icon_god-flag_1501",
       "image": "images/gods/banners/champ015.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -808,7 +808,7 @@
     "imageWidth": 394,
     "imageHeight": 349,
     "imageSha256": "ca7099d59bd5385719718b117e13dd63118631d7842025dbdc859e0811698f2d",
-    "keywords": ["celestial_medicine", "deploy", "on_attack"],
+    "keywords": ["alchemy", "celestial_medicine", "deploy", "on_attack"],
     "name": {
       "en": "Erlang Shen",
       "vi-VN": "Nhị Lang Thần"
@@ -839,15 +839,15 @@
       "vi-VN": "Nội tại: Sau khi 25 Tiên Đan được sử dụng, nhận một Hạo Thiên Khuyển"
     },
     "descendUnit": {
-      "en": "Your Xiao Tianquan now gives <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color> up to Tier 6. \\n<color=#D46C17>Attack</color>: trigger Xiao Tianquan's <sprite name=icon_deploy><color=#D46C17>Deploy</color>",
-      "vi-VN": "Hao Thiên Khuyển sẽ cho <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color> lên đến Bậc 6. \\n<color=#D46C17>Tấn Công</color>: kích hoạt <sprite name=icon_deploy><color=#D46C17>Triển Khai</color> của Hao Thiên Khuyển"
+      "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(1):</color> Get a random Tier 6 <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>\\n<color=#D46C17>Attack</color>: trigger Xiao Tianquan's <sprite name=icon_deploy><color=#D46C17>Deploy</color>",
+      "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(1):</color> Nhận một <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color> ngẫu nhiên Bậc 6\\n<color=#D46C17>Tấn Công</color>: trigger Hao Thiên Khuyển's <sprite name=icon_deploy><color=#D46C17>Triển Khai</color>"
     },
     "descendQuest": {
       "en": "Deploy a Rank 3 Xiao Tianquan",
       "vi-VN": "Triển khai một Hao Thiên Khuyển Cấp 3"
     },
     "banner": {
-      "sprite": "icon_god-flag_16",
+      "sprite": "icon_god-flag_1601",
       "image": "images/gods/banners/champ016.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -904,7 +904,7 @@
       "vi-VN": "Kết liễu 12 kẻ địch với đơn vị được ban <color=#D46C17>Phong Hỏa Luân</color>"
     },
     "banner": {
-      "sprite": "icon_god-flag_17",
+      "sprite": "icon_god-flag_1701",
       "image": "images/gods/banners/champ017.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -957,15 +957,72 @@
       "vi-VN": "<sprite name=icon_demise><color=#D46C17>Tử Vong</color>: Gây 1 sát thương lên một kẻ địch ngẫu nhiên trong cùng cột, lặp lại cho mỗi đồng minh <color=#D46C17>Kami</color> bị kết liễu trong trận này"
     },
     "descendQuest": {
-      "en": "Have 40 <color=#D46C17>Kami</color> allies slain",
-      "vi-VN": "40 đồng minh <color=#D46C17>Kami</color> bị kết liễu"
+      "en": "Have 50 <color=#D46C17>Kami</color> allies slain",
+      "vi-VN": "50 đồng minh <color=#D46C17>Kami</color> bị kết liễu"
     },
     "banner": {
-      "sprite": "icon_god-flag_19",
+      "sprite": "icon_god-flag_1901",
       "image": "images/gods/banners/champ019.png",
       "imageWidth": 156,
       "imageHeight": 348,
       "imageSha256": "bb8951635f2955ada2043db53f5527ff6235667011f41283f166766f2c263fd0"
+    }
+  },
+  {
+    "id": "champ021",
+    "kind": "god",
+    "realm": "kami",
+    "realmLock": false,
+    "subtype": null,
+    "sprite": "gods_card_character_21",
+    "image": "images/gods/champ021.png",
+    "imageWidth": 400,
+    "imageHeight": 349,
+    "imageSha256": "e4b670b4f482428021e4f7d5b970283dd4c44b889e4affff7b398fb3129d408e",
+    "keywords": ["attack_stat", "burn", "on_attack"],
+    "name": {
+      "en": "Amaterasu",
+      "vi-VN": "Amaterasu"
+    },
+    "tier": 6,
+    "cost": null,
+    "stats": {
+      "attack": 20,
+      "health": 10
+    },
+    "power": {
+      "name": {
+        "en": "Sunforged",
+        "vi-VN": "Hỏa Luyện"
+      },
+      "description": {
+        "en": "Passive: When an ally attacks, it also inflicts <sprite name=icon_burn><color=#D46C17>Burn</color><color=#D46C17>(1)</color> on a random enemy adjacent to its target (1 per battle). Choose an upgrade every 2 turns. (Unlocks on turn 3)",
+        "vi-VN": "Nội tại: Khi đồng minh tấn công, nó <sprite name=icon_burn><color=#D46C17>Đốt</color><color=#D46C17>(1)</color> một kẻ địch ngẫu nhiên liền kề (1 lần mỗi lượt đấu). Chọn một nâng cấp mỗi 2 lượt. (Mở khóa ở lượt 3)"
+      },
+      "sprite": "icon_power_21",
+      "image": "images/gods/powers/champ021.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "f38951b34cc114d6ee1096c1eb173578fcb924df28feb322fa93821797941c13"
+    },
+    "powerPlain": {
+      "en": "Passive: When an ally attacks, it also inflicts Burn(1) on a random enemy adjacent to its target (1 per battle). Choose an upgrade every 2 turns. (Unlocks on turn 3)",
+      "vi-VN": "Nội tại: Khi đồng minh tấn công, nó Đốt(1) một kẻ địch ngẫu nhiên liền kề (1 lần mỗi lượt đấu). Chọn một nâng cấp mỗi 2 lượt. (Mở khóa ở lượt 3)"
+    },
+    "descendUnit": {
+      "en": "<color=#D46C17>Attack</color>: Deal damage equal to this <sprite name=icon_attack><color=#0068A9>Attack</color> to all enemies with <sprite name=icon_burn><color=#D46C17>Burn</color>.",
+      "vi-VN": "<color=#D46C17>Tấn Công</color>: Gây sát thương bằng với <sprite name=icon_attack><color=#0068A9>Sát Thương</color> của đơn vị này lên tất cả kẻ địch đang bị <sprite name=icon_burn><color=#D46C17>Đốt</color>"
+    },
+    "descendQuest": {
+      "en": "Deal 30 damage with <sprite name=icon_burn><color=#D46C17>Burn</color>",
+      "vi-VN": "Gây 30 sát thương với <sprite name=icon_burn><color=#D46C17>Đốt</color>"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_2101",
+      "image": "images/gods/banners/champ021.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "92206753a7d70fa48a0f048a3e120f38bc5460965b2259d417210815feb6a010"
     }
   },
   {
@@ -1018,11 +1075,68 @@
       "vi-VN": "Kích hoạt <sprite name=icon_deploy><color=#D46C17>Triển Khai</color> 20 lần"
     },
     "banner": {
-      "sprite": "icon_god-flag_22",
+      "sprite": "icon_god-flag_2201",
       "image": "images/gods/banners/champ022.png",
       "imageWidth": 156,
       "imageHeight": 348,
       "imageSha256": "148ac56c016942968f5874062fa2730eb3902ca7d1f334e73e52c61c05f48fee"
+    }
+  },
+  {
+    "id": "champ026",
+    "kind": "god",
+    "realm": "kami",
+    "realmLock": false,
+    "subtype": null,
+    "sprite": "gods_card_character_26",
+    "image": "images/gods/champ026.png",
+    "imageWidth": 400,
+    "imageHeight": 349,
+    "imageSha256": "49a5453e9348d3ee52082aabc17bc0eb47003ca66ec6c88c22e467428e806809",
+    "keywords": [],
+    "name": {
+      "en": "Tsukuyomi",
+      "vi-VN": "Tsukuyomi"
+    },
+    "tier": 6,
+    "cost": null,
+    "stats": {
+      "attack": 18,
+      "health": 12
+    },
+    "power": {
+      "name": {
+        "en": "Lunar Cycle",
+        "vi-VN": "Chu kỳ Mặt Trăng"
+      },
+      "description": {
+        "en": "Choose a Moon Phase and wait for its reward (Unlocks on Turn 2).",
+        "vi-VN": "Chọn một <color=#D46C17>Chu Kỳ Mặt Trăng</color> và đợi phần thưởng của nó (Mở khóa ở lượt 2)."
+      },
+      "sprite": "icon_power_26",
+      "image": "images/gods/powers/champ026.png",
+      "imageWidth": 128,
+      "imageHeight": 128,
+      "imageSha256": "7a6216f3fc142a73ab98ac45504e06f261abcdccba8fe2afa3c8aac9a6ee32f9"
+    },
+    "powerPlain": {
+      "en": "Choose a Moon Phase and wait for its reward (Unlocks on Turn 2).",
+      "vi-VN": "Chọn một Chu Kỳ Mặt Trăng và đợi phần thưởng của nó (Mở khóa ở lượt 2)."
+    },
+    "descendUnit": {
+      "en": "Your <color=#D46C17>Lunar Cycle</color> rewards trigger twice.",
+      "vi-VN": "Phần thưởng từ <color=#D46C17>Chu kỳ Mặt Trăng</color> kích hoạt 2 lần"
+    },
+    "descendQuest": {
+      "en": "Receive 3 rewards from <color=#D46C17>Lunar Cycle</color>",
+      "vi-VN": "Nhận 3 phần thưởng từ <color=#D46C17>Chu kỳ Mặt Trăng</color>"
+    },
+    "banner": {
+      "sprite": "icon_god-flag_2601",
+      "image": "images/gods/banners/champ026.png",
+      "imageWidth": 156,
+      "imageHeight": 348,
+      "imageSha256": "f79df0bac214545bfd63cc70c8dd2eabacb11f2511907c98a3da6cbc206433ec"
     }
   },
   {
@@ -1075,7 +1189,7 @@
       "vi-VN": "Mở khóa đơn vị từ <color=#D46C17>Con Đường Số Phận</color>"
     },
     "banner": {
-      "sprite": "icon_god-flag_27",
+      "sprite": "icon_god-flag_2701",
       "image": "images/gods/banners/champ027.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -1128,11 +1242,11 @@
       "vi-VN": "<color=#D46C17>Phép Màu Sự Sống</color> giờ kích hoạt lên đến 3 lần mỗi lượt. Bất cứ khi nào ngươi kích hoạt nó, cho tất cả đồng minh chỉ số bằng với Bậc cộng lại"
     },
     "descendQuest": {
-      "en": "Get 10 units from <color=#D46C17>Miracle of Life</color>",
-      "vi-VN": "Nhận 10 đơn vị từ <color=#D46C17>Phép Màu Sự Sống</color>"
+      "en": "Deploy 20 odd-Tier and 20 even-Tier units",
+      "vi-VN": "Triển khai 20 đơn vị Bậc chẵn và 20 đơn vị Bậc lẻ"
     },
     "banner": {
-      "sprite": "icon_god-flag_28",
+      "sprite": "icon_god-flag_2801",
       "image": "images/gods/banners/champ028.png",
       "imageWidth": 156,
       "imageHeight": 348,
@@ -2403,6 +2517,32 @@
     "descriptionPlain": {
       "en": "Give an ally +{0} Attack. If its from Tier 4 or lower, give it Double Strike until next turn",
       "vi-VN": "Cho một đồng minh +{0} Sát Thương. Nếu nó từ Bậc 4 trở xuống, cho nó Liên Kích đến lượt sau"
+    }
+  },
+  {
+    "id": "s_04014",
+    "kind": "spell",
+    "realm": "shenzhou",
+    "subtype": "medicine",
+    "sprite": "spell-art_4014",
+    "image": "images/spells/s_04014.png",
+    "imageWidth": 128,
+    "imageHeight": 128,
+    "imageSha256": "a6a8b7420f96a51cb5ee0a64905b728ee33745c650a20f64427a1df0b1f42074",
+    "keywords": ["celestial_medicine"],
+    "name": {
+      "en": "Eye of Heaven",
+      "vi-VN": "Thiên Nhãn"
+    },
+    "tier": 6,
+    "cost": null,
+    "description": {
+      "en": "Get a random Tier 6 <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>",
+      "vi-VN": "Nhận một <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color> Bậc 6"
+    },
+    "descriptionPlain": {
+      "en": "Get a random Tier 6 Celestial Medicine",
+      "vi-VN": "Nhận một Tiên Đan Bậc 6"
     }
   },
   {
@@ -4889,11 +5029,11 @@
         "health": 24,
         "text": {
           "en": "<color=#D46C17>Attack</color> and <color=#D46C17>Counter</color>: <sprite name=icon_burn><color=#D46C17>Burn</color><color=#D46C17>(9)</color> all enemies on the target's columns and all colum next to it",
-          "vi-VN": "<color=#D46C17>Tấn Công</color> và <color=#D46C17>Phản Công</color>: <sprite name=icon_burn><color=#D46C17>Đốt</color><color=#D46C17>(6)</color> tất cả kẻ địch trên cùng cột với mục tiêu và tất cả cột kế bên"
+          "vi-VN": "<color=#D46C17>Tấn Công</color> và <color=#D46C17>Phản Công</color>: <sprite name=icon_burn><color=#D46C17>Đốt</color><color=#D46C17>(9)</color> tất cả kẻ địch trên cùng cột với mục tiêu và tất cả cột kế bên"
         },
         "textPlain": {
           "en": "Attack and Counter: Burn(9) all enemies on the target's columns and all colum next to it",
-          "vi-VN": "Tấn Công và Phản Công: Đốt(6) tất cả kẻ địch trên cùng cột với mục tiêu và tất cả cột kế bên"
+          "vi-VN": "Tấn Công và Phản Công: Đốt(9) tất cả kẻ địch trên cùng cột với mục tiêu và tất cả cột kế bên"
         }
       }
     ]
@@ -5184,11 +5324,11 @@
         "health": 36,
         "text": {
           "en": "<color=#D46C17>Attack</color>: <sprite name=icon_burn><color=#D46C17>Burn</color><color=#D46C17>(12)</color> all enemies",
-          "vi-VN": "<color=#D46C17>Tấn Công</color>: <sprite name=icon_burn><color=#D46C17>Đốt</color><color=#D46C17>(12)</color> mục tiêu và tất cả kẻ địch"
+          "vi-VN": "<color=#D46C17>Tấn Công</color>: <sprite name=icon_burn><color=#D46C17>Đốt</color><color=#D46C17>(12)</color> tất cả kẻ địch"
         },
         "textPlain": {
           "en": "Attack: Burn(12) all enemies",
-          "vi-VN": "Tấn Công: Đốt(12) mục tiêu và tất cả kẻ địch"
+          "vi-VN": "Tấn Công: Đốt(12) tất cả kẻ địch"
         }
       }
     ]
@@ -6986,12 +7126,12 @@
         "attack": 3,
         "health": 2,
         "text": {
-          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(1):</color> Give an ally +{0} Health",
-          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(1):</color> Cho 1 đồng minh +{0} Máu vĩnh viễn"
+          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(1):</color> Give an ally +{1} Health",
+          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(1):</color> Cho 1 đồng minh +{1} Máu vĩnh viễn"
         },
         "textPlain": {
-          "en": "Alchemy(1): Give an ally +{0} Health",
-          "vi-VN": "Luyện Đan(1): Cho 1 đồng minh +{0} Máu vĩnh viễn"
+          "en": "Alchemy(1): Give an ally +{1} Health",
+          "vi-VN": "Luyện Đan(1): Cho 1 đồng minh +{1} Máu vĩnh viễn"
         }
       },
       {
@@ -6999,12 +7139,12 @@
         "attack": 6,
         "health": 4,
         "text": {
-          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(2):</color> Give an ally +{0} Health",
-          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(2):</color> Cho 1 đồng minh +{0} Máu vĩnh viễn"
+          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(2):</color> Give an ally +{1} Health",
+          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(2):</color> Cho 1 đồng minh +{1} Máu vĩnh viễn"
         },
         "textPlain": {
-          "en": "Alchemy(2): Give an ally +{0} Health",
-          "vi-VN": "Luyện Đan(2): Cho 1 đồng minh +{0} Máu vĩnh viễn"
+          "en": "Alchemy(2): Give an ally +{1} Health",
+          "vi-VN": "Luyện Đan(2): Cho 1 đồng minh +{1} Máu vĩnh viễn"
         }
       },
       {
@@ -7012,12 +7152,12 @@
         "attack": 12,
         "health": 8,
         "text": {
-          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(3):</color> Give an ally +{0} Health",
-          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(3):</color> Cho 1 đồng minh +{0} Máu vĩnh viễn"
+          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(3):</color> Give an ally +{1} Health",
+          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(3):</color> Cho 1 đồng minh +{1} Máu vĩnh viễn"
         },
         "textPlain": {
-          "en": "Alchemy(3): Give an ally +{0} Health",
-          "vi-VN": "Luyện Đan(3): Cho 1 đồng minh +{0} Máu vĩnh viễn"
+          "en": "Alchemy(3): Give an ally +{1} Health",
+          "vi-VN": "Luyện Đan(3): Cho 1 đồng minh +{1} Máu vĩnh viễn"
         }
       }
     ]
@@ -7104,12 +7244,12 @@
         "attack": 2,
         "health": 2,
         "text": {
-          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(1):</color> Give an ally +{0}/+{0}",
-          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(1):</color> Cho 1 đồng minh +{0}/+{0} vĩnh viễn"
+          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(1):</color> Give an ally +{0}/+{1}",
+          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(1):</color> Cho 1 đồng minh +{0}/+{1} vĩnh viễn"
         },
         "textPlain": {
-          "en": "Alchemy(1): Give an ally +{0}/+{0}",
-          "vi-VN": "Luyện Đan(1): Cho 1 đồng minh +{0}/+{0} vĩnh viễn"
+          "en": "Alchemy(1): Give an ally +{0}/+{1}",
+          "vi-VN": "Luyện Đan(1): Cho 1 đồng minh +{0}/+{1} vĩnh viễn"
         }
       },
       {
@@ -7117,12 +7257,12 @@
         "attack": 4,
         "health": 4,
         "text": {
-          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(2):</color> Give an ally +{0}/+{0}",
-          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(2):</color> Cho 1 đồng minh +{0}/+{0} vĩnh viễn"
+          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(2):</color> Give an ally +{0}/+{1}",
+          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(2):</color> Cho 1 đồng minh +{0}/+{1} vĩnh viễn"
         },
         "textPlain": {
-          "en": "Alchemy(2): Give an ally +{0}/+{0}",
-          "vi-VN": "Luyện Đan(2): Cho 1 đồng minh +{0}/+{0} vĩnh viễn"
+          "en": "Alchemy(2): Give an ally +{0}/+{1}",
+          "vi-VN": "Luyện Đan(2): Cho 1 đồng minh +{0}/+{1} vĩnh viễn"
         }
       },
       {
@@ -7130,12 +7270,12 @@
         "attack": 8,
         "health": 8,
         "text": {
-          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(3):</color> Give an ally +{0}/+{0}",
-          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(3):</color> Cho 1 đồng minh +{0}/+{0} vĩnh viễn"
+          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(3):</color> Give an ally +{0}/+{1}",
+          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(3):</color> Cho 1 đồng minh +{0}/+{1} vĩnh viễn"
         },
         "textPlain": {
-          "en": "Alchemy(3): Give an ally +{0}/+{0}",
-          "vi-VN": "Luyện Đan(3): Cho 1 đồng minh +{0}/+{0} vĩnh viễn"
+          "en": "Alchemy(3): Give an ally +{0}/+{1}",
+          "vi-VN": "Luyện Đan(3): Cho 1 đồng minh +{0}/+{1} vĩnh viễn"
         }
       }
     ]
@@ -7163,12 +7303,12 @@
         "attack": 1,
         "health": 1,
         "text": {
-          "en": "Whenever this receives <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>, gain +1/+1\\nAfter this has received 24 <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>, transform into Sun Wukong",
-          "vi-VN": "Bất cứ khi nào đơn vị này nhận <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color>, nhận thêm +1/+1\\nSau khi đã nhận 24 <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color>, biến thành Tôn Ngộ Không"
+          "en": "Whenever this receives <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>, gain +1/+1\\nAfter this has received 20 <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>, transform into Sun Wukong",
+          "vi-VN": "Bất cứ khi nào đơn vị này nhận <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color>, nhận thêm +1/+1\\nSau khi đã nhận 20 <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color>, biến thành Tôn Ngộ Không"
         },
         "textPlain": {
-          "en": "Whenever this receives Celestial Medicine, gain +1/+1\\nAfter this has received 24 Celestial Medicine, transform into Sun Wukong",
-          "vi-VN": "Bất cứ khi nào đơn vị này nhận Tiên Đan, nhận thêm +1/+1\\nSau khi đã nhận 24 Tiên Đan, biến thành Tôn Ngộ Không"
+          "en": "Whenever this receives Celestial Medicine, gain +1/+1\\nAfter this has received 20 Celestial Medicine, transform into Sun Wukong",
+          "vi-VN": "Bất cứ khi nào đơn vị này nhận Tiên Đan, nhận thêm +1/+1\\nSau khi đã nhận 20 Tiên Đan, biến thành Tôn Ngộ Không"
         }
       },
       {
@@ -7176,12 +7316,12 @@
         "attack": 2,
         "health": 2,
         "text": {
-          "en": "Whenever this receives <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>, gain +2/+2\\nAfter this has received 24 <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>, transform into Sun Wukong",
-          "vi-VN": "Bất cứ khi nào đơn vị này nhận <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color>, nhận thêm +2/+2\\nSau khi đã nhận 24 <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color>, biến thành Tôn Ngộ Không"
+          "en": "Whenever this receives <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>, gain +2/+2\\nAfter this has received 20 <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>, transform into Sun Wukong",
+          "vi-VN": "Bất cứ khi nào đơn vị này nhận <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color>, nhận thêm +2/+2\\nSau khi đã nhận 20 <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color>, biến thành Tôn Ngộ Không"
         },
         "textPlain": {
-          "en": "Whenever this receives Celestial Medicine, gain +2/+2\\nAfter this has received 24 Celestial Medicine, transform into Sun Wukong",
-          "vi-VN": "Bất cứ khi nào đơn vị này nhận Tiên Đan, nhận thêm +2/+2\\nSau khi đã nhận 24 Tiên Đan, biến thành Tôn Ngộ Không"
+          "en": "Whenever this receives Celestial Medicine, gain +2/+2\\nAfter this has received 20 Celestial Medicine, transform into Sun Wukong",
+          "vi-VN": "Bất cứ khi nào đơn vị này nhận Tiên Đan, nhận thêm +2/+2\\nSau khi đã nhận 20 Tiên Đan, biến thành Tôn Ngộ Không"
         }
       },
       {
@@ -7189,12 +7329,12 @@
         "attack": 4,
         "health": 4,
         "text": {
-          "en": "Whenever this receives <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>, gain +4/+4\\nAfter this has received 24 <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>, transform into Sun Wukong",
-          "vi-VN": "Bất cứ khi nào đơn vị này nhận <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color>, nhận thêm +4/+4\\nSau khi đã nhận 24 <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color>, biến thành Tôn Ngộ Không"
+          "en": "Whenever this receives <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>, gain +4/+4\\nAfter this has received 20 <sprite name=icon_celestial_medicine><color=#D46C17>Celestial Medicine</color>, transform into Sun Wukong",
+          "vi-VN": "Bất cứ khi nào đơn vị này nhận <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color>, nhận thêm +4/+4\\nSau khi đã nhận 20 <sprite name=icon_celestial_medicine><color=#D46C17>Tiên Đan</color>, biến thành Tôn Ngộ Không"
         },
         "textPlain": {
-          "en": "Whenever this receives Celestial Medicine, gain +4/+4\\nAfter this has received 24 Celestial Medicine, transform into Sun Wukong",
-          "vi-VN": "Bất cứ khi nào đơn vị này nhận Tiên Đan, nhận thêm +4/+4\\nSau khi đã nhận 24 Tiên Đan, biến thành Tôn Ngộ Không"
+          "en": "Whenever this receives Celestial Medicine, gain +4/+4\\nAfter this has received 20 Celestial Medicine, transform into Sun Wukong",
+          "vi-VN": "Bất cứ khi nào đơn vị này nhận Tiên Đan, nhận thêm +4/+4\\nSau khi đã nhận 20 Tiên Đan, biến thành Tôn Ngộ Không"
         }
       }
     ]
@@ -7989,12 +8129,12 @@
         "attack": 2,
         "health": 6,
         "text": {
-          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(1):</color> Gives a unit +{0}/+{0} permanently and <sprite name=icon_safeguard><color=#D46C17>Safeguard</color> until next turn",
-          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(1):</color> Cho một đơn vị +{0}/+{0} vĩnh viễn và <sprite name=icon_safeguard><color=#D46C17>Lá Chắn</color> cho đến lượt sau"
+          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(1):</color> Gives a unit +{0}/+{1} permanently and <sprite name=icon_safeguard><color=#D46C17>Safeguard</color> until next turn",
+          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(1):</color> Cho một đơn vị +{0}/+{1} vĩnh viễn và <sprite name=icon_safeguard><color=#D46C17>Lá Chắn</color> cho đến lượt sau"
         },
         "textPlain": {
-          "en": "Alchemy(1): Gives a unit +{0}/+{0} permanently and Safeguard until next turn",
-          "vi-VN": "Luyện Đan(1): Cho một đơn vị +{0}/+{0} vĩnh viễn và Lá Chắn cho đến lượt sau"
+          "en": "Alchemy(1): Gives a unit +{0}/+{1} permanently and Safeguard until next turn",
+          "vi-VN": "Luyện Đan(1): Cho một đơn vị +{0}/+{1} vĩnh viễn và Lá Chắn cho đến lượt sau"
         }
       },
       {
@@ -8002,12 +8142,12 @@
         "attack": 4,
         "health": 12,
         "text": {
-          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(2):</color> Gives a unit +{0}/+{0} permanently and <sprite name=icon_safeguard><color=#D46C17>Safeguard</color> until next turn",
-          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(2):</color> Cho một đơn vị +{0}/+{0} vĩnh viễn và <sprite name=icon_safeguard><color=#D46C17>Lá Chắn</color> cho đến lượt sau"
+          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(2):</color> Gives a unit +{0}/+{1} permanently and <sprite name=icon_safeguard><color=#D46C17>Safeguard</color> until next turn",
+          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(2):</color> Cho một đơn vị +{0}/+{1} vĩnh viễn và <sprite name=icon_safeguard><color=#D46C17>Lá Chắn</color> cho đến lượt sau"
         },
         "textPlain": {
-          "en": "Alchemy(2): Gives a unit +{0}/+{0} permanently and Safeguard until next turn",
-          "vi-VN": "Luyện Đan(2): Cho một đơn vị +{0}/+{0} vĩnh viễn và Lá Chắn cho đến lượt sau"
+          "en": "Alchemy(2): Gives a unit +{0}/+{1} permanently and Safeguard until next turn",
+          "vi-VN": "Luyện Đan(2): Cho một đơn vị +{0}/+{1} vĩnh viễn và Lá Chắn cho đến lượt sau"
         }
       },
       {
@@ -8015,12 +8155,12 @@
         "attack": 8,
         "health": 24,
         "text": {
-          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(3):</color> Gives a unit +{0}/+{0} permanently and <sprite name=icon_safeguard><color=#D46C17>Safeguard</color> until next turn",
-          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(3):</color> Cho một đơn vị +{0}/+{0} vĩnh viễn và <sprite name=icon_safeguard><color=#D46C17>Lá Chắn</color> cho đến lượt sau"
+          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(3):</color> Gives a unit +{0}/+{1} permanently and <sprite name=icon_safeguard><color=#D46C17>Safeguard</color> until next turn",
+          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(3):</color> Cho một đơn vị +{0}/+{1} vĩnh viễn và <sprite name=icon_safeguard><color=#D46C17>Lá Chắn</color> cho đến lượt sau"
         },
         "textPlain": {
-          "en": "Alchemy(3): Gives a unit +{0}/+{0} permanently and Safeguard until next turn",
-          "vi-VN": "Luyện Đan(3): Cho một đơn vị +{0}/+{0} vĩnh viễn và Lá Chắn cho đến lượt sau"
+          "en": "Alchemy(3): Gives a unit +{0}/+{1} permanently and Safeguard until next turn",
+          "vi-VN": "Luyện Đan(3): Cho một đơn vị +{0}/+{1} vĩnh viễn và Lá Chắn cho đến lượt sau"
         }
       }
     ]
@@ -8166,12 +8306,12 @@
         "attack": 6,
         "health": 6,
         "text": {
-          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(1):</color> Choose: Give a Sun Wukong +{0}/+{0} permanently; or <sprite name=icon_pierce><color=#D46C17>Pierce</color>; or <sprite name=icon_cleave><color=#D46C17>Cleave</color>; or <sprite name=icon_safeguard><color=#D46C17>Safeguard</color> until next turn",
-          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(1):</color> Chọn: Cho một Tôn Ngộ Không +{0}/+{0} vĩnh viễn; hoặc <sprite name=icon_pierce><color=#D46C17>Xuyên Kích</color>; hoặc <sprite name=icon_cleave><color=#D46C17>Trảm Kích</color>; hoặc <sprite name=icon_safeguard><color=#D46C17>Lá Chắn</color> cho đến lượt sau"
+          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(1):</color> Choose: Give a Sun Wukong +{0}/+{1} permanently; or <sprite name=icon_pierce><color=#D46C17>Pierce</color>; or <sprite name=icon_cleave><color=#D46C17>Cleave</color>; or <sprite name=icon_safeguard><color=#D46C17>Safeguard</color> until next turn",
+          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(1):</color> Chọn: Cho một Tôn Ngộ Không +{0}/+{1} vĩnh viễn; hoặc <sprite name=icon_pierce><color=#D46C17>Xuyên Kích</color>; hoặc <sprite name=icon_cleave><color=#D46C17>Trảm Kích</color>; hoặc <sprite name=icon_safeguard><color=#D46C17>Lá Chắn</color> cho đến lượt sau"
         },
         "textPlain": {
-          "en": "Alchemy(1): Choose: Give a Sun Wukong +{0}/+{0} permanently; or Pierce; or Cleave; or Safeguard until next turn",
-          "vi-VN": "Luyện Đan(1): Chọn: Cho một Tôn Ngộ Không +{0}/+{0} vĩnh viễn; hoặc Xuyên Kích; hoặc Trảm Kích; hoặc Lá Chắn cho đến lượt sau"
+          "en": "Alchemy(1): Choose: Give a Sun Wukong +{0}/+{1} permanently; or Pierce; or Cleave; or Safeguard until next turn",
+          "vi-VN": "Luyện Đan(1): Chọn: Cho một Tôn Ngộ Không +{0}/+{1} vĩnh viễn; hoặc Xuyên Kích; hoặc Trảm Kích; hoặc Lá Chắn cho đến lượt sau"
         }
       },
       {
@@ -8179,12 +8319,12 @@
         "attack": 12,
         "health": 12,
         "text": {
-          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(2):</color> Choose: Give a Sun Wukong +{0}/+{0} permanently; or <sprite name=icon_pierce><color=#D46C17>Pierce</color>; or <sprite name=icon_cleave><color=#D46C17>Cleave</color>; or <sprite name=icon_safeguard><color=#D46C17>Safeguard</color> until next turn",
-          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(2):</color> Chọn: Cho một Tôn Ngộ Không +{0}/+{0} vĩnh viễn; hoặc <sprite name=icon_pierce><color=#D46C17>Xuyên Kích</color>; hoặc <sprite name=icon_cleave><color=#D46C17>Trảm Kích</color>; hoặc <sprite name=icon_safeguard><color=#D46C17>Lá Chắn</color> cho đến lượt sau"
+          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(2):</color> Choose: Give a Sun Wukong +{0}/+{1} permanently; or <sprite name=icon_pierce><color=#D46C17>Pierce</color>; or <sprite name=icon_cleave><color=#D46C17>Cleave</color>; or <sprite name=icon_safeguard><color=#D46C17>Safeguard</color> until next turn",
+          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(2):</color> Chọn: Cho một Tôn Ngộ Không +{0}/+{1} vĩnh viễn; hoặc <sprite name=icon_pierce><color=#D46C17>Xuyên Kích</color>; hoặc <sprite name=icon_cleave><color=#D46C17>Trảm Kích</color>; hoặc <sprite name=icon_safeguard><color=#D46C17>Lá Chắn</color> cho đến lượt sau"
         },
         "textPlain": {
-          "en": "Alchemy(2): Choose: Give a Sun Wukong +{0}/+{0} permanently; or Pierce; or Cleave; or Safeguard until next turn",
-          "vi-VN": "Luyện Đan(2): Chọn: Cho một Tôn Ngộ Không +{0}/+{0} vĩnh viễn; hoặc Xuyên Kích; hoặc Trảm Kích; hoặc Lá Chắn cho đến lượt sau"
+          "en": "Alchemy(2): Choose: Give a Sun Wukong +{0}/+{1} permanently; or Pierce; or Cleave; or Safeguard until next turn",
+          "vi-VN": "Luyện Đan(2): Chọn: Cho một Tôn Ngộ Không +{0}/+{1} vĩnh viễn; hoặc Xuyên Kích; hoặc Trảm Kích; hoặc Lá Chắn cho đến lượt sau"
         }
       },
       {
@@ -8192,12 +8332,12 @@
         "attack": 24,
         "health": 24,
         "text": {
-          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(3):</color> Choose: Give a Sun Wukong +{0}/+{0} permanently; or <sprite name=icon_pierce><color=#D46C17>Pierce</color>; or <sprite name=icon_cleave><color=#D46C17>Cleave</color>; or <sprite name=icon_safeguard><color=#D46C17>Safeguard</color> until next turn",
-          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(3):</color> Chọn: Cho một Tôn Ngộ Không +{0}/+{0} vĩnh viễn; hoặc <sprite name=icon_pierce><color=#D46C17>Xuyên Kích</color>; hoặc <sprite name=icon_cleave><color=#D46C17>Trảm Kích</color>; hoặc <sprite name=icon_safeguard><color=#D46C17>Lá Chắn</color> cho đến lượt sau"
+          "en": "<sprite name=icon_celestial_medicine><color=#D46C17>Alchemy</color><color=#D46C17>(3):</color> Choose: Give a Sun Wukong +{0}/+{1} permanently; or <sprite name=icon_pierce><color=#D46C17>Pierce</color>; or <sprite name=icon_cleave><color=#D46C17>Cleave</color>; or <sprite name=icon_safeguard><color=#D46C17>Safeguard</color> until next turn",
+          "vi-VN": "<sprite name=icon_celestial_medicine><color=#D46C17>Luyện Đan</color><color=#D46C17>(3):</color> Chọn: Cho một Tôn Ngộ Không +{0}/+{1} vĩnh viễn; hoặc <sprite name=icon_pierce><color=#D46C17>Xuyên Kích</color>; hoặc <sprite name=icon_cleave><color=#D46C17>Trảm Kích</color>; hoặc <sprite name=icon_safeguard><color=#D46C17>Lá Chắn</color> cho đến lượt sau"
         },
         "textPlain": {
-          "en": "Alchemy(3): Choose: Give a Sun Wukong +{0}/+{0} permanently; or Pierce; or Cleave; or Safeguard until next turn",
-          "vi-VN": "Luyện Đan(3): Chọn: Cho một Tôn Ngộ Không +{0}/+{0} vĩnh viễn; hoặc Xuyên Kích; hoặc Trảm Kích; hoặc Lá Chắn cho đến lượt sau"
+          "en": "Alchemy(3): Choose: Give a Sun Wukong +{0}/+{1} permanently; or Pierce; or Cleave; or Safeguard until next turn",
+          "vi-VN": "Luyện Đan(3): Chọn: Cho một Tôn Ngộ Không +{0}/+{1} vĩnh viễn; hoặc Xuyên Kích; hoặc Trảm Kích; hoặc Lá Chắn cho đến lượt sau"
         }
       }
     ]
@@ -9949,12 +10089,12 @@
         "attack": 8,
         "health": 2,
         "text": {
-          "en": "<sprite name=icon_demise><color=#D46C17>Demise</color>: Deal 2 damage and <sprite name=icon_burn><color=#D46C17>Burn</color><color=#D46C17>(4)</color> all enemies on this column",
-          "vi-VN": "<sprite name=icon_demise><color=#D46C17>Tử Vong</color>: Gây 2 sát thương và <sprite name=icon_burn><color=#D46C17>Đốt</color><color=#D46C17>(4)</color> tất cả kẻ địch cùng cột với đơn vị này"
+          "en": "<sprite name=icon_demise><color=#D46C17>Demise</color>: Deal 2 damage and <sprite name=icon_burn><color=#D46C17>Burn</color><color=#D46C17>(8)</color> all enemies on this column",
+          "vi-VN": "<sprite name=icon_demise><color=#D46C17>Tử Vong</color>: Gây 2 sát thương và <sprite name=icon_burn><color=#D46C17>Đốt</color><color=#D46C17>(8)</color> tất cả kẻ địch cùng cột với đơn vị này"
         },
         "textPlain": {
-          "en": "Demise: Deal 2 damage and Burn(4) all enemies on this column",
-          "vi-VN": "Tử Vong: Gây 2 sát thương và Đốt(4) tất cả kẻ địch cùng cột với đơn vị này"
+          "en": "Demise: Deal 2 damage and Burn(8) all enemies on this column",
+          "vi-VN": "Tử Vong: Gây 2 sát thương và Đốt(8) tất cả kẻ địch cùng cột với đơn vị này"
         }
       },
       {
@@ -9962,12 +10102,12 @@
         "attack": 16,
         "health": 4,
         "text": {
-          "en": "<sprite name=icon_demise><color=#D46C17>Demise</color>: Deal 4 damage and <sprite name=icon_burn><color=#D46C17>Burn</color><color=#D46C17>(4)</color> all enemies",
-          "vi-VN": "<sprite name=icon_demise><color=#D46C17>Tử Vong</color>: Gây 4 sát thương và <sprite name=icon_burn><color=#D46C17>Đốt</color><color=#D46C17>(4)</color> tất cả kẻ địch"
+          "en": "<sprite name=icon_demise><color=#D46C17>Demise</color>: Deal 2 damage and <sprite name=icon_burn><color=#D46C17>Burn</color><color=#D46C17>(8)</color> all enemies on this column, twice",
+          "vi-VN": "<sprite name=icon_demise><color=#D46C17>Tử Vong</color>: Gây 2 sát thương và <sprite name=icon_burn><color=#D46C17>Đốt</color><color=#D46C17>(8)</color> tất cả kẻ địch cùng cột với đơn vị này, 2 lần"
         },
         "textPlain": {
-          "en": "Demise: Deal 4 damage and Burn(4) all enemies",
-          "vi-VN": "Tử Vong: Gây 4 sát thương và Đốt(4) tất cả kẻ địch"
+          "en": "Demise: Deal 2 damage and Burn(8) all enemies on this column, twice",
+          "vi-VN": "Tử Vong: Gây 2 sát thương và Đốt(8) tất cả kẻ địch cùng cột với đơn vị này, 2 lần"
         }
       }
     ]
@@ -12165,7 +12305,7 @@
     "imageWidth": 400,
     "imageHeight": 349,
     "imageSha256": "a0738f482413167f34b34ef6fd7b062b8853e76bb9575582c4c12e3c742c64ac",
-    "keywords": ["attack_stat", "consume", "health_stat", "sanctum"],
+    "keywords": ["attack_stat", "consume", "sanctum"],
     "name": {
       "en": "Dalsuni",
       "vi-VN": "Dalsuni"
@@ -12191,12 +12331,12 @@
         "attack": 6,
         "health": 6,
         "text": {
-          "en": "After you deploy an odd-Tier unit, this and a <color=#D46C17>Daehan</color> ally <color=#D46C17>Consume</color> a random unit on the <color=#D46C17>Sanctum</color> to gain double its stats",
-          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc lẻ, đơn vị này và một đồng minh <color=#D46C17>Daehan</color> <color=#D46C17>Hấp Thụ</color> một đơn vị ngẫu nhiên trong <color=#D46C17>Thánh Đền</color> để nhận gấp đôi chỉ số của nó"
+          "en": "After you deploy an odd-Tier unit, this and a <color=#D46C17>Daehan</color> ally <color=#D46C17>Consume</color> a random unit on the <color=#D46C17>Sanctum</color> to gain double its <sprite name=icon_attack><color=#0068A9>Attack</color>",
+          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc lẻ, đơn vị này và một đồng minh <color=#D46C17>Daehan</color> <color=#D46C17>Hấp Thụ</color> một đơn vị ngẫu nhiên trong <color=#D46C17>Thánh Đền</color> để nhận gấp đôi <sprite name=icon_attack><color=#0068A9>Sát Thương</color> của nó"
         },
         "textPlain": {
-          "en": "After you deploy an odd-Tier unit, this and a Daehan ally Consume a random unit on the Sanctum to gain double its stats",
-          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc lẻ, đơn vị này và một đồng minh Daehan Hấp Thụ một đơn vị ngẫu nhiên trong Thánh Đền để nhận gấp đôi chỉ số của nó"
+          "en": "After you deploy an odd-Tier unit, this and a Daehan ally Consume a random unit on the Sanctum to gain double its Attack",
+          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc lẻ, đơn vị này và một đồng minh Daehan Hấp Thụ một đơn vị ngẫu nhiên trong Thánh Đền để nhận gấp đôi Sát Thương của nó"
         }
       },
       {
@@ -12204,12 +12344,12 @@
         "attack": 12,
         "health": 12,
         "text": {
-          "en": "After you deploy an odd-Tier unit, this and a <color=#D46C17>Daehan</color> ally <color=#D46C17>Consume</color> a random unit on the <color=#D46C17>Sanctum</color> to gain triple its stats",
-          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc lẻ, đơn vị này và một đồng minh <color=#D46C17>Daehan</color> <color=#D46C17>Hấp Thụ</color> một đơn vị ngẫu nhiên trong <color=#D46C17>Thánh Đền</color> để nhận gấp ba chỉ số của nó"
+          "en": "After you deploy an odd-Tier unit, this and a <color=#D46C17>Daehan</color> ally <color=#D46C17>Consume</color> a random unit on the <color=#D46C17>Sanctum</color> to gain double its stats",
+          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc lẻ, đơn vị này và một đồng minh <color=#D46C17>Daehan</color> <color=#D46C17>Hấp Thụ</color> một đơn vị ngẫu nhiên trong <color=#D46C17>Thánh Đền</color> để nhận gấp đôi chỉ số của nó"
         },
         "textPlain": {
-          "en": "After you deploy an odd-Tier unit, this and a Daehan ally Consume a random unit on the Sanctum to gain triple its stats",
-          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc lẻ, đơn vị này và một đồng minh Daehan Hấp Thụ một đơn vị ngẫu nhiên trong Thánh Đền để nhận gấp ba chỉ số của nó"
+          "en": "After you deploy an odd-Tier unit, this and a Daehan ally Consume a random unit on the Sanctum to gain double its stats",
+          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc lẻ, đơn vị này và một đồng minh Daehan Hấp Thụ một đơn vị ngẫu nhiên trong Thánh Đền để nhận gấp đôi chỉ số của nó"
         }
       }
     ]
@@ -12224,7 +12364,7 @@
     "imageWidth": 400,
     "imageHeight": 349,
     "imageSha256": "2c728151ae0791a5434f09d06439b24a8a6bd73d97929e101f24deff1d2c8e18",
-    "keywords": ["attack_stat", "consume", "health_stat", "sanctum"],
+    "keywords": ["attack_stat", "consume", "sanctum"],
     "name": {
       "en": "Haesuni",
       "vi-VN": "Haesuni"
@@ -12250,12 +12390,12 @@
         "attack": 4,
         "health": 4,
         "text": {
-          "en": "After you deploy an even-Tier unit, this and a <color=#D46C17>Daehan</color> ally <color=#D46C17>Consume</color> a random unit on the <color=#D46C17>Sanctum</color> to gain double its stats",
-          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc chẵn, đơn vị này và một đồng minh <color=#D46C17>Daehan</color> <color=#D46C17>Hấp Thụ</color> một đơn vị ngẫu nhiên trong <color=#D46C17>Thánh Đền</color> để nhận gấp đôi chỉ số của nó"
+          "en": "After you deploy an even-Tier unit, this and a <color=#D46C17>Daehan</color> ally <color=#D46C17>Consume</color> a random unit on the <color=#D46C17>Sanctum</color> to gain double its <sprite name=icon_attack><color=#0068A9>Attack</color>",
+          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc chẵn, đơn vị này và một đồng minh <color=#D46C17>Daehan</color> <color=#D46C17>Hấp Thụ</color> một đơn vị ngẫu nhiên trong <color=#D46C17>Thánh Đền</color> để nhận gấp đôi <sprite name=icon_attack><color=#0068A9>Sát Thương</color> của nó"
         },
         "textPlain": {
-          "en": "After you deploy an even-Tier unit, this and a Daehan ally Consume a random unit on the Sanctum to gain double its stats",
-          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc chẵn, đơn vị này và một đồng minh Daehan Hấp Thụ một đơn vị ngẫu nhiên trong Thánh Đền để nhận gấp đôi chỉ số của nó"
+          "en": "After you deploy an even-Tier unit, this and a Daehan ally Consume a random unit on the Sanctum to gain double its Attack",
+          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc chẵn, đơn vị này và một đồng minh Daehan Hấp Thụ một đơn vị ngẫu nhiên trong Thánh Đền để nhận gấp đôi Sát Thương của nó"
         }
       },
       {
@@ -12263,12 +12403,12 @@
         "attack": 8,
         "health": 8,
         "text": {
-          "en": "After you deploy an even-Tier unit, this and a <color=#D46C17>Daehan</color> ally <color=#D46C17>Consume</color> a random unit on the <color=#D46C17>Sanctum</color> to gain triple its stats",
-          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc chẵn, đơn vị này và một đồng minh <color=#D46C17>Daehan</color> <color=#D46C17>Hấp Thụ</color> một đơn vị ngẫu nhiên trong <color=#D46C17>Thánh Đền</color> để nhận gấp ba chỉ số của nó"
+          "en": "After you deploy an even-Tier unit, this and a <color=#D46C17>Daehan</color> ally <color=#D46C17>Consume</color> a random unit on the <color=#D46C17>Sanctum</color> to gain double its stats",
+          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc chẵn, đơn vị này và một đồng minh <color=#D46C17>Daehan</color> <color=#D46C17>Hấp Thụ</color> một đơn vị ngẫu nhiên trong <color=#D46C17>Thánh Đền</color> để nhận gấp đôi chỉ số của nó"
         },
         "textPlain": {
-          "en": "After you deploy an even-Tier unit, this and a Daehan ally Consume a random unit on the Sanctum to gain triple its stats",
-          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc chẵn, đơn vị này và một đồng minh Daehan Hấp Thụ một đơn vị ngẫu nhiên trong Thánh Đền để nhận gấp ba chỉ số của nó"
+          "en": "After you deploy an even-Tier unit, this and a Daehan ally Consume a random unit on the Sanctum to gain double its stats",
+          "vi-VN": "Sau khi ngươi triển khai một đơn vị Bậc chẵn, đơn vị này và một đồng minh Daehan Hấp Thụ một đơn vị ngẫu nhiên trong Thánh Đền để nhận gấp đôi chỉ số của nó"
         }
       }
     ]

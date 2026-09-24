@@ -54,13 +54,22 @@
 - A god carries two more pictures beside its card: `power` (the Power's icon, 128×128, from `icon_power`) and
   `banner` (the tall standee, 156×348, from `icon_god_flag`). Both are `sprite`/`image`/`imageWidth`/`imageHeight`/
   `imageSha256` and both are hashed by the dataset tests. `extract_god_art` (see `GOD_ART`) does each in a pass of
-  its own, bound to the god by the number in the sprite name (`icon_power_16` → `champ016`), so neither can be
+  its own, bound to the god by the number in the sprite name (`icon_power_16`, `icon_god-flag_1601` → `champ016`), so neither can be
   mistaken for a second piece of card art. Unlike `tier`/`realmLock` they are fully in the client, so they are
   required, not nullable: re-extraction produces them, and a god without one is a broken extraction.
-- **The two atlases do not cover the same gods.** `icon_power` has exactly the twenty the game offers; `icon_god_flag`
-  has twenty-four, four of them for gods with no card at all (`champ006`, `champ018`, `champ020`, `champ023`). A
+- **The two atlases do not cover the same gods.** On 1.6.0 `icon_power` has exactly the twenty-two the game offers;
+  `icon_god_flag` has four more banners for gods with no card at all (`champ006`, `champ018`, `champ020`, `champ023`). A
   banner is never evidence that a god exists — the localization tables are. Re-extraction lists the four spares under
   `godArtWithoutGod` in `unresolved.json`; leave them out again.
+- Since 1.6.0 a banner name ends in a two-digit look: `01` is the god's own banner, anything higher is a Patron God
+  skin (`icon_god-flag_1102`, with card art `gods_card_character_11_02`). Skins are listed under `godSkins` in
+  `unresolved.json` and are not in the dataset.
+- The 1.6.0 source was the iOS app (`/Applications/Mythic Tactics.app` on an Apple silicon Mac), which
+  `extract_cards.py` reads directly. It is built with Unity 6000.5 (serialized format 23), which UnityPy 1.25.3 cannot
+  read; `tools/client/unity_compat.py` patches that in. Its art differs from the Android build's only by texture
+  compression, so do not replace existing art on re-extraction unless the picture itself changed.
+- Power choices (Amaterasu's Sun and Tsukuyomi's Moon spells, `s_063`–`s_074`) are in the spell tables but are not
+  cards; they sit in `meta.json.excluded` next to `s_04007`.
 - **The dataset tests live in `shared-domain`, not `shared-contracts`.** They validate all of `data/canonical/` against the contracts schemas and round-trip every card through `toCard`, so a contract change shows up there first — always run `npx nx test shared-domain` after touching a schema.
 
 ## Comps (`data/canonical/comps.json`)

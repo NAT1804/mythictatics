@@ -26,7 +26,7 @@ makes Babylon realm 5).
 
 A god carries two more pictures that are not its card — the icon for its Power and the tall banner
 the game stands it up in — and the game numbers both the way it numbers the card, so both bind by
-the same arithmetic: `icon_power_16` and `icon_god-flag_16` are Erlang Shen's. Each ships in a
+the same arithmetic: `icon_power_16` and `icon_god-flag_1601` are Erlang Shen's. Each ships in a
 bundle of its own and is extracted in a pass of its own; see `extract_god_art` for why neither can
 ride along with the card art.
 
@@ -38,6 +38,10 @@ left unbound.
 Usage:
     tools/client/.venv/Scripts/python.exe tools/client/extract_cards.py <build> [--out data/client]
     ... --no-images     tables and card text only, skip the PNG export
+
+`<build>` is an Android `.xapk`/`.apks`/`.apk`, or an installed iOS app — on an Apple silicon Mac
+that is `/Applications/Mythic Tactics.app`. Both ship the same Addressables bundles; only where
+the tables live differs (`datapack.unity3d` on Android, `Data/data.unity3d` on iOS).
 """
 
 from __future__ import annotations
@@ -55,9 +59,13 @@ from pathlib import Path
 
 import UnityPy
 
+import unity_compat  # noqa: F401  -- reads Unity 6000.5 bundles; see the module
+
 # The pack the art and the data tables live in; the base APK carries only code and boot assets.
 DATA_PACK = "UnityDataAssetPack.apk"
 DATAPACK_BUNDLE = "assets/bin/Data/datapack.unity3d"
+# The iOS build keeps the same tables in the player's own data file, beside the bundles in `Raw/aa`.
+IOS_DATAPACK_BUNDLE = "data.unity3d"
 # `medicine` is Shenzhou's own spell atlas; it sits outside the shared `spells` one.
 ART_BUNDLE = re.compile(r"caelus_assets_(unit_[a-z]+|spells|medicine)_[0-9a-f]{32}\.bundle$")
 
@@ -75,16 +83,21 @@ ICON_BUNDLES = {
 
 # Art that belongs to a god but is not the god's card: the Power's icon, and the tall banner the
 # game stands the god up in. Both are in bundles of their own and both are numbered the way the
-# god's card is — `icon_power_16` and `icon_god-flag_16` are Erlang Shen's — so both bind by the
+# god's card is — `icon_power_16` and `icon_god-flag_1601` are Erlang Shen's — so both bind by the
 # same arithmetic, and neither is a card.
+#
+# Since 1.6.0 a banner also carries a two-digit look after the god's number: `01` is the default,
+# and anything higher is a Patron God skin (`icon_god-flag_1102` is Zeus's second look, beside
+# `gods_card_character_11_02`). Only the default is the god's banner; skins are reported, not bound.
+# 1.5.7 named banners by god alone (`icon_god-flag_16`), which this pattern no longer reads.
 #
 # They are not entries in ICON_BUNDLES, because those are icons no card owns, and not in
 # ART_BUNDLE, because binding them there would leave every god holding three sprites with nothing
 # to say which of them is the card.
 #
 # The two do not cover the same gods, which is why each is asked for separately rather than
-# assumed from the other: 1.5.7 ships a Power icon for exactly the twenty gods the game offers,
-# and a banner for twenty-four — four of them for gods that have no card at all.
+# assumed from the other: 1.6.0 ships a Power icon for exactly the twenty-two gods the game offers,
+# and banners for four more gods that have no card at all (1.5.7: twenty, plus the same four).
 GOD_ART = {
     "power": (
         re.compile(r"^caelus_assets_icon_power_[0-9a-f]{32}\.bundle$"),
@@ -92,7 +105,7 @@ GOD_ART = {
     ),
     "banner": (
         re.compile(r"^caelus_assets_icon_god_flag_[0-9a-f]{32}\.bundle$"),
-        re.compile(r"^icon_god-flag_(\d+)$"),
+        re.compile(r"^icon_god-flag_(\d+)(\d{2})$"),
     ),
 }
 
@@ -138,8 +151,29 @@ def write_json(path: Path, value) -> None:
     path.write_text(json.dumps(value, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
-def open_data_pack(build: Path) -> tuple[zipfile.ZipFile, dict]:
-    """Returns the asset pack as a zip, plus whatever the base APK says about the version."""
+class AppDataPack:
+    """An installed iOS app's `Data/` folder, read through the two calls the rest of this file
+    makes on a zip — so the tables and every bundle are found the same way on either platform."""
+
+    def __init__(self, root: Path):
+        self.root = root
+
+    def namelist(self) -> list[str]:
+        return [p.relative_to(self.root).as_posix() for p in self.root.rglob("*") if p.is_file()]
+
+    def read(self, name: str) -> bytes:
+        return (self.root / name).read_bytes()
+
+
+def open_data_pack(build: Path) -> tuple[zipfile.ZipFile | AppDataPack, dict, str]:
+    """Returns the asset pack, whatever the build says about its version, and which member of the
+    pack holds the data tables."""
+    if build.is_dir():
+        data = next((p.parent for p in build.rglob(IOS_DATAPACK_BUNDLE) if p.parent.name == "Data"), None)
+        if data is None:
+            raise SystemExit(f"{build} holds no Data/{IOS_DATAPACK_BUNDLE} — is this the game's .app?")
+        return AppDataPack(data), read_ios_version(data.parent / "Info.plist"), IOS_DATAPACK_BUNDLE
+
     if build.suffix.lower() in {".xapk", ".apks", ".zip"}:
         with zipfile.ZipFile(build) as outer:
             names = outer.namelist()
@@ -148,12 +182,27 @@ def open_data_pack(build: Path) -> tuple[zipfile.ZipFile, dict]:
             pack = zipfile.ZipFile(io.BytesIO(outer.read(DATA_PACK)))
             base = next((n for n in names if n.endswith(".apk") and n != DATA_PACK), None)
             meta = read_version(outer.read(base)) if base else {}
-        return pack, meta
+        return pack, meta, DATAPACK_BUNDLE
 
     pack = zipfile.ZipFile(build)
     if DATAPACK_BUNDLE not in pack.namelist():
         raise SystemExit(f"{build.name} holds no {DATAPACK_BUNDLE} — is this the base APK only?")
-    return pack, read_version(build.read_bytes())
+    return pack, read_version(build.read_bytes()), DATAPACK_BUNDLE
+
+
+def read_ios_version(info_plist: Path) -> dict:
+    """The same three facts `read_version` takes off an APK, from the app's Info.plist."""
+    import plistlib
+
+    try:
+        info = plistlib.loads(info_plist.read_bytes())
+    except (OSError, plistlib.InvalidFileException) as error:
+        return {"error": f"{type(error).__name__}: {error}"}
+    return {
+        "package": info.get("CFBundleIdentifier"),
+        "versionName": info.get("CFBundleShortVersionString"),
+        "versionCode": info.get("CFBundleVersion"),
+    }
 
 
 def read_version(apk_bytes: bytes) -> dict:
@@ -183,8 +232,8 @@ def read_version(apk_bytes: bytes) -> dict:
 # --- localization tables ------------------------------------------------------------------
 
 
-def read_tables(pack: zipfile.ZipFile) -> dict[str, bytes]:
-    env = UnityPy.load(pack.read(DATAPACK_BUNDLE))
+def read_tables(pack: zipfile.ZipFile | AppDataPack, datapack: str) -> dict[str, bytes]:
+    env = UnityPy.load(pack.read(datapack))
     tables: dict[str, bytes] = {}
     for obj in env.objects:
         if obj.type.name != "TextAsset":
@@ -313,7 +362,7 @@ def build_realms(tables: dict[str, bytes], realms: dict[int, str]) -> list[dict]
 # --- art ------------------------------------------------------------------------------------
 
 
-def extract_art(pack: zipfile.ZipFile, out_dir: Path, write_images: bool) -> list[dict]:
+def extract_art(pack: zipfile.ZipFile | AppDataPack, out_dir: Path, write_images: bool) -> list[dict]:
     images: list[dict] = []
 
     for name in sorted(pack.namelist()):
@@ -355,7 +404,7 @@ def extract_art(pack: zipfile.ZipFile, out_dir: Path, write_images: bool) -> lis
     return images
 
 
-def extract_icons(pack: zipfile.ZipFile, out_dir: Path, write_images: bool) -> list[dict]:
+def extract_icons(pack: zipfile.ZipFile | AppDataPack, out_dir: Path, write_images: bool) -> list[dict]:
     icons: list[dict] = []
 
     for name in sorted(pack.namelist()):
@@ -389,7 +438,7 @@ def extract_icons(pack: zipfile.ZipFile, out_dir: Path, write_images: bool) -> l
     return icons
 
 
-def extract_god_art(pack: zipfile.ZipFile, kind: str, out_dir: Path, write_images: bool) -> list[dict]:
+def extract_god_art(pack: zipfile.ZipFile | AppDataPack, kind: str, out_dir: Path, write_images: bool) -> list[dict]:
     """Art that belongs to a god rather than being its card — see GOD_ART for which kinds exist.
 
     A pass of its own rather than a group inside `extract_art`, because it binds to the same
@@ -420,6 +469,8 @@ def extract_god_art(pack: zipfile.ZipFile, kind: str, out_dir: Path, write_image
                 "pathId": obj.path_id,
                 "container": obj.container,
                 "cardId": f"champ{int(match.group(1)):03d}",
+                # Which look of the god this is, where the sprite name says (banners do).
+                "variant": int(match.group(2)) if match.lastindex and match.lastindex >= 2 else None,
             }
 
             if write_images:
@@ -476,7 +527,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument("build", type=Path, help="the .xapk / .apks / .apk to extract from")
+    parser.add_argument("build", type=Path, help="the .xapk / .apks / .apk, or iOS .app, to extract from")
     parser.add_argument("--out", type=Path, default=Path("data/client"), help="output root")
     parser.add_argument("--no-images", action="store_true", help="tables and card text only")
     args = parser.parse_args()
@@ -485,12 +536,12 @@ def main() -> int:
         print(f"not found: {args.build}", file=sys.stderr)
         return 2
 
-    pack, version_info = open_data_pack(args.build)
+    pack, version_info, datapack = open_data_pack(args.build)
     version = version_info.get("versionName") or "unknown"
     out_dir = args.out / version
     print(f"{args.build.name} -> {out_dir}  (v{version}, {version_info.get('package')})")
 
-    tables = read_tables(pack)
+    tables = read_tables(pack, datapack)
     table_dir = out_dir / "tables"
     table_dir.mkdir(parents=True, exist_ok=True)
     for name, raw in sorted(tables.items()):
@@ -523,8 +574,10 @@ def main() -> int:
     realms = realm_numbers(images)
     print(f"  realms: {', '.join(f'{n}={name}' for n, name in sorted(realms.items()))}")
 
+    # A god's own art is its default look; a skin is a second look, not a second banner.
     god_art_by_card = {
-        kind: {row["cardId"]: row for row in rows} for kind, rows in god_art.items()
+        kind: {row["cardId"]: row for row in rows if row["variant"] in (None, 1)}
+        for kind, rows in god_art.items()
     }
 
     for card_id, card in cards.items():
@@ -552,6 +605,10 @@ def main() -> int:
     cards_without_art = [cid for cid, card in cards.items() if not card["sprites"]]
     god_art_without_god = [
         row for rows in god_art.values() for row in rows if row["cardId"] not in cards
+    ]
+    god_skins = [
+        row for rows in god_art.values() for row in rows
+        if row["cardId"] in cards and row["variant"] not in (None, 1)
     ]
     gods_missing_art = {
         kind: [
@@ -591,6 +648,12 @@ def main() -> int:
             for row in god_art_without_god
         ],
         "godsMissingArt": {kind: ids for kind, ids in gods_missing_art.items() if ids},
+        # Patron God skins (1.6.0+): art for a second look of a god that does exist. Their card
+        # art shows up above as `gods_card_character_<n>_<look>`, which binds to nothing.
+        "godSkins": [
+            {"sprite": row["sprite"], "kind": row["kind"], "god": row["cardId"], "variant": row["variant"]}
+            for row in god_skins
+        ],
     })
 
     missing = sum(len(ids) for ids in gods_missing_art.values())

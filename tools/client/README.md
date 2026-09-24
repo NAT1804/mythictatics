@@ -74,6 +74,29 @@ On v1.5.7 that is 268 cards (184 units, 64 spells, 20 gods), 276 sprites, 52 ico
 and locales `en, vi-VN, zh, zh-TW, ko-KR, ja-JP`. Eight sprites do not bind: seven spells and one
 Olympus unit whose art still ships but which no localization table lists any more.
 
+On v1.6.0 it is 282 cards (184 units, 76 spells, 22 gods) and 292 sprites. Ten sprites do not bind:
+the same eight, plus the card art of two Patron God skins (`gods_card_character_11_02`, `_14_02`),
+whose banners are listed under `godSkins`.
+
+### From the iOS app instead
+
+An Apple silicon Mac runs the iOS build, and `extract_cards.py` reads it in place — no download,
+no mirror to distrust, since the App Store installed it:
+
+```sh
+tools/client/.venv/bin/python tools/client/extract_cards.py "/Applications/Mythic Tactics.app" --out data/client
+```
+
+`versionName` comes from the app's `Info.plist`. The bundles are the same Addressables as on
+Android; the tables sit in `Data/data.unity3d` instead of `datapack.unity3d`. There is no single
+file to hash, so record the hash of the whole `Data/` folder in `meta.json` (the command is in its
+note). Decoded art differs from the Android build's by a few levels per pixel — texture
+compression, not new art — so compare before replacing any existing picture.
+
+1.6.0 is built with Unity 6000.5, whose serialized format 23 UnityPy 1.25.3 does not read yet;
+`unity_compat.py` teaches it, and `extract_cards.py` imports it. Drop it once UnityPy ships the
+format itself.
+
 ## 4. Fold it into the dataset, by hand
 
 `data/client/` is scratch output and is gitignored. The two things the repo keeps are

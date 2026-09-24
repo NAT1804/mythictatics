@@ -1,38 +1,93 @@
 {
-  "gameVersion": "1.5.7",
+  "gameVersion": "1.6.0",
   "locales": ["en", "vi-VN"],
   "counts": {
-    "cards": 267,
+    "cards": 270,
     "byKind": {
       "unit": 184,
-      "god": 20,
-      "spell": 63
+      "god": 22,
+      "spell": 64
     },
     "keywords": 47,
     "realms": 8,
     "icons": 66
   },
   "coverage": {
-    "tier": 267,
+    "tier": 270,
     "cost": 229,
-    "stats": 204
+    "stats": 206
   },
   "localeCoverage": {
-    "en": 267,
-    "vi-VN": 267
+    "en": 270,
+    "vi-VN": 270
   },
-  "builtAt": "2026-09-15T08:02:56.564Z",
+  "builtAt": "2026-09-24T17:57:19.000Z",
   "source": {
-    "gameVersion": "1.5.7",
-    "build": "Mythic+Tactics_+Battleground_1.5.7_APKPure.xapk",
-    "buildSha256": "c4749f723792ea37aa8ac5251f4096e282baaaa8fcd43cde192115cd7b38489f",
-    "note": "Ids, names, rules text, keywords, realms, descend quests and every image come out of the shipped client. tier, cost, attack and health are not present in that build — they were carried in from an earlier dataset, and cost plus the god realms were checked against the running game on 1.5.7. Gods carry no Tier in any source; they are set to 6, the top Sanctum Tier, by hand. realmLock is hand-maintained the same way: the client says nothing about it, and the eight gods marked true were read off the game's Patron God screen on 1.5.7 (Ra, Tiamat, Zeus, Poseidon, Odin, Erlang Shen, Izanami, Samsin). It cannot be derived from the card text — Set names Niles twice and does not lock it."
+    "gameVersion": "1.6.0",
+    "build": "Mythic Tactics.app (iOS, com.hexpion.hex05 1.6.0 build 566, installed on macOS)",
+    "buildSha256": "a0ac20bf0d58e544118959678f17cc8bdd044bc35f7f2da1d95658018bcbac08",
+    "note": "Ids, names, rules text, keywords, realms, descend quests and the art of every card added in 1.6.0 come out of the shipped client. The 1.6.0 source is the iOS app rather than an Android package, so buildSha256 hashes its Data folder: `find . -type f | LC_ALL=C sort | tr '\\n' '\\0' | xargs -0 shasum -a 256 | shasum -a 256`, run inside MythicTactics.app/Data. Art of the cards that were already here was kept from the 1.5.7 Android build (c4749f723792ea37aa8ac5251f4096e282baaaa8fcd43cde192115cd7b38489f): the 1.6.0 art is the same pictures and differs only by texture compression, except icon_pass_xp, which the game redrew and was taken from 1.6.0. tier, cost, attack and health are not present in any build — they were carried in from an earlier dataset, and cost plus the god realms were checked against the running game on 1.5.7. Gods carry no Tier in any source; they are set to 6, the top Sanctum Tier, by hand. realmLock is hand-maintained the same way: the client says nothing about it, and the eight gods marked true were read off the game's Patron God screen on 1.5.7 (Ra, Tiamat, Zeus, Poseidon, Odin, Erlang Shen, Izanami, Samsin). It cannot be derived from the card text — Set names Niles twice and does not lock it. The two gods added in 1.6.0, Amaterasu and Tsukuyomi, are Kami per the 1.6.0 patch notes; their stats (20/10 and 18/12) and realmLock (false for both) were read off the running game on 1.6.0, as was Tier 6 for Eye of Heaven (s_04014). Balance changes in 1.6.0 that live only in runtime numbers — the {0}/{1} Medicine values — are not captured anywhere."
   },
   "excluded": [
     {
       "id": "s_04007",
       "name": "Awakening Pill",
       "reason": "In the client's localization tables but not obtainable in game on 1.5.7. Extracting a build will produce it again — drop it again unless the game has since added it."
+    },
+    {
+      "id": "s_063",
+      "name": "Expanding Sun",
+      "reason": "An upgrade you choose inside Amaterasu's Sunforged Power, added in 1.6.0 — not a card the Sanctum offers, and the client gives it no Tier. Extracting a build will produce it again from the spell tables — drop it again unless the site models Power choices."
+    },
+    {
+      "id": "s_064",
+      "name": "Scorching Sun",
+      "reason": "An upgrade you choose inside Amaterasu's Sunforged Power, added in 1.6.0 — not a card the Sanctum offers, and the client gives it no Tier. Extracting a build will produce it again from the spell tables — drop it again unless the site models Power choices."
+    },
+    {
+      "id": "s_065",
+      "name": "Blazing Sun",
+      "reason": "An upgrade you choose inside Amaterasu's Sunforged Power, added in 1.6.0 — not a card the Sanctum offers, and the client gives it no Tier. Extracting a build will produce it again from the spell tables — drop it again unless the site models Power choices."
+    },
+    {
+      "id": "s_067",
+      "name": "New Moon",
+      "reason": "An upgrade you choose inside Tsukuyomi's Lunar Cycle Power, added in 1.6.0 — not a card the Sanctum offers, and the client gives it no Tier. Extracting a build will produce it again from the spell tables — drop it again unless the site models Power choices."
+    },
+    {
+      "id": "s_068",
+      "name": "Waxing Crescent",
+      "reason": "An upgrade you choose inside Tsukuyomi's Lunar Cycle Power, added in 1.6.0 — not a card the Sanctum offers, and the client gives it no Tier. Extracting a build will produce it again from the spell tables — drop it again unless the site models Power choices."
+    },
+    {
+      "id": "s_069",
+      "name": "First Quarter",
+      "reason": "An upgrade you choose inside Tsukuyomi's Lunar Cycle Power, added in 1.6.0 — not a card the Sanctum offers, and the client gives it no Tier. Extracting a build will produce it again from the spell tables — drop it again unless the site models Power choices."
+    },
+    {
+      "id": "s_070",
+      "name": "Waxing Gibbous",
+      "reason": "An upgrade you choose inside Tsukuyomi's Lunar Cycle Power, added in 1.6.0 — not a card the Sanctum offers, and the client gives it no Tier. Extracting a build will produce it again from the spell tables — drop it again unless the site models Power choices."
+    },
+    {
+      "id": "s_071",
+      "name": "Full Moon",
+      "reason": "An upgrade you choose inside Tsukuyomi's Lunar Cycle Power, added in 1.6.0 — not a card the Sanctum offers, and the client gives it no Tier. Extracting a build will produce it again from the spell tables — drop it again unless the site models Power choices."
+    },
+    {
+      "id": "s_072",
+      "name": "Waning Gibbous",
+      "reason": "An upgrade you choose inside Tsukuyomi's Lunar Cycle Power, added in 1.6.0 — not a card the Sanctum offers, and the client gives it no Tier. Extracting a build will produce it again from the spell tables — drop it again unless the site models Power choices."
+    },
+    {
+      "id": "s_073",
+      "name": "Third Quarter",
+      "reason": "An upgrade you choose inside Tsukuyomi's Lunar Cycle Power, added in 1.6.0 — not a card the Sanctum offers, and the client gives it no Tier. Extracting a build will produce it again from the spell tables — drop it again unless the site models Power choices."
+    },
+    {
+      "id": "s_074",
+      "name": "Waning Crescent",
+      "reason": "An upgrade you choose inside Tsukuyomi's Lunar Cycle Power, added in 1.6.0 — not a card the Sanctum offers, and the client gives it no Tier. Extracting a build will produce it again from the spell tables — drop it again unless the site models Power choices."
     }
   ],
   "conventions": {

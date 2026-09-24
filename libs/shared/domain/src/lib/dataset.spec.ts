@@ -345,12 +345,13 @@ describe('mapping the dataset into contracts', () => {
     const horus = toCard(cards.find((card: { id: string }) => card.id === 'champ001'));
     if (horus.type !== 'god') throw new Error('expected a god');
     expect(horus.keywords).toContain('taunt');
-    // Two of the twenty gods genuinely have none; the rest must not silently lose theirs.
+    // Three of the twenty-two gods genuinely have none (Tsukuyomi, since 1.6.0, is the third);
+    // the rest must not silently lose theirs.
     const withKeywords = cards
       .filter((card: { kind: string }) => card.kind === 'god')
       .map((card: DatasetCard) => toCard(card))
       .filter((card: Card) => card.type === 'god' && card.keywords.length > 0);
-    expect(withKeywords).toHaveLength(18);
+    expect(withKeywords).toHaveLength(19);
   });
 
   it('keeps the two spell id widths and both subtypes', () => {
@@ -375,7 +376,7 @@ describe('mapping the dataset into contracts', () => {
       .filter((card: { kind: string }) => card.kind === 'spell')
       .map((card: DatasetCard) => toCard(card))
       .filter((card: Card) => card.type === 'spell' && card.realm !== null);
-    expect(realmed).toHaveLength(13);
+    expect(realmed).toHaveLength(14);
   });
 
   it('parses each option of a spell that offers a choice', () => {

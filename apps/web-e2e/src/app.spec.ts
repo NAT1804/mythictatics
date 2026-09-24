@@ -141,7 +141,8 @@ test('the god card opens its details, banner and all, with no separate button', 
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/builder');
-  await page.getByTestId('god-picker').getByRole('button', { name: 'Ra' }).click();
+  // Exact, or `Ra` also matches Amaterasu.
+  await page.getByTestId('god-picker').getByRole('button', { name: 'Ra', exact: true }).click();
   await expect(page.getByTestId('patron-card')).toBeVisible();
 
   await page.getByTestId('patron-grip').click();
@@ -302,7 +303,8 @@ test('a realm on the home ring opens the collection on that realm', async ({ pag
 
   await page.getByTestId('tab-gods').click();
   await expect(page).toHaveURL(/realm=kami&tab=gods/);
-  await expect(page.getByTestId('collection-card')).toHaveCount(1);
+  // Izanami, and Amaterasu and Tsukuyomi since 1.6.0.
+  await expect(page.getByTestId('collection-card')).toHaveCount(3);
 
   // All is a realm chip of its own: one realm's units, then every realm's.
   await page.getByTestId('tab-units').click();
@@ -313,12 +315,12 @@ test('a realm on the home ring opens the collection on that realm', async ({ pag
   await expect(page.getByTestId('scope-name')).toHaveText('All');
   expect(await page.getByTestId('collection-card').count()).toBeGreaterThan(kamiUnits);
 
-  // The Spells tab browses by kind instead: the twelve Shenzhou Medicines.
+  // The Spells tab browses by kind instead: the thirteen Shenzhou Medicines.
   await page.getByTestId('tab-spells').click();
   await page.locator('[data-spell="medicine"]').click();
   await expect(page).toHaveURL(/spell=medicine/);
   await expect(page.getByTestId('scope-name')).toHaveText('Medicine');
-  await expect(page.getByTestId('collection-card')).toHaveCount(12);
+  await expect(page.getByTestId('collection-card')).toHaveCount(13);
 
   await page.getByTestId('collection-card').first().click();
   await expect(page.getByTestId('card-preview')).toBeVisible();

@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Pwa, UpdateNotice } from './pwa';
 import { SITE_NAME } from './site';
 
 interface NavItem {
@@ -18,15 +19,19 @@ interface NavItem {
  */
 @Component({
   selector: 'mt-shell-layout',
-  imports: [RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet, UpdateNotice],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'flex min-h-dvh flex-col' },
   template: `
     <header class="shrink-0 border-b border-line bg-panel/80 backdrop-blur">
       <nav class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
-        <a routerLink="/" class="font-display text-lg font-bold tracking-wide text-gold">{{
-          siteName
-        }}</a>
+        <a
+          routerLink="/"
+          class="flex items-center gap-2 font-display text-lg font-bold tracking-wide text-gold"
+        >
+          <img src="brand/icon-192.png" alt="" width="32" height="32" class="size-8" />
+          {{ siteName }}
+        </a>
         <ul class="flex flex-wrap items-center gap-4 text-sm">
           @for (item of nav; track item.label) {
             <li>
@@ -45,6 +50,16 @@ interface NavItem {
             </li>
           }
         </ul>
+        @if (pwa.canInstall()) {
+          <button
+            type="button"
+            data-testid="install-app"
+            class="ml-auto rounded-md border border-line px-3 py-1.5 text-xs text-ink-dim hover:border-gold hover:text-gold"
+            (click)="pwa.install()"
+          >
+            Install app
+          </button>
+        }
       </nav>
     </header>
 
@@ -58,9 +73,12 @@ interface NavItem {
         Game names and assets belong to their respective owners.
       </p>
     </footer>
+
+    <mt-update-notice />
   `,
 })
 export class ShellLayout {
+  protected readonly pwa = inject(Pwa);
   protected readonly siteName = SITE_NAME;
   protected readonly nav: NavItem[] = [
     { label: 'Comps', path: '/comps' },

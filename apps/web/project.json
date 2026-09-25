@@ -25,8 +25,16 @@
             "output": "data/canonical"
           }
         ],
-        "styles": ["apps/web/src/styles.css"],
+        "styles": [
+          "node_modules/@fontsource/inter/400.css",
+          "node_modules/@fontsource/inter/500.css",
+          "node_modules/@fontsource/inter/600.css",
+          "node_modules/@fontsource/cinzel/600.css",
+          "node_modules/@fontsource/cinzel/700.css",
+          "apps/web/src/styles.css"
+        ],
         "server": "apps/web/src/main.server.ts",
+        "serviceWorker": "apps/web/ngsw-config.json",
         "ssr": {
           "entry": "apps/web/src/server.ts",
           "platform": "neutral"

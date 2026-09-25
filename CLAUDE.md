@@ -89,3 +89,24 @@
   prerendered as its loading state. A page that does call it must draw its cards through the lookups
   (`unit`/`god`/`keyword`/`iconSrc`), never the lists (`units()`, `value()`): only the cards it looked up
   are sent to the browser, and the lists stay empty until the full catalog is in.
+
+## PWA (`apps/web/ngsw-config.json`)
+
+- Installable through `public/manifest.webmanifest`; offline through `@angular/service-worker`, registered in
+  `app.config.ts` for production builds only. `Pwa` / `UpdateNotice` in `libs/web/shell` own the install button and
+  the "new version" reload; nothing else should talk to `SwUpdate`.
+- `index` is `/index.csr.html` and navigation is `freshness`: online, every page is still the prerendered HTML from
+  the network; offline, the worker falls back to the CSR shell. Never add prerendered `*.html` to an asset group —
+  it would pin pages to an old build.
+- `data/canonical/*.json` is prefetched, so the builder, collection and comps work offline. Art (`/images/**`, 40MB)
+  is cached lazily — never prefetch it. `ngsw.json` hashes file contents, so a dataset or art update reaches
+  installed clients without renaming anything.
+- `public/_headers` keeps `ngsw.json` and the worker scripts uncached on Workers Static Assets; keep it in step if
+  the build starts emitting another worker file.
+- Favicon, header logo and install icons are the Neutral realm mark, generated from `tools/brand/realm-neutral.png`
+  (`icon-realm_neutral_m_high`, 256px, from the client's `icon-realm` atlas) with `node tools/brand/make-icons.mjs`.
+  Commit the output; do not hand-edit it.
+- Fonts are self-hosted from `@fontsource/*` (listed in `styles` in `project.json`), so they are part of the offline
+  copy. Do not add Google Fonts or another third-party stylesheet back to `index.html`.
+- A worker from a previous visit keeps serving the old build until it updates; when checking a change in a browser,
+  use a fresh profile or DevTools → Application → "Update on reload".

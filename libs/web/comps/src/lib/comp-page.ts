@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
-import { NEUTRAL_REALM, type Board, type RealmCode } from '@mythictatics/shared/contracts';
+import {
+  NEUTRAL_REALM,
+  type Board,
+  type Comp,
+  type RealmCode,
+} from '@mythictatics/shared/contracts';
 import { compBuilderParams, lockedRealmOf, paragraphs } from '@mythictatics/shared/domain';
 import {
   CardPreview,
@@ -11,7 +15,7 @@ import {
   RealmIcon,
   RichText,
 } from '@mythictatics/web/builder';
-import { SITE_NAME } from '@mythictatics/web/shell';
+import { absoluteUrl, clipDescription, Seo, SITE_NAME } from '@mythictatics/web/shell';
 import { CompBoard } from './comp-board';
 import { CompsService } from './comps-data';
 import { COMP_SHEET_URL } from './comps-page';
@@ -205,7 +209,7 @@ import { UnitList } from './unit-list';
 export class CompPage {
   protected readonly comps = inject(CompsService);
   protected readonly catalog = inject(CatalogService);
-  private readonly title = inject(Title);
+  private readonly seo = inject(Seo);
 
   /** Bound from the route's `:slug`. */
   readonly slug = input.required<string>();
@@ -237,11 +241,48 @@ export class CompPage {
     // Prerendered in full — boards, guide and units — so the comp is readable without a script.
     this.catalog.renderOnServer();
 
-    // The route cannot know a comp's name before the data is in, so the tab title catches up here.
+    // The route cannot know a comp before the data is in, so the head catches up here — during
+    // prerendering, which is what puts the comp's own title and description in its HTML.
     effect(() => {
+      if (!this.ready()) return;
       const comp = this.comp();
-      if (comp) this.title.setTitle(`${comp.name} · Comps · ${SITE_NAME}`);
+      const path = `/comps/${this.slug()}`;
+      if (!comp) {
+        this.seo.set({
+          title: `Comp not found · ${SITE_NAME}`,
+          description: 'No comp by that name.',
+          path,
+          noindex: true,
+        });
+        return;
+      }
+      const patrons = this.patrons();
+      this.seo.set({
+        title: `${comp.name} · Comps · ${SITE_NAME}`,
+        description: this.description(
+          comp,
+          patrons.map((god) => god.name),
+        ),
+        path,
+        image: patrons.find((god) => god.image)?.image ?? undefined,
+        structuredData: {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Team Comps', item: absoluteUrl('/comps') },
+            { '@type': 'ListItem', position: 2, name: comp.name, item: absoluteUrl(path) },
+          ],
+        },
+      });
     });
+  }
+
+  /** "Harmony: a basic Mythic Tactics comp for any patron god. <the guide's opening>" */
+  private description(comp: Comp, patrons: readonly string[]): string {
+    const patron = patrons.length ? patrons.join(' or ') : 'any patron god';
+    const opening = paragraphs(comp.howToPlay)[0] ?? comp.whenToCommit ?? '';
+    return clipDescription(
+      `${comp.name}: ${comp.difficulty === 'advanced' ? 'an' : 'a'} ${comp.difficulty} Mythic Tactics comp for ${patron}. ${opening}`,
+    );
   }
 
   protected builderParams(board: Board): Record<string, string | null> {

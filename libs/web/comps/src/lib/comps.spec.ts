@@ -5,6 +5,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { decodeShareCode } from '@mythictatics/shared/domain';
+import { SITE_NAME, SITE_URL } from '@mythictatics/web/shell';
 import { CompPage } from './comp-page';
 import { CompsPage } from './comps-page';
 
@@ -176,6 +177,30 @@ describe('the prerendered comps', () => {
     expect(html).toContain('Nezha');
     expect(html).toContain('Wind Fire Wheel');
     expect(html).not.toContain('Loading');
+  });
+
+  it('describes the comp in the head it prerenders', async () => {
+    await prerender('/comps/giga-gilg');
+    const head = document.head;
+    expect(document.title).toBe(`Giga Gilg · Comps · ${SITE_NAME}`);
+    expect(head.querySelector('meta[name="description"]')?.getAttribute('content')).toMatch(
+      /^Giga Gilg: an advanced Mythic Tactics comp for Nezha\. /,
+    );
+    expect(head.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(
+      `${SITE_URL}/comps/giga-gilg`,
+    );
+    // The patron's card art is the link preview.
+    expect(head.querySelector('meta[property="og:image"]')?.getAttribute('content')).toMatch(
+      new RegExp(`^${SITE_URL}/images/`),
+    );
+  });
+
+  it('keeps an unknown comp out of the index', async () => {
+    await prerender('/comps/no-such-comp');
+    expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe(
+      'noindex',
+    );
+    expect(document.head.querySelector('link[rel="canonical"]')).toBeNull();
   });
 
   it('hands the browser enough to draw the same comp before any fetch lands', async () => {

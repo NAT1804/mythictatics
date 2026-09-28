@@ -10,6 +10,9 @@
     "directory": "../../dist/apps/web/browser",
     "binding": "ASSETS",
     "not_found_handling": "none",
+    // Prerendering writes `comps/index.html`; serve it at `/comps`, the URL every link and every
+    // canonical tag uses, rather than redirecting `/comps` to `/comps/`.
+    "html_handling": "drop-trailing-slash",
   },
   "observability": { "enabled": true },
 }

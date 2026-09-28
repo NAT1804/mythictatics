@@ -110,3 +110,18 @@
   copy. Do not add Google Fonts or another third-party stylesheet back to `index.html`.
 - A worker from a previous visit keeps serving the old build until it updates; when checking a change in a browser,
   use a fresh profile or DevTools → Application → "Update on reload".
+
+## SEO (`libs/web/shell/src/lib/seo.ts`)
+
+- `Seo` owns the head: title, description, canonical, robots, Open Graph/Twitter and JSON-LD. Routes feed it
+  through `data` (`SeoRouteData`: `description`, `noindex`, `structuredData`); a page whose head depends on
+  loaded data (a comp) calls `Seo.set` itself in an effect, which prerendering picks up. Do not reach for
+  `Meta`/`Title` directly anywhere else.
+- Canonical URLs are `SITE_URL` + the route path, query string dropped: `?d=` boards and collection filters are
+  not pages. Prerendering has no request host, so `SITE_URL` is a constant — change it there if the domain moves.
+- `wrangler.jsonc` uses `html_handling: "drop-trailing-slash"` so `comps/index.html` is served at `/comps`, the
+  URL every link and canonical names. Switching back makes every internal link a 307.
+- `/robots.txt` and `/sitemap.xml` are answered by the Worker (`apps/web/src/crawl.ts`), not files in `public/`:
+  the sitemap reads the deployed `comps.json` through the `ASSETS` binding, and robots closes `*.workers.dev`
+  (previews). Add a new top-level page to `STATIC_PAGES` there.
+- JSON-LD is written with `<` escaped; comp text comes from a community sheet, so keep it that way.

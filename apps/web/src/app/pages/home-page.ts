@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { REALMS_IN_GAME_ORDER } from '@mythictatics/shared/domain';
 import { SITE_TAGLINE } from '@mythictatics/web/shell';
@@ -126,8 +125,4 @@ export class HomePage {
       glow: `color-mix(in srgb, var(--color-realm-${code}) 35%, transparent)`,
     };
   });
-
-  constructor() {
-    inject(Meta).updateTag({ name: 'description', content: `${SITE_TAGLINE}.` });
-  }
 }

@@ -66,3 +66,25 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      # Prerendered pages are static assets and load even when the Worker rejects the host, so
+      # also ask for URLs only the Worker answers: the sitemap, and an unknown URL that must reach
+      # Angular's 404 page rather than the 400 it gives a host missing from `allowedHosts`.
+      # Retried because the first deploy of a custom domain waits on its DNS record and TLS cert.
+      - if: vars.CLOUDFLARE_DEPLOY == 'true'
+        name: Smoke test mythictatics.click
+        run: |
+          expect() {
+            for attempt in $(seq 1 18); do
+              code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "$2" || true)
+              [ "$code" = "$1" ] && { echo "$2 -> $code"; return 0; }
+              echo "$2 -> $code (want $1), retrying"; sleep 10
+            done
+            echo "::error::$2 did not return $1"; return 1
+          }
+          expect 200 https://mythictatics.click/
+          expect 200 https://www.mythictatics.click/
+          expect 200 https://mythictatics.click/sitemap.xml
+          expect 404 https://mythictatics.click/__smoke-test-not-a-page
+          curl -s https://mythictatics.click/sitemap.xml | grep -q '<loc>https://mythictatics.click/' ||
+            { echo "::error::sitemap.xml does not list https://mythictatics.click URLs"; exit 1; }

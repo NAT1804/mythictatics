@@ -1,3 +1,4 @@
+export * from './lib/battle';
 export * from './lib/board';
 export * from './lib/card';
 export * from './lib/comp';

@@ -8,7 +8,7 @@ import { SITE_URL } from '@mythictatics/web/shell';
  */
 
 /** The pages that exist whatever the data says. Query strings (`?d=`, filters) are not pages. */
-const STATIC_PAGES = ['/', '/comps', '/builder', '/collection'];
+const STATIC_PAGES = ['/', '/comps', '/builder', '/battle', '/collection'];
 
 const CACHE_CONTROL = 'public, max-age=3600';
 

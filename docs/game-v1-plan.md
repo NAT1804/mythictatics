@@ -206,3 +206,19 @@ là phí MoR ~5% doanh thu và thời gian vận hành (CS, ban gian lận, bala
 - Card text luôn là `RichTextToken[]`, không bao giờ là HTML string (ranh giới bảo mật).
 - Rủi ro xếp hạng: (1) khối lượng engine — bắt đầu tập keyword con, mở rộng theo golden test;
   (2) gian lận kinh tế — ledger + server-authoritative từ đầu; (3) trademark codename trước khi công bố.
+
+## 14. Tiến độ
+
+**29/09/2026 — Phase 1 (engine + đấu AI), chạy bằng asset/text hiện có:**
+
+- `libs/shared/engine`: engine deterministic (mulberry32 seeded), event log, toàn bộ keyword nhóm A/B/C,
+  text combat của từng card theo realm (`abilities/`), Descend + Power của patron có tác dụng trong trận,
+  AI opponent (comp cộng đồng / board ngẫu nhiên). Luật đã chốt ghi trong `libs/shared/engine/README.md`.
+- Contract `MatchSetup` / `BattleEvent` / `BattleResult` trong `libs/shared/contracts` (zod ở `/schemas`).
+- `/battle` (`libs/web/battle`): board từ builder (`?d=`) đấu AI, renderer Angular DOM + GSAP, x1/x2/x4,
+  pause/skip, reduced-motion, log trận; link chứa seed = replay.
+- Nghiệm thu Phase 1: cùng seed = cùng log trên node lẫn browser (golden hash, e2e trên `cf-preview`).
+- Tạm thời (chờ V2 kinh tế): card chỉ có hiệu ứng shop (Deploy/Sell/End Turn/Sanctum/Alchemy/hand) đánh như
+  thân trơn — danh sách ở `abilities/no-battle-text.ts`; Celestial Medicine trong trận = +T/+T.
+
+Tiếp theo: Phase 2 (`apps/api` Hono + D1 + auth) — cần tạo tài nguyên Cloudflare và app OAuth trước.

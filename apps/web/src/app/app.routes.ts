@@ -61,6 +61,17 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('@mythictatics/web/builder').then((m) => m.BuilderPage),
       },
       {
+        // The board comes from the builder's `?d=`; opponent, level and seed are the battle's own
+        // parameters (see `battle-match.ts`).
+        path: 'battle',
+        title: 'Battle',
+        data: {
+          description:
+            'Take a Mythic Tactics: Battleground board into an auto-battle against the AI — a community comp or a random board — and watch the fight play out.',
+        } satisfies SeoRouteData,
+        loadComponent: () => import('@mythictatics/web/battle').then((m) => m.BattlePage),
+      },
+      {
         path: '**',
         title: 'Page not found',
         data: { noindex: true } satisfies SeoRouteData,

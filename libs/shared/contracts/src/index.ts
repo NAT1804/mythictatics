@@ -1,5 +1,16 @@
 // Constants and types only; runtime validators live in `@mythictatics/shared/contracts/schemas`.
 export * from './lib/constants';
+export type {
+  BattleEndReason,
+  BattleEvent,
+  BattleEventType,
+  BattleResult,
+  BattleSide,
+  BattleSlot,
+  DamageKind,
+  FighterSnapshot,
+  MatchSetup,
+} from './lib/battle';
 export type { Board, BoardSlot, Build } from './lib/board';
 export type { Card, God, Keyword, RichTextToken, Spell, Unit, UnitRank } from './lib/card';
 export type { Comp, CompDifficulty, CompSource } from './lib/comp';

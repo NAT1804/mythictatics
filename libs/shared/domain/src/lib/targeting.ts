@@ -13,6 +13,18 @@ export interface TargetResult {
 export type KeywordCheck = (unitId: string) => boolean;
 
 /**
+ * What the targeting rule needs to know about the enemy board, slot by slot.
+ *
+ * Asked per slot rather than per unit id because a battle is not a board: two copies of one card
+ * can differ mid-fight — one has lost its Taunt, one is Concealed and cannot be picked at all.
+ */
+export interface TargetBoard {
+  /** Whether the slot holds a unit that can be picked as a target. */
+  targetable(index: number): boolean;
+  hasTaunt(index: number): boolean;
+}
+
+/**
  * Resolves which enemy slot a unit attacks, following the community-documented rules:
  * 1. A Taunt unit in the attacker's column.
  * 2. Otherwise the nearest Taunt unit (column scan, front before back).
@@ -24,22 +36,29 @@ export function resolveTarget(
   enemyBoard: Board,
   hasTaunt: KeywordCheck,
 ): TargetResult | null {
+  return resolveTargetOn(attackerIndex, {
+    targetable: (index) => enemyBoard[index] != null,
+    hasTaunt: (index) => {
+      const slot = enemyBoard[index];
+      return slot != null && hasTaunt(slot.unitId);
+    },
+  });
+}
+
+/** The same rule over any board that can answer `TargetBoard` — the battle engine's, for one. */
+export function resolveTargetOn(attackerIndex: number, enemy: TargetBoard): TargetResult | null {
   const column = columnOf(attackerIndex);
   const scan = columnScanOrder();
-  const occupied = (index: number) => enemyBoard[index] != null;
-  const taunts = scan.filter((index) => {
-    const slot = enemyBoard[index];
-    return slot != null && hasTaunt(slot.unitId);
-  });
+  const taunts = scan.filter((index) => enemy.targetable(index) && enemy.hasTaunt(index));
 
   const tauntInColumn = taunts.find((index) => columnOf(index) === column);
   if (tauntInColumn !== undefined) return { index: tauntInColumn, reason: 'taunt-in-column' };
   if (taunts.length) return { index: taunts[0], reason: 'nearest-taunt' };
 
   const back = column + BOARD_COLUMNS;
-  if (occupied(column)) return { index: column, reason: 'front-in-column' };
-  if (occupied(back)) return { index: back, reason: 'back-in-column' };
+  if (enemy.targetable(column)) return { index: column, reason: 'front-in-column' };
+  if (enemy.targetable(back)) return { index: back, reason: 'back-in-column' };
 
-  const fallback = scan.find(occupied);
+  const fallback = scan.find((index) => enemy.targetable(index));
   return fallback === undefined ? null : { index: fallback, reason: 'fallback-scan' };
 }

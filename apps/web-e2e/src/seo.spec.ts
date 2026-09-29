@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const SITE_URL = 'https://mythictatics.com';
+const SITE_URL = 'https://mythictatics.click';
 
 test('a prerendered comp carries its own description, canonical link and preview', async ({
   request,

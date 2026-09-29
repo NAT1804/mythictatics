@@ -15,4 +15,10 @@
     "html_handling": "drop-trailing-slash",
   },
   "observability": { "enabled": true },
+  // Custom domain: the zone `mythictatics.click` must exist on the Cloudflare account before the
+  // next deploy, or `wrangler deploy` fails — see docs/deploy-cloudflare.md §6.
+  "routes": [
+    { "pattern": "mythictatics.click", "custom_domain": true },
+    { "pattern": "www.mythictatics.click", "custom_domain": true },
+  ],
 }

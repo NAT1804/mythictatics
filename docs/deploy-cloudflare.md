@@ -34,7 +34,7 @@ chỉ chạy cho URL sai.
 | Tài khoản Cloudflare              | Gói Free là đủ                                                |
 | Node `^22.22.3` hoặc `^24.15.0`   | CI dùng Node 24                                               |
 | `npm ci` đã chạy                  | `wrangler` nằm trong devDependencies, gọi bằng `npx wrangler` |
-| (Tuỳ chọn) domain trên Cloudflare | Chỉ cần khi gắn `mythictatics.com`                            |
+| Domain trên Cloudflare            | `mythictatics.click` — xem mục 6 để trỏ về Cloudflare        |
 
 ## 3. Kiểm tra cục bộ trên Workers runtime
 
@@ -118,29 +118,74 @@ Cloudflare có thể tự build khi có push lên Git (_Workers Builds_). Không
 sẽ deploy **song song** với GitHub Actions và bỏ qua bước chặn bằng test và e2e. Chỉ giữ một
 đường deploy.
 
-## 6. Gắn domain riêng
+## 6. Trỏ domain `mythictatics.click` vào Cloudflare
 
-Điều kiện: domain (`mythictatics.com`) đã được thêm vào Cloudflare làm zone.
+Domain được mua ở registrar ngoài (không phải Cloudflare Registrar), nên cách trỏ là **đổi
+nameserver về Cloudflare** — Cloudflare quản DNS toàn bộ zone, còn registrar chỉ giữ quyền sở hữu
+domain. Làm theo đúng thứ tự dưới đây; `routes` trong `apps/web/wrangler.jsonc` đã khai báo sẵn
+`mythictatics.click` và `www.mythictatics.click`, nhưng **deploy sẽ fail cho đến khi zone tồn tại
+trên tài khoản Cloudflare** (bước 1).
 
-Thêm `routes` vào `apps/web/wrangler.jsonc`:
+### 6.1 Thêm zone vào Cloudflare
 
-```jsonc
-{
-  // ...
-  "routes": [
-    { "pattern": "mythictatics.com", "custom_domain": true },
-    { "pattern": "www.mythictatics.com", "custom_domain": true },
-  ],
-}
+1. Cloudflare dashboard → **Add a domain** (hoặc **Websites → Add a site**).
+2. Nhập `mythictatics.click`, chọn **Quick scan for DNS records** (kết quả scan không quan trọng —
+   Worker custom domain sẽ tự tạo bản ghi riêng ở bước 6.3).
+3. Chọn gói **Free**.
+4. Cloudflare hiện ra **hai nameserver** dành riêng cho zone này, dạng
+   `xxx.ns.cloudflare.com` / `yyy.ns.cloudflare.com`. Ghi lại cả hai.
+
+### 6.2 Đổi nameserver ở registrar
+
+Vào trang quản lý domain của nơi đã mua `mythictatics.click`, tìm mục **Nameservers** (thường
+trong _DNS settings_ / _Domain management_):
+
+1. Chuyển từ nameserver mặc định của registrar sang **Custom nameservers**.
+2. Xoá các nameserver cũ, nhập đúng hai nameserver Cloudflare đưa ở bước 6.1.
+3. Nếu registrar có **DNSSEC đang bật, tắt nó trước** khi đổi nameserver (bật lại sau qua
+   Cloudflare → DNS → Settings nếu muốn), không thì zone không kích hoạt được.
+4. Lưu. TLD `.click` thường cập nhật trong vài phút đến vài giờ (tối đa 24h).
+
+Về lại Cloudflare bấm **Check nameservers now** (hoặc chờ mail). Khi zone chuyển trạng thái
+**Active** thì mới sang bước tiếp theo. Kiểm tra nhanh:
+
+```sh
+dig NS mythictatics.click +short   # phải in ra 2 nameserver *.ns.cloudflare.com
 ```
 
-Deploy lại. Cloudflare tự tạo bản ghi DNS và chứng chỉ TLS.
+### 6.3 Deploy để gắn Worker vào domain
 
-Cả hai host đã khớp với `allowedHosts` (`mythictatics.com`, `*.mythictatics.com`). Nếu gắn một
-domain khác, **phải thêm nó vào `allowedHosts`**, nếu không Angular trả lỗi cho mọi trang render ở
-Worker.
+`apps/web/wrangler.jsonc` đã có:
 
-Nếu không muốn dùng URL `workers.dev` nữa, thêm `"workers_dev": false` vào `wrangler.jsonc`.
+```jsonc
+"routes": [
+  { "pattern": "mythictatics.click", "custom_domain": true },
+  { "pattern": "www.mythictatics.click", "custom_domain": true },
+],
+```
+
+Chỉ cần deploy lại (merge vào `main`, hoặc `npx nx deploy web`). Với `custom_domain: true`,
+Cloudflare **tự tạo bản ghi DNS và cấp chứng chỉ TLS** cho cả hai host — không phải tự thêm bản
+ghi A/CNAME nào. Nếu bước quick scan lỡ tạo bản ghi trùng tên (`mythictatics.click` hoặc `www`),
+xoá chúng đi trước khi deploy.
+
+Lưu ý: API token của CI (mục 5.1) phải có quyền trên zone này (_Zone Resources_ → chọn
+`mythictatics.click` hoặc _All zones_). Token tạo trước khi thêm zone với lựa chọn zone cụ thể sẽ
+không thấy zone mới — tạo lại token nếu deploy báo lỗi quyền.
+
+### 6.4 Kiểm tra
+
+```sh
+curl -sI https://mythictatics.click | head -1        # HTTP/2 200
+curl -sI https://www.mythictatics.click | head -1    # HTTP/2 200
+```
+
+Cả hai host đã khớp với `allowedHosts` trong `apps/web/project.json` (`mythictatics.click`,
+`*.mythictatics.click`). Nếu sau này gắn một domain khác, **phải thêm nó vào `allowedHosts`**, nếu
+không Angular trả lỗi cho mọi trang render ở Worker.
+
+Nếu không muốn dùng URL `workers.dev` nữa, thêm `"workers_dev": false` vào `wrangler.jsonc` —
+nhưng preview URL của PR (mục 8) cũng chạy trên `workers.dev`, nên chỉ tắt khi không dùng preview.
 
 ## 7. Tối ưu cache (nên làm)
 
@@ -177,7 +222,7 @@ luôn là bản mới nhất; mặc định `must-revalidate` với ETag đã đ
 Kiểm tra sau khi deploy:
 
 ```sh
-curl -sI https://mythictatics.com/images/<một-file>.png | grep -i cache-control
+curl -sI https://mythictatics.click/images/<một-file>.png | grep -i cache-control
 ```
 
 ## 8. Preview URL cho mỗi PR (tuỳ chọn)
@@ -232,7 +277,7 @@ push vào cùng PR. Lưu ý:
    npx wrangler tail --config apps/web/wrangler.jsonc
    ```
 
-3. URL sai phải trả **404**: `curl -sI https://mythictatics.com/khong-ton-tai | head -1`.
+3. URL sai phải trả **404**: `curl -sI https://mythictatics.click/khong-ton-tai | head -1`.
 4. Trên dashboard (**Workers & Pages → mythictatics-web → Metrics/Logs**), số lần gọi Worker phải
    rất thấp so với lượng truy cập. `observability.enabled` đã bật sẵn trong `wrangler.jsonc`.
 

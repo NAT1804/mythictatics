@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { BoardGrid } from './board-grid';
 import { BuilderStore } from './builder-store';
 import { CardPreview, CardPreviewDialog } from './card-preview';
@@ -32,7 +33,16 @@ import { UnitPool } from './unit-pool';
  */
 @Component({
   selector: 'mt-builder-page',
-  imports: [BoardGrid, CardPreviewDialog, DragGhost, GodPicker, PatronCard, RealmPicker, UnitPool],
+  imports: [
+    BoardGrid,
+    CardPreviewDialog,
+    DragGhost,
+    GodPicker,
+    PatronCard,
+    RealmPicker,
+    RouterLink,
+    UnitPool,
+  ],
   providers: [BuilderStore, CardPreview, DragService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block' },
@@ -72,11 +82,21 @@ import { UnitPool } from './unit-pool';
               aria-label="Board"
               data-testid="board-panel"
             >
-              <!-- The two actions act on the board, so they sit on its heading rather than on the
-                   page's — near what they change, and out of the way of the title. -->
+              <!-- The actions act on the board, so they sit on its heading rather than on the
+                   page's — near what they change, and out of the way of the title. Battle takes
+                   the board along as the same share code, so Edit team there brings it back. -->
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <h2 class="font-display text-lg text-gold">Board</h2>
                 <div class="flex items-center gap-2">
+                  @if (store.placedCount()) {
+                    <a
+                      routerLink="/battle"
+                      [queryParams]="{ d: store.shareCode(), ds: store.descendSlot() }"
+                      class="rounded-md bg-gold px-2.5 py-1 text-xs font-medium text-bg hover:bg-gold-bright"
+                      data-testid="battle-this-board"
+                      >Battle</a
+                    >
+                  }
                   <button
                     type="button"
                     class="rounded-md border border-line px-2.5 py-1 text-xs text-ink-dim hover:border-gold hover:text-gold"

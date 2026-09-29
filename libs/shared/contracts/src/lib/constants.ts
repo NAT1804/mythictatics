@@ -50,3 +50,33 @@ export const SPELL_ID_PATTERN = /^s_(?:\d{3}|\d{5})$/;
 export const BOARD_COLUMNS = 3;
 export const BOARD_ROWS = 2;
 export const BOARD_SIZE = BOARD_COLUMNS * BOARD_ROWS;
+
+/**
+ * The on/off states a unit can carry into and through a battle.
+ *
+ * Each one is a keyword's `key` from `keywords.json`, kept as the mechanic's id: the engine
+ * resolves the key and the dataset owns the words and the icon, so renaming or re-theming a
+ * keyword never touches the engine. Burn is not here — it lasts a number of turns, so a fighter
+ * carries it as a count rather than a flag.
+ */
+export const STATUS_CODES = [
+  'taunt',
+  'ranged',
+  'safeguard',
+  'last_chance',
+  'vulnerable',
+  'conceal',
+  'cannot_attack',
+  'cleave',
+  'pierce',
+  'double_strike',
+  'lethal',
+  'venomous',
+  'reborn',
+  'reborn_keep_attack',
+] as const;
+export type StatusCode = (typeof STATUS_CODES)[number];
+
+/** The two sides of a battle. Side 0 is the player who asked for the fight. */
+export const BATTLE_SIDES = [0, 1] as const;
+export type SideIndex = (typeof BATTLE_SIDES)[number];

@@ -23,5 +23,8 @@ export const serverRoutes: ServerRoute[] = [
   },
   // Every card, filtered by the query string: prerendered as its loading state, like the builder.
   { path: 'collection', renderMode: RenderMode.Prerender },
+  // The board and the seed are in the query string, so this too is its loading state; the fight
+  // and GSAP only ever run in the browser.
+  { path: 'battle', renderMode: RenderMode.Prerender },
   { path: '**', renderMode: RenderMode.Server, status: 404 },
 ];

@@ -83,6 +83,7 @@ export class ShellLayout {
   protected readonly nav: NavItem[] = [
     { label: 'Comps', path: '/comps' },
     { label: 'Builder', path: '/builder' },
+    { label: 'Battle', path: '/battle' },
     { label: 'Collection', path: '/collection' },
     { label: 'Guides' },
   ];

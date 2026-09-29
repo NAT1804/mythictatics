@@ -125,3 +125,25 @@
   the sitemap reads the deployed `comps.json` through the `ASSETS` binding, and robots closes `*.workers.dev`
   (previews). Add a new top-level page to `STATIC_PAGES` there.
 - JSON-LD is written with `<` escaped; comp text comes from a community sheet, so keep it that way.
+
+## Battle engine (`libs/shared/engine`)
+
+- Deterministic and framework-free (`scope:shared`): the same `simulate(setup, cards)` will referee on a Worker and
+  replays in the browser. No `Date.now()`, no `Math.random()` — the only chance is `Rng` seeded from the setup. The
+  rules as implemented (turn order, the damage pipeline, death order) are written out in its `README.md`.
+- **Any change to how a battle resolves changes `GOLDEN_HASH`** in `determinism.spec.ts` and the same constant in
+  `apps/web-e2e/src/battle.spec.ts` (the browser must print what node computes). Update both and bump
+  `ENGINE_VERSION` in `rules.ts`.
+- Card mechanics live in `abilities/<realm>.ts`, one entry per card id; the words stay in the dataset. A unit with no
+  battle text goes in `abilities/no-battle-text.ts` with a reason — `cards.spec.ts` fails on a unit in neither.
+- Keyword interactions are decided once, in `Battle.damage` / `processDeath`, never per card. Pin a new one with a
+  test in `interactions.spec.ts`.
+- `createCardLookup` sorts cards by id on purpose: random draws index into that list, so its order is part of the rules.
+- Renderers fold the log with `replayViews` and never run a rule.
+
+## Battle page (`libs/web/battle`, `/battle`)
+
+- The player's board is the builder's own `?d=`/`ds`; `vs`, `lv` and `seed` are the battle's. The link is the replay.
+- The fight is simulated in full before playback; `BattleDirector` (GSAP, imported lazily in the browser only) only
+  animates the precomputed views. The route is prerendered as its loading state.
+- Tiles are the builder's `CardTile` handed the card with `keywords` swapped for the fighter's live statuses.

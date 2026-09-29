@@ -17,6 +17,7 @@ describe('crawler files', () => {
       `${SITE_URL}/`,
       `${SITE_URL}/comps`,
       `${SITE_URL}/builder`,
+      `${SITE_URL}/battle`,
       `${SITE_URL}/collection`,
       ...COMPS.map((comp) => `${SITE_URL}/comps/${comp.slug}`),
     ]);

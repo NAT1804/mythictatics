@@ -173,12 +173,27 @@ Lưu ý: API token của CI (mục 5.1) phải có quyền trên zone này (_Zon
 `mythictatics.click` hoặc _All zones_). Token tạo trước khi thêm zone với lựa chọn zone cụ thể sẽ
 không thấy zone mới — tạo lại token nếu deploy báo lỗi quyền.
 
+Nếu đã gắn domain bằng tay trên dashboard (_Workers & Pages → mythictatics-web → Settings →
+Domains & Routes_), vẫn giữ `routes` trong `wrangler.jsonc`: deploy chỉ nhận lại domain đó cho
+đúng Worker, và cấu hình trong repo là nguồn duy nhất. Domain gắn sẵn trước khi deploy bản mới vẫn
+chạy **bản build cũ** — trang prerender tải được nhưng mọi URL Worker trả lời có thể lỗi 400 (xem
+6.4).
+
 ### 6.4 Kiểm tra
 
+Job `deploy` trong CI tự chạy bước **Smoke test mythictatics.click** sau `nx deploy web` và fail
+nếu một trong các URL dưới đây không trả đúng mã (thử lại tối đa ~3 phút cho lần đầu cấp DNS/TLS):
+
 ```sh
-curl -sI https://mythictatics.click | head -1        # HTTP/2 200
-curl -sI https://www.mythictatics.click | head -1    # HTTP/2 200
+curl -s -o /dev/null -w '%{http_code}\n' https://mythictatics.click/              # 200
+curl -s -o /dev/null -w '%{http_code}\n' https://www.mythictatics.click/          # 200
+curl -s -o /dev/null -w '%{http_code}\n' https://mythictatics.click/sitemap.xml   # 200
+curl -s -o /dev/null -w '%{http_code}\n' https://mythictatics.click/khong-ton-tai # 404, không phải 400
 ```
+
+Chỉ kiểm tra trang chủ là không đủ: trang prerender được Static Assets trả thẳng, nên vẫn 200 kể
+cả khi Worker từ chối host. `/sitemap.xml` và URL không tồn tại mới đi qua Worker; **400** ở đó
+nghĩa là host không có trong `allowedHosts` (thường do bản đang chạy là bản build cũ).
 
 Cả hai host đã khớp với `allowedHosts` trong `apps/web/project.json` (`mythictatics.click`,
 `*.mythictatics.click`). Nếu sau này gắn một domain khác, **phải thêm nó vào `allowedHosts`**, nếu

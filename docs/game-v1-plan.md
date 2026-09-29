@@ -6,24 +6,24 @@
 
 ## 1. Các quyết định đã chốt
 
-| Hạng mục | Quyết định | Lý do chính |
-| --- | --- | --- |
-| Hướng pháp lý | Tách thành game riêng: giữ engine/cơ chế, thay 100% art + text + tên | Cơ chế game không được bảo hộ bản quyền; asset thì có. Đây là hướng duy nhất thương mại hoá được |
-| Art direction | **Vector toàn phần** (SVG/flat), thiết kế bằng Claude Design | Đồng nhất 120+ card bằng design system; PWA nhẹ (KB thay vì 40MB raster); sắc nét mọi DPI; animate trực tiếp; Anthropic trao quyền sở hữu output + có copyright indemnification cho khách trả phí |
-| Renderer battle V1 | **Angular DOM + GSAP** (không PixiJS, không Phaser) | Tái dùng component card sẵn có; GSAP free 100% kể cả thương mại (từ khi về Webflow); đủ 60fps cho board nhỏ; SSR không phải né gì |
-| Renderer battle V2 | PixiJS v8 dưới dạng island lazy-load, client-only — chỉ khi cần particles/shader | Engine ↔ renderer nói chuyện qua event log nên swap không đụng logic |
-| Phaser | Không dùng | Full framework (loop/scene/physics/input) giành quyền điều khiển với Angular; thừa ~80% cho auto-battler |
-| API framework | **Hono trên Cloudflare Workers** (thay plan NestJS cũ) | NestJS chạy kém trên Workers, sẽ ép thuê máy chủ Node riêng; Hono cùng mô hình fetch-based với `server.ts`; Zod contracts trong `libs/shared/contracts/schemas` dùng lại nguyên vẹn |
-| PvP | **Async ghost battle trước**, realtime WebSocket sau | Không cần 2 người online cùng lúc; không WS, không disconnect handling; chi phí ~0 |
-| Tên game | "Realmbound" là **codename tạm** | Phải kiểm tra trademark trước khi công bố |
+| Hạng mục           | Quyết định                                                                       | Lý do chính                                                                                                                                                                                       |
+| ------------------ | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hướng pháp lý      | Tách thành game riêng: giữ engine/cơ chế, thay 100% art + text + tên             | Cơ chế game không được bảo hộ bản quyền; asset thì có. Đây là hướng duy nhất thương mại hoá được                                                                                                  |
+| Art direction      | **Vector toàn phần** (SVG/flat), thiết kế bằng Claude Design                     | Đồng nhất 120+ card bằng design system; PWA nhẹ (KB thay vì 40MB raster); sắc nét mọi DPI; animate trực tiếp; Anthropic trao quyền sở hữu output + có copyright indemnification cho khách trả phí |
+| Renderer battle V1 | **Angular DOM + GSAP** (không PixiJS, không Phaser)                              | Tái dùng component card sẵn có; GSAP free 100% kể cả thương mại (từ khi về Webflow); đủ 60fps cho board nhỏ; SSR không phải né gì                                                                 |
+| Renderer battle V2 | PixiJS v8 dưới dạng island lazy-load, client-only — chỉ khi cần particles/shader | Engine ↔ renderer nói chuyện qua event log nên swap không đụng logic                                                                                                                              |
+| Phaser             | Không dùng                                                                       | Full framework (loop/scene/physics/input) giành quyền điều khiển với Angular; thừa ~80% cho auto-battler                                                                                          |
+| API framework      | **Hono trên Cloudflare Workers** (thay plan NestJS cũ)                           | NestJS chạy kém trên Workers, sẽ ép thuê máy chủ Node riêng; Hono cùng mô hình fetch-based với `server.ts`; Zod contracts trong `libs/shared/contracts/schemas` dùng lại nguyên vẹn               |
+| PvP                | **Async ghost battle trước**, realtime WebSocket sau                             | Không cần 2 người online cùng lúc; không WS, không disconnect handling; chi phí ~0                                                                                                                |
+| Tên game           | "Realmbound" là **codename tạm**                                                 | Phải kiểm tra trademark trước khi công bố                                                                                                                                                         |
 
 ## 2. Pháp lý & quy tắc asset
 
 - **Tuyệt đối không dùng asset Mythic Tactics làm nguyên liệu**: không img2img, không train
   LoRA từ `apps/web/public/images/`, không prompt "in the style of Mythic Tactics".
   Tác phẩm phái sinh về pháp lý không khá hơn dùng thẳng art gốc.
-- Chủ đề thần thoại là public domain (Zeus, Odin, Ra…) — cái được bảo hộ là *thiết kế nhân vật
-  cụ thể* của từng game. Thiết kế của ta phải khác biệt rõ (tư thế, trang phục, bảng màu, bố cục card).
+- Chủ đề thần thoại là public domain (Zeus, Odin, Ra…) — cái được bảo hộ là _thiết kế nhân vật
+  cụ thể_ của từng game. Thiết kế của ta phải khác biệt rõ (tư thế, trang phục, bảng màu, bố cục card).
 - Tên realm mới, không dùng lại tên của game gốc (Niles/Olympus/Yggdrasil/Shenzhou/Babylon/Kami/Daehan):
   xem design system (mục 7).
 - Claude Design: điều khoản Anthropic chuyển quyền sở hữu output cho người dùng, cho phép thương mại
@@ -84,12 +84,12 @@ libs/shared/engine (mới, tag scope:shared, framework-free)
 `key`** làm ID cơ chế trong engine — text hiển thị nằm ở data (RichTextToken, giữ `{0}` placeholder),
 cơ chế nằm ở code.
 
-| Nhóm | Keyword | Engine xử lý | Phase |
-| --- | --- | --- | --- |
-| A. Combat passive | `ranged`, `taunt`, `double_strike`, `cleave`, `pierce`, `lethal`, `venomous`, `cannot_attack`, `conceal` | Sửa luật chọn mục tiêu / cách đánh | **V1** |
-| B. Status/stack | `safeguard`, `last_chance`, `vulnerable`, `burn`, `reborn`, `reborn_keep_attack` | Stack có duration, resolve theo thứ tự apply | **V1** |
-| C. Trigger | `deploy`, `demise`, `slay`, `on_attack`, `counter`, `start_of_battle`, `event_on_start_of_round`, `event_on_end_turn`, `aura`, `event_space_available` | Hook vào event bus | **V1** (trừ hook draft) |
-| D. Kinh tế/draft | `gold`/`income`, `refresh`, `sell`, `conjure`, `consume`, `enhancements` (+`double_`/`keep_`), `alchemy`+`celestial_medicine`, `descend`, `sanctum`(+`_spell`), `remove`, deploy-as-spell | Cả một mini-game kinh tế riêng | **V2+** — đây là chỗ được tự do thiết kế lại nhiều nhất |
+| Nhóm              | Keyword                                                                                                                                                                                   | Engine xử lý                                 | Phase                                                   |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------- |
+| A. Combat passive | `ranged`, `taunt`, `double_strike`, `cleave`, `pierce`, `lethal`, `venomous`, `cannot_attack`, `conceal`                                                                                  | Sửa luật chọn mục tiêu / cách đánh           | **V1**                                                  |
+| B. Status/stack   | `safeguard`, `last_chance`, `vulnerable`, `burn`, `reborn`, `reborn_keep_attack`                                                                                                          | Stack có duration, resolve theo thứ tự apply | **V1**                                                  |
+| C. Trigger        | `deploy`, `demise`, `slay`, `on_attack`, `counter`, `start_of_battle`, `event_on_start_of_round`, `event_on_end_turn`, `aura`, `event_space_available`                                    | Hook vào event bus                           | **V1** (trừ hook draft)                                 |
+| D. Kinh tế/draft  | `gold`/`income`, `refresh`, `sell`, `conjure`, `consume`, `enhancements` (+`double_`/`keep_`), `alchemy`+`celestial_medicine`, `descend`, `sanctum`(+`_spell`), `remove`, deploy-as-spell | Cả một mini-game kinh tế riêng               | **V2+** — đây là chỗ được tự do thiết kế lại nhiều nhất |
 
 Bug nằm ở **ma trận tương tác**, không ở keyword đơn lẻ. Viết quy tắc chung trước, golden test theo
 quy tắc, không xử case-by-case. Các cặp bắt buộc có test:
@@ -159,16 +159,16 @@ chuẩn cho token màu, type, khung card, icon keyword. Nguyên tắc:
 
 Giả định mỗi DAU: ~200 API request, ~10 trận/ngày, ~50ms CPU sim + ~10 rows written mỗi trận.
 
-| Khoản | ≤1k DAU | 10k DAU |
-| --- | --- | --- |
-| Workers Paid (gồm 10M req + 30M CPU-ms) | $5 | $5 |
-| Request vượt mức ($0.30/M) | $0 | ~$15 |
-| CPU vượt mức ($0.02/M ms) | $0 | ~$8 |
-| Durable Objects (ghost ≈ $0; số lớn khi realtime WS) | $0 | ~$3–10 |
-| D1 (25B reads + 50M writes gồm sẵn) | $0 | ~$0–5 |
-| KV/R2/Turnstile/static assets | $0 | ~$0–2 |
-| Domain + email giao dịch | ~$1 | ~$1–20 |
-| **Tổng hạ tầng** | **~$6/tháng** | **~$30–70/tháng** |
+| Khoản                                                | ≤1k DAU       | 10k DAU           |
+| ---------------------------------------------------- | ------------- | ----------------- |
+| Workers Paid (gồm 10M req + 30M CPU-ms)              | $5            | $5                |
+| Request vượt mức ($0.30/M)                           | $0            | ~$15              |
+| CPU vượt mức ($0.02/M ms)                            | $0            | ~$8               |
+| Durable Objects (ghost ≈ $0; số lớn khi realtime WS) | $0            | ~$3–10            |
+| D1 (25B reads + 50M writes gồm sẵn)                  | $0            | ~$0–5             |
+| KV/R2/Turnstile/static assets                        | $0            | ~$0–2             |
+| Domain + email giao dịch                             | ~$1           | ~$1–20            |
+| **Tổng hạ tầng**                                     | **~$6/tháng** | **~$30–70/tháng** |
 
 Static assets miễn phí không giới hạn; art vector càng làm phần này không đáng kể. Chi phí lớn thật
 là phí MoR ~5% doanh thu và thời gian vận hành (CS, ban gian lận, balance). Ngoại suy 100k DAU
@@ -186,16 +186,16 @@ là phí MoR ~5% doanh thu và thời gian vận hành (CS, ban gian lận, bala
 
 ## 12. Roadmap
 
-| Phase | Thời lượng | Nội dung | Nghiệm thu |
-| --- | --- | --- | --- |
-| 0. Nền | 1 tuần | Game design doc (luật combat, tập keyword V1); design system + card mẫu duyệt style; check trademark codename | Doc + design system được duyệt |
-| 1. Engine | 3–4 tuần | `libs/shared/engine` + replay + golden tests; **đấu với AI ngay trên trang builder** (thuần client) | Cùng seed = cùng log trên node lẫn browser; chơi được vs AI trên site |
-| 2. API + Auth | 2–3 tuần | `apps/api` (Hono), D1 schema, guest + OAuth + passkey, Turnstile | Guest→link OAuth giữ progress; e2e cover flow auth |
-| 3. Async PvP | 2–3 tuần | MatchmakingQueue DO, ghost battle, Glicko-2 qua Queues, leaderboard, replay | Ranked ghost end-to-end trên `cf-preview` |
-| 4. Asset swap | song song 1–3 | Sinh + duyệt bộ art vector theo design system, thay text/tên, cập nhật `imageSha256` | `nx test shared-domain` xanh với dataset mới; không còn asset gốc trong repo |
-| 5. Realtime (tuỳ chọn) | 2–3 tuần | MatchRoom DO + WS hibernation, spectate | 2 browser đấu realtime; duration ≈ 0 khi idle |
-| 6. Economy + Shop | 2–3 tuần | Soft currency, daily quest, MoR + webhook idempotent + entitlement | Mua sandbox → inventory + ledger khớp |
-| 7. Mobile hoá | 1–2 tuần | Web Push, TWA lên Play, iOS install banner, loại trừ `/api` khỏi SW | Push nhận được trên Android + iOS đã cài PWA |
+| Phase                  | Thời lượng    | Nội dung                                                                                                      | Nghiệm thu                                                                   |
+| ---------------------- | ------------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| 0. Nền                 | 1 tuần        | Game design doc (luật combat, tập keyword V1); design system + card mẫu duyệt style; check trademark codename | Doc + design system được duyệt                                               |
+| 1. Engine              | 3–4 tuần      | `libs/shared/engine` + replay + golden tests; **đấu với AI ngay trên trang builder** (thuần client)           | Cùng seed = cùng log trên node lẫn browser; chơi được vs AI trên site        |
+| 2. API + Auth          | 2–3 tuần      | `apps/api` (Hono), D1 schema, guest + OAuth + passkey, Turnstile                                              | Guest→link OAuth giữ progress; e2e cover flow auth                           |
+| 3. Async PvP           | 2–3 tuần      | MatchmakingQueue DO, ghost battle, Glicko-2 qua Queues, leaderboard, replay                                   | Ranked ghost end-to-end trên `cf-preview`                                    |
+| 4. Asset swap          | song song 1–3 | Sinh + duyệt bộ art vector theo design system, thay text/tên, cập nhật `imageSha256`                          | `nx test shared-domain` xanh với dataset mới; không còn asset gốc trong repo |
+| 5. Realtime (tuỳ chọn) | 2–3 tuần      | MatchRoom DO + WS hibernation, spectate                                                                       | 2 browser đấu realtime; duration ≈ 0 khi idle                                |
+| 6. Economy + Shop      | 2–3 tuần      | Soft currency, daily quest, MoR + webhook idempotent + entitlement                                            | Mua sandbox → inventory + ledger khớp                                        |
+| 7. Mobile hoá          | 1–2 tuần      | Web Push, TWA lên Play, iOS install banner, loại trừ `/api` khỏi SW                                           | Push nhận được trên Android + iOS đã cài PWA                                 |
 
 ## 13. Ràng buộc repo xuyên suốt
 

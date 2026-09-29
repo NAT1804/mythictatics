@@ -29,12 +29,12 @@ chỉ chạy cho URL sai.
 
 ## 2. Yêu cầu
 
-| Thứ cần có                        | Ghi chú                                                       |
-| --------------------------------- | ------------------------------------------------------------- |
-| Tài khoản Cloudflare              | Gói Free là đủ                                                |
-| Node `^22.22.3` hoặc `^24.15.0`   | CI dùng Node 24                                               |
-| `npm ci` đã chạy                  | `wrangler` nằm trong devDependencies, gọi bằng `npx wrangler` |
-| Domain trên Cloudflare            | `mythictatics.click` — xem mục 6 để trỏ về Cloudflare        |
+| Thứ cần có                      | Ghi chú                                                       |
+| ------------------------------- | ------------------------------------------------------------- |
+| Tài khoản Cloudflare            | Gói Free là đủ                                                |
+| Node `^22.22.3` hoặc `^24.15.0` | CI dùng Node 24                                               |
+| `npm ci` đã chạy                | `wrangler` nằm trong devDependencies, gọi bằng `npx wrangler` |
+| Domain trên Cloudflare          | `mythictatics.click` — xem mục 6 để trỏ về Cloudflare         |
 
 ## 3. Kiểm tra cục bộ trên Workers runtime
 

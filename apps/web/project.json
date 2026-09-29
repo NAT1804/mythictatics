@@ -41,7 +41,12 @@
         },
         "outputMode": "server",
         "security": {
-          "allowedHosts": ["mythictatics.click", "*.mythictatics.click", "*.workers.dev", "localhost"]
+          "allowedHosts": [
+            "mythictatics.click",
+            "*.mythictatics.click",
+            "*.workers.dev",
+            "localhost"
+          ]
         }
       },
       "configurations": {
